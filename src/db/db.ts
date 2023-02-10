@@ -1,16 +1,11 @@
-import { Pool } from 'pg'
+import { Sequelize } from 'sequelize'
 
-export async function dbConnect (): Promise<void> {
-  const pool = new Pool({
-    host: process.env.PGHOST,
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
-    database: process.env.PGDATABASE
-  })
-  // await client.connect()
-
-  const res = await pool.query('SELECT * FROM ingredients')
-
-  console.log(res.rows)
-  // await client.end()
-}
+export const sequelize = new Sequelize(
+  process.env.PGDATABASE as string,
+  process.env.PGUSER as string,
+  process.env.PGPASSWORD,
+  {
+    host: 'localhost',
+    dialect: 'postgres'
+  }
+)
