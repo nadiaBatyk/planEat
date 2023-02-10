@@ -1,5 +1,8 @@
 import express from 'express'
-
+import { dbConnect } from './db/db'
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
+void dbConnect()
 const app = express()
 // MIDDLEWARES
 app.use(express.json())
