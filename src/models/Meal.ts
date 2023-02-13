@@ -24,11 +24,9 @@ export const Meal = sequelize.define(
 )
 
 MealType.hasMany(Meal, {
-  as: 'meals',
-  sourceKey: 'id',
   foreignKey: 'mealTypeId'
 })
-Meal.belongsTo(MealType, { as: 'mealType' })
+Meal.belongsTo(MealType, { foreignKey: 'mealTypeId' })
 
 Meal.belongsToMany(Feature, { through: MealFeature })
 Feature.belongsToMany(Meal, { through: MealFeature })
