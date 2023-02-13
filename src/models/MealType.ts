@@ -1,7 +1,7 @@
 import { sequelize } from '../db/db'
 import { DataTypes } from 'sequelize'
 
-export const MealTypes = sequelize.define('MealTypes', {
+export const MealType = sequelize.define('MealType', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -12,4 +12,4 @@ export const MealTypes = sequelize.define('MealTypes', {
     allowNull: false,
     unique: true
   }
-})
+}, { timestamps: false })

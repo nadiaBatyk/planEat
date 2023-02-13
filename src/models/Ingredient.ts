@@ -12,4 +12,4 @@ export const Ingredient = sequelize.define('Ingredient', {
     allowNull: false,
     unique: true
   }
-})
+}, { timestamps: false })

@@ -3,18 +3,20 @@ import { DataTypes } from 'sequelize'
 import { Meal } from './Meal'
 import { Ingredient } from './Ingredient'
 
-export const MealIngredient = sequelize.define('MealIngredient', {
-  mealId: {
+export const MealIngredient = sequelize.define('MealIngredients', {
+  MealId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
+    field: 'mealId',
     references: {
       model: Meal,
       key: 'id'
     }
   },
-  ingredientId: {
+  IngredientId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
+    field: 'ingredientId',
     references: {
       model: Ingredient,
       key: 'id'
@@ -28,4 +30,4 @@ export const MealIngredient = sequelize.define('MealIngredient', {
     type: DataTypes.STRING(30),
     allowNull: false
   }
-})
+}, { timestamps: false })

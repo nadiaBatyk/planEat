@@ -12,4 +12,4 @@ export const Feature = sequelize.define('Feature', {
     allowNull: false,
     unique: true
   }
-})
+}, { timestamps: false })
