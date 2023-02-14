@@ -1,15 +1,17 @@
 import { Request, Response } from 'express'
-import { Meal } from '../models/Meal'
-import { MealType } from '../models/MealType'
-import { Ingredient } from '../models/Ingredient'
-import { MealIngredient } from '../models/MealIngredient'
-// import { MealIngredient } from '../models/MealIngredient'
+import { Meal } from '../models/MealClass'
+import { MealType } from '../models/MealTypeClass'
+import { Ingredient } from '../models/IngredientClass'
+// import { MealIngredient } from '../models/MealIngredientClass'
 
 const getMeals = async (_req: Request, res: Response): Promise<void> => {
   const f = await Meal.findAll({
-    include: MealType,
+    include: [MealType, Ingredient],
     order: [['id', 'ASC']]
   })
+  /*   const g = await m.getIngredients()
+  console.log(i.dataValues)
+  console.log(g) */
   res.send(f)
 }
 const getMealTypes = async (_req: Request, res: Response): Promise<void> => {
@@ -24,8 +26,8 @@ const createIngredient = async (
   _req: Request,
   res: Response
 ): Promise<void> => {
-  const { name } = _req.body
-  const m = await Ingredient.create({ name })
+  const { name, unit } = _req.body
+  const m = await Ingredient.create({ name, unit })
   console.log(m)
   res.send(m.dataValues)
 }
@@ -36,25 +38,18 @@ const createType = async (_req: Request, res: Response): Promise<void> => {
   res.send(m.dataValues)
 }
 const createMeal = async (_req: Request, res: Response): Promise<Response> => {
-  const { hola } = _req.body
-  /* const m = await Meal.create({
+  const { name, mealTypeId } = _req.body
+  const m = await Meal.create({
     name,
     mealTypeId
   })
   console.log(m.dataValues)
-  const i = await Ingredient.create({
-    name: ingredient.name
+  /*   const i = await Ingredient.create({
+    name: ingredient.name,
+    unit: ingredient.unit
   }) */
-  const f = {
-    mealId: hola.mealId,
-    ingredientId: hola.ingreId,
-    quantity: hola.quantity,
-    unit: hola.unit
-  }
-  console.log(f)
-  const mI = await MealIngredient.create(f)
 
-  return res.send(mI.dataValues)
+  return res.send(m.dataValues)
 }
 
 export default {

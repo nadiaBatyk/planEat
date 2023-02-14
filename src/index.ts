@@ -10,16 +10,16 @@ const app = express()
 const PORT = process.env.PORT
 
 async function main (): Promise<void> {
-  try {
-    // MIDDLEWARES
-    app.use(express.json())
-    app.use(express.urlencoded({ extended: true }))
+  // MIDDLEWARES
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
 
-    // ROUTES
-    app.use(mealRoutes)
+  // ROUTES
+  app.use(mealRoutes)
+  try {
     await sequelize.authenticate()
     console.log('Connection has been established successfully.')
-    await sequelize.sync()
+    await sequelize.sync({ force: true })
     app.listen(PORT, () => {
       console.log(`Succesfully connected to port ${PORT}`)
     })
