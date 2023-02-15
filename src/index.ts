@@ -19,7 +19,7 @@ async function main (): Promise<void> {
   try {
     await sequelize.authenticate()
     console.log('Connection has been established successfully.')
-    await sequelize.sync({ force: true })
+    await sequelize.sync()
     app.listen(PORT, () => {
       console.log(`Succesfully connected to port ${PORT}`)
     })

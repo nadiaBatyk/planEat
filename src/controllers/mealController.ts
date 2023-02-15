@@ -1,10 +1,8 @@
 import { Request, Response } from 'express'
-import { Ingredient } from '../db/models/IngredientClass'
 import { Meal1 } from '../db/models/Meal1'
 import { MealType1 } from '../db/models/MealType1'
 import { Ingredient1 } from '../db/models/Ingredient1'
 import { MealIngredient1 } from '../db/models/MealIngredient1'
-// import { MealIngredient } from '../models/MealIngredientClass'
 
 const getMeals = async (_req: Request, res: Response): Promise<void> => {
   const f = await Meal1.findAll({
@@ -29,7 +27,7 @@ const createIngredient = async (
   res: Response
 ): Promise<void> => {
   const { name, unit } = _req.body
-  const m = await Ingredient.create({ name, unit })
+  const m = await Ingredient1.create({ name, unit })
   console.log(m)
   res.send(m.dataValues)
 }
@@ -54,6 +52,16 @@ const createMeal = async (_req: Request, res: Response): Promise<Response> => {
 
   return res.send(m.dataValues)
 }
+const editMeal = async (_req: Request, res: Response): Promise<void> => {
+  const { ingredients } = _req.body
+  const { id } = _req.params
+  const m = await Meal1.findByPk(id)
+  ingredients.forEach(async (i: any) => {
+    await m?.$add('ingredients', i.id, { through: { model: MealIngredient1, quantity: i.quantity } })
+  })
+  console.log(m)
+  res.send(m?.dataValues)
+}
 
 export default {
   getMeals,
@@ -61,5 +69,6 @@ export default {
   getMealTypes,
   createType,
   getIngredients,
-  createIngredient
+  createIngredient,
+  editMeal
 }
