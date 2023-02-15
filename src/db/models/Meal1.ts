@@ -5,9 +5,12 @@ import {
   Model,
   AllowNull,
   ForeignKey,
-  BelongsTo
+  BelongsTo,
+  BelongsToMany
 } from 'sequelize-typescript'
 import { MealType1 } from './MealType1'
+import { Ingredient1 } from './Ingredient1'
+import { MealIngredient1 } from './MealIngredient1'
 
 @Table({ timestamps: false })
 export class Meal1 extends Model {
@@ -21,4 +24,7 @@ export class Meal1 extends Model {
 
   @BelongsTo(() => MealType1)
     mealType!: MealType1
+
+  @BelongsToMany(() => Ingredient1, () => MealIngredient1)
+    ingredients!: Ingredient1[]
 }
