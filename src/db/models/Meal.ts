@@ -1,4 +1,4 @@
-import { sequelize } from '../db/db'
+import { sequelize } from '../db'
 import { DataTypes } from 'sequelize'
 import { MealType } from './MealType'
 import { Feature } from './Feature'

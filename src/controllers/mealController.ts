@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { Meal } from '../models/MealClass'
-import { MealType } from '../models/MealTypeClass'
-import { Ingredient } from '../models/IngredientClass'
+import { Ingredient } from '../db/models/IngredientClass'
+import { Meal1 } from '../db/models/Meal1'
+import { MealType1 } from '../db/models/MealType1'
 // import { MealIngredient } from '../models/MealIngredientClass'
 
 const getMeals = async (_req: Request, res: Response): Promise<void> => {
-  const f = await Meal.findAll({
-    include: [MealType, Ingredient],
+  const f = await Meal1.findAll({
+    include: [MealType1],
     order: [['id', 'ASC']]
   })
   /*   const g = await m.getIngredients()
@@ -15,8 +15,8 @@ const getMeals = async (_req: Request, res: Response): Promise<void> => {
   res.send(f)
 }
 const getMealTypes = async (_req: Request, res: Response): Promise<void> => {
-  const mt = await MealType.findAll()
-  res.send(mt)
+  const f = await MealType1.findAll({ include: [Meal1] })
+  res.send(f)
 }
 const getIngredients = async (_req: Request, res: Response): Promise<void> => {
   const mt = await Ingredient.findAll()
@@ -33,13 +33,13 @@ const createIngredient = async (
 }
 const createType = async (_req: Request, res: Response): Promise<void> => {
   const { name } = _req.body
-  const m = await MealType.create({ name })
+  const m = await MealType1.create({ name })
   console.log(m)
   res.send(m.dataValues)
 }
 const createMeal = async (_req: Request, res: Response): Promise<Response> => {
   const { name, mealTypeId } = _req.body
-  const m = await Meal.create({
+  const m = await Meal1.create({
     name,
     mealTypeId
   })
