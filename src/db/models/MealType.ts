@@ -6,8 +6,8 @@ import { Meal } from './Meal'
 export class MealType extends Model {
   @AllowNull(false)
   @Column(DataTypes.STRING(100))
-    name!: string
+  name!: string
 
   @HasMany(() => Meal)
-    meals!: Meal[]
+  meals!: Meal[]
 }

@@ -4,7 +4,7 @@ import {
   Column,
   Model,
   AllowNull,
-  BelongsToMany
+  BelongsToMany,
 } from 'sequelize-typescript'
 import { Meal } from './Meal'
 import { MealIngredient } from './MealIngredient'
@@ -13,12 +13,12 @@ import { MealIngredient } from './MealIngredient'
 export class Ingredient extends Model {
   @AllowNull(false)
   @Column(DataTypes.STRING(100))
-    name!: string
+  name!: string
 
   @AllowNull(false)
   @Column(DataTypes.STRING(100))
-    unit!: string
+  unit!: string
 
   @BelongsToMany(() => Meal, () => MealIngredient)
-    meals!: Meal[]
+  meals!: Meal[]
 }

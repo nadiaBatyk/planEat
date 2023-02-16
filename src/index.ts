@@ -9,7 +9,7 @@ const app = express()
 
 const PORT = process.env.PORT
 
-async function main (): Promise<void> {
+async function main(): Promise<void> {
   // MIDDLEWARES
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
@@ -26,7 +26,7 @@ async function main (): Promise<void> {
   } catch (error) {
     console.error('Unable to connect to the database:', error)
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    app.on('error', (err) => console.log(`Error on server: ${err}`))
+    app.on('error', err => console.log(`Error on server: ${err}`))
   }
 }
 

@@ -5,7 +5,7 @@ import {
   Model,
   AllowNull,
   Unique,
-  BelongsToMany
+  BelongsToMany,
 } from 'sequelize-typescript'
 import { Meal } from './Meal'
 import { MealFeature } from './MealFeature'
@@ -15,8 +15,8 @@ export class Feature extends Model {
   @AllowNull(false)
   @Unique(true)
   @Column(DataTypes.STRING(80))
-    name!: string
+  name!: string
 
   @BelongsToMany(() => Meal, () => MealFeature)
-    meals!: Meal[]
+  meals!: Meal[]
 }

@@ -7,5 +7,5 @@ export const sequelize = new Sequelize({
   username: process.env.PGUSER as string,
   password: process.env.PGPASSWORD,
   storage: process.env.PGHOST,
-  models: [path.join(__dirname, '/models')]
+  models: [path.join(__dirname, '/models')],
 })

@@ -4,7 +4,7 @@ import {
   Column,
   Model,
   ForeignKey,
-  AllowNull
+  AllowNull,
 } from 'sequelize-typescript'
 import { Meal } from './Meal'
 import { Ingredient } from './Ingredient'
@@ -13,13 +13,13 @@ import { Ingredient } from './Ingredient'
 export class MealIngredient extends Model {
   @ForeignKey(() => Meal)
   @Column
-    mealId!: number
+  mealId!: number
 
   @ForeignKey(() => Ingredient)
   @Column
-    ingredientId!: number
+  ingredientId!: number
 
   @AllowNull(false)
   @Column(DataTypes.FLOAT(4, 2))
-    quantity!: number
+  quantity!: number
 }

@@ -6,7 +6,7 @@ import {
   AllowNull,
   ForeignKey,
   BelongsTo,
-  BelongsToMany
+  BelongsToMany,
 } from 'sequelize-typescript'
 import { MealType } from './MealType'
 import { Ingredient } from './Ingredient'
@@ -18,18 +18,18 @@ import { MealFeature } from './MealFeature'
 export class Meal extends Model {
   @AllowNull(false)
   @Column(DataTypes.STRING(100))
-    name!: string
+  name!: string
 
   @ForeignKey(() => MealType)
   @Column(DataTypes.INTEGER)
-    mealTypeId!: number
+  mealTypeId!: number
 
   @BelongsTo(() => MealType)
-    mealType!: MealType
+  mealType!: MealType
 
   @BelongsToMany(() => Ingredient, () => MealIngredient)
-    ingredients!: Ingredient[]
+  ingredients!: Ingredient[]
 
   @BelongsToMany(() => Feature, () => MealFeature)
-    features!: Feature[]
+  features!: Feature[]
 }
