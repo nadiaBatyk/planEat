@@ -3,7 +3,7 @@ import featureController from '../controllers/featureController'
 
 const featureRoutes = Router()
 featureRoutes
-  .route('/features')
+  .route('/')
   .get(featureController.getFeatures)
   .post(featureController.createFeature)
 

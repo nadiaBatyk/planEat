@@ -1,19 +1,17 @@
-import { Router } from 'express';
-import ingredientController from '../controllers/ingredientController';
+import { Router } from 'express'
+import ingredientController from '../controllers/ingredientController'
 
-
-const ingredientRoutes = Router();
+const ingredientRoutes = Router()
 
 ingredientRoutes
-  .route('/ingredients')
+  .route('/')
   .get(ingredientController.getIngredients)
-  .post(ingredientController.createIngredient);
+  .post(ingredientController.createIngredient)
 
-  
 /* ingredientRoutes
   .route('/ingredients/:id')
   .get(ingredientController.getIngredient)
   .put(ingredientController.editIngredient)
   .delete(ingredientController.deleteIngredient) */
 
-export default ingredientRoutes;
+export default ingredientRoutes

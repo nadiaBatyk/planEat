@@ -14,6 +14,6 @@ const createFeature = async (_req: Request, res: Response): Promise<void> => {
 }
 
 export default {
-    getFeatures,
-    createFeature,
+  getFeatures,
+  createFeature,
 }

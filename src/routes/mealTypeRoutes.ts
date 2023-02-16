@@ -4,7 +4,7 @@ import mealTypeController from '../controllers/mealTypeController'
 const mealTypeRoutes = Router()
 
 mealTypeRoutes
-  .route('/mealTypes')
+  .route('/')
   .get(mealTypeController.getMealTypes)
   .post(mealTypeController.createType)
 

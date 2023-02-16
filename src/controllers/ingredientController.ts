@@ -6,7 +6,10 @@ const getIngredients = async (_req: Request, res: Response): Promise<void> => {
   const f = await Ingredient.findAll({ include: [Meal] })
   res.send(f)
 }
-const createIngredient = async (_req: Request, res: Response): Promise<void> => {
+const createIngredient = async (
+  _req: Request,
+  res: Response
+): Promise<void> => {
   const { name, unit } = _req.body
   const m = await Ingredient.create({ name, unit })
   console.log(m)
@@ -14,6 +17,6 @@ const createIngredient = async (_req: Request, res: Response): Promise<void> => 
 }
 
 export default {
-    getIngredients,
-    createIngredient,
+  getIngredients,
+  createIngredient,
 }
