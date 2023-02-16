@@ -1,34 +1,35 @@
-import { sequelize } from '../db'
 import { DataTypes } from 'sequelize'
+import {
+  Table,
+  Column,
+  Model,
+  AllowNull,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany
+} from 'sequelize-typescript'
 import { MealType } from './MealType'
-import { Feature } from './Feature'
-import { MealFeature } from './MealFeature'
 import { Ingredient } from './Ingredient'
 import { MealIngredient } from './MealIngredient'
-// import { MealFeature } from './MealFeature'
+import { Feature } from './Feature'
+import { MealFeature } from './MealFeature'
 
-export const Meal = sequelize.define(
-  'Meal',
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    }
-  },
-  { timestamps: false }
-)
+@Table({ timestamps: false })
+export class Meal extends Model {
+  @AllowNull(false)
+  @Column(DataTypes.STRING(100))
+    name!: string
 
-MealType.hasMany(Meal, {
-  foreignKey: 'mealTypeId'
-})
-Meal.belongsTo(MealType, { foreignKey: 'mealTypeId' })
+  @ForeignKey(() => MealType)
+  @Column(DataTypes.INTEGER)
+    mealTypeId!: number
 
-Meal.belongsToMany(Feature, { through: MealFeature })
-Feature.belongsToMany(Meal, { through: MealFeature })
-Meal.belongsToMany(Ingredient, { through: MealIngredient })
-Ingredient.belongsToMany(Meal, { through: MealIngredient })
+  @BelongsTo(() => MealType)
+    mealType!: MealType
+
+  @BelongsToMany(() => Ingredient, () => MealIngredient)
+    ingredients!: Ingredient[]
+
+  @BelongsToMany(() => Feature, () => MealFeature)
+    features!: Feature[]
+}

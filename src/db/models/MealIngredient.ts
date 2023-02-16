@@ -1,37 +1,25 @@
-import { sequelize } from "../db";
-import { DataTypes } from "sequelize";
-import { Meal } from "./Meal";
-import { Ingredient } from "./Ingredient";
+import { DataTypes } from 'sequelize'
+import {
+  Table,
+  Column,
+  Model,
+  ForeignKey,
+  AllowNull
+} from 'sequelize-typescript'
+import { Meal } from './Meal'
+import { Ingredient } from './Ingredient'
 
-export const MealIngredient = sequelize.define(
-  "MealIngredients",
-  {
-    MealId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      field: "mealId",
-      references: {
-        model: Meal,
-        key: "id",
-      },
-    },
-    IngredientId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      field: "ingredientId",
-      references: {
-        model: Ingredient,
-        key: "id",
-      },
-    },
-    quantity: {
-      type: DataTypes.FLOAT(4, 2),
-      allowNull: false,
-    },
-    unit: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
-  },
-  { timestamps: false }
-);
+@Table({ timestamps: false })
+export class MealIngredient extends Model {
+  @ForeignKey(() => Meal)
+  @Column
+    mealId!: number
+
+  @ForeignKey(() => Ingredient)
+  @Column
+    ingredientId!: number
+
+  @AllowNull(false)
+  @Column(DataTypes.FLOAT(4, 2))
+    quantity!: number
+}

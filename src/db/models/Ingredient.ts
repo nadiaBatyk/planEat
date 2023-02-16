@@ -1,19 +1,24 @@
-import { sequelize } from "../db";
-import { DataTypes } from "sequelize";
+import { DataTypes } from 'sequelize'
+import {
+  Table,
+  Column,
+  Model,
+  AllowNull,
+  BelongsToMany
+} from 'sequelize-typescript'
+import { Meal } from './Meal'
+import { MealIngredient } from './MealIngredient'
 
-export const Ingredient = sequelize.define(
-  "Ingredient",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    name: {
-      type: DataTypes.STRING(80),
-      allowNull: false,
-      unique: true,
-    },
-  },
-  { timestamps: false }
-);
+@Table({ timestamps: false })
+export class Ingredient extends Model {
+  @AllowNull(false)
+  @Column(DataTypes.STRING(100))
+    name!: string
+
+  @AllowNull(false)
+  @Column(DataTypes.STRING(100))
+    unit!: string
+
+  @BelongsToMany(() => Meal, () => MealIngredient)
+    meals!: Meal[]
+}
