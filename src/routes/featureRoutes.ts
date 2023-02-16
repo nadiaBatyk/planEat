@@ -7,10 +7,10 @@ featureRoutes
   .get(featureController.getFeatures)
   .post(featureController.createFeature)
 
-/* featureRoutes
-  .route('/features/:id')
+featureRoutes
+  .route('/:id')
   .get(featureController.getFeature)
   .put(featureController.editFeature)
-  .delete(featureController.deleteFeature) */
+  .delete(featureController.deleteFeature)
 
 export default featureRoutes

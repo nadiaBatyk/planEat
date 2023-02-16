@@ -16,7 +16,7 @@ async function main(): Promise<void> {
   app.use(express.urlencoded({ extended: true }))
 
   // ROUTES
-  app.use('/', appRouter)
+  app.use('/api/v1', appRouter)
   app.use(errorHandler)
   app.use(notFoundHandler)
 

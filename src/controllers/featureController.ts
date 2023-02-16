@@ -6,7 +6,23 @@ const getFeatures = async (_req: Request, res: Response): Promise<void> => {
   const f = await Feature.findAll({ include: [Meal] })
   res.send(f)
 }
+const getFeature = async (_req: Request, res: Response): Promise<void> => {
+  const f = await Feature.findAll({ include: [Meal] })
+  res.send(f)
+}
 const createFeature = async (_req: Request, res: Response): Promise<void> => {
+  const { name } = _req.body
+  const m = await Feature.create({ name })
+  console.log(m)
+  res.send(m.dataValues)
+}
+const editFeature = async (_req: Request, res: Response): Promise<void> => {
+  const { name } = _req.body
+  const m = await Feature.create({ name })
+  console.log(m)
+  res.send(m.dataValues)
+}
+const deleteFeature = async (_req: Request, res: Response): Promise<void> => {
   const { name } = _req.body
   const m = await Feature.create({ name })
   console.log(m)
@@ -16,4 +32,7 @@ const createFeature = async (_req: Request, res: Response): Promise<void> => {
 export default {
   getFeatures,
   createFeature,
+  getFeature,
+  editFeature,
+  deleteFeature
 }
