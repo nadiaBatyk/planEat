@@ -14,6 +14,16 @@ const getMeals = async (_req: Request, res: Response): Promise<void> => {
   console.log(g) */
   res.send(f)
 }
+const getMeal = async (_req: Request, res: Response): Promise<void> => {
+  const f = await Meal.findAll({
+    include: [MealType, Ingredient],
+    order: [['id', 'ASC']],
+  })
+  /*   const g = await m.getIngredients()
+  console.log(i.dataValues)
+  console.log(g) */
+  res.send(f)
+}
 
 const createMeal = async (_req: Request, res: Response): Promise<Response> => {
   const { name, mealTypeId, ingredient } = _req.body
@@ -32,7 +42,7 @@ const createMeal = async (_req: Request, res: Response): Promise<Response> => {
 
   return res.send(m.dataValues)
 }
-const editMeal = async (_req: Request, res: Response): Promise<void> => {
+const updateMeal = async (_req: Request, res: Response): Promise<void> => {
   const { ingredients } = _req.body
   const { id } = _req.params
   const m = await Meal.findByPk(id)
@@ -44,9 +54,20 @@ const editMeal = async (_req: Request, res: Response): Promise<void> => {
   console.log(m)
   res.send(m?.dataValues)
 }
-
+const deleteMeal = async (_req: Request, res: Response): Promise<void> => {
+  const f = await Meal.findAll({
+    include: [MealType, Ingredient],
+    order: [['id', 'ASC']],
+  })
+  /*   const g = await m.getIngredients()
+  console.log(i.dataValues)
+  console.log(g) */
+  res.send(f)
+}
 export default {
   getMeals,
   createMeal,
-  editMeal,
+  updateMeal,
+  getMeal,
+  deleteMeal
 }

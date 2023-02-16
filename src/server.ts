@@ -1,7 +1,7 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
 import { sequelize } from './db/config'
-import appRouter from './routes/appRouter'
+import appRouter from './routes/appRoutes'
 import { errorHandler } from './middlewares/error.middleware'
 import { notFoundHandler } from './middlewares/not-found.middleware'
 

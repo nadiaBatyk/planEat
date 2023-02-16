@@ -7,6 +7,10 @@ mealRoutes
   .get(mealController.getMeals)
   .post(mealController.createMeal)
 
-mealRoutes.route('/:id').get().put(mealController.editMeal).delete()
+mealRoutes
+  .route('/:id')
+  .get(mealController.getMeal)
+  .put(mealController.updateMeal)
+  .delete(mealController.deleteMeal)
 
 export default mealRoutes
