@@ -14,10 +14,7 @@ const getMeals = async (_req: Request, res: Response): Promise<void> => {
   console.log(g) */
   res.send(f)
 }
-const getMealTypes = async (_req: Request, res: Response): Promise<void> => {
-  const f = await MealType.findAll({ include: [Meal] })
-  res.send(f)
-}
+
 const getIngredients = async (_req: Request, res: Response): Promise<void> => {
   const mt = await Ingredient.findAll()
   res.send(mt)
@@ -31,12 +28,7 @@ const createIngredient = async (
   console.log(m)
   res.send(m.dataValues)
 }
-const createType = async (_req: Request, res: Response): Promise<void> => {
-  const { name } = _req.body
-  const m = await MealType.create({ name })
-  console.log(m)
-  res.send(m.dataValues)
-}
+
 const createMeal = async (_req: Request, res: Response): Promise<Response> => {
   const { name, mealTypeId, ingredient } = _req.body
   const m = await Meal.create({
@@ -69,9 +61,7 @@ const editMeal = async (_req: Request, res: Response): Promise<void> => {
 
 export default {
   getMeals,
-  createMeal,
-  getMealTypes,
-  createType,
+  createMeal,  
   getIngredients,
   createIngredient,
   editMeal,

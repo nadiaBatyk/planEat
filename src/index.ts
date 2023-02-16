@@ -15,6 +15,9 @@ async function main(): Promise<void> {
 
   // ROUTES
   app.use(mealRoutes);
+  app.use();
+  app.use(mealRoutes);
+  app.use(mealRoutes);
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
