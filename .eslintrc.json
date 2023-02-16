@@ -6,7 +6,9 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
   "overrides": [],
@@ -17,6 +19,10 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-explicit-any": ["error", { "fixToUnknown": true }],
+    "curly": "error",
+    "no-empty": "error"
   }
 }
