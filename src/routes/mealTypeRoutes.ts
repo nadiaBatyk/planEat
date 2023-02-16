@@ -8,10 +8,10 @@ mealTypeRoutes
   .get(mealTypeController.getMealTypes)
   .post(mealTypeController.createType)
 
-/* mealTypeRoutes
-  .route('/mealTypes/:id')
+mealTypeRoutes
+  .route('/:id')
   .get(mealTypeController.getMealType)
-  .put(mealTypeController.editMealType)
-  .delete(mealTypeController.deleteMealType) */
+  .put(mealTypeController.updateMealType)
+  .delete(mealTypeController.deleteMealType)
 
 export default mealTypeRoutes
