@@ -15,20 +15,6 @@ const getMeals = async (_req: Request, res: Response): Promise<void> => {
   res.send(f)
 }
 
-const getIngredients = async (_req: Request, res: Response): Promise<void> => {
-  const mt = await Ingredient.findAll()
-  res.send(mt)
-}
-const createIngredient = async (
-  _req: Request,
-  res: Response
-): Promise<void> => {
-  const { name, unit } = _req.body
-  const m = await Ingredient.create({ name, unit })
-  console.log(m)
-  res.send(m.dataValues)
-}
-
 const createMeal = async (_req: Request, res: Response): Promise<Response> => {
   const { name, mealTypeId, ingredient } = _req.body
   const m = await Meal.create({
@@ -61,8 +47,6 @@ const editMeal = async (_req: Request, res: Response): Promise<void> => {
 
 export default {
   getMeals,
-  createMeal,  
-  getIngredients,
-  createIngredient,
+  createMeal,
   editMeal,
 }
