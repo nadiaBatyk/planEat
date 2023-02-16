@@ -8,10 +8,10 @@ ingredientRoutes
   .get(ingredientController.getIngredients)
   .post(ingredientController.createIngredient)
 
-/* ingredientRoutes
-  .route('/ingredients/:id')
+ingredientRoutes
+  .route('/:id')
   .get(ingredientController.getIngredient)
-  .put(ingredientController.editIngredient)
-  .delete(ingredientController.deleteIngredient) */
+  .put(ingredientController.updateIngredient)
+  .delete(ingredientController.deleteIngredient)
 
 export default ingredientRoutes

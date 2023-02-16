@@ -10,7 +10,7 @@ featureRoutes
 featureRoutes
   .route('/:id')
   .get(featureController.getFeature)
-  .put(featureController.editFeature)
+  .put(featureController.updateFeature)
   .delete(featureController.deleteFeature)
 
 export default featureRoutes

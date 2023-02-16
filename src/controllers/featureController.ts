@@ -16,7 +16,7 @@ const createFeature = async (_req: Request, res: Response): Promise<void> => {
   console.log(m)
   res.send(m.dataValues)
 }
-const editFeature = async (_req: Request, res: Response): Promise<void> => {
+const updateFeature = async (_req: Request, res: Response): Promise<void> => {
   const { name } = _req.body
   const m = await Feature.create({ name })
   console.log(m)
@@ -33,6 +33,6 @@ export default {
   getFeatures,
   createFeature,
   getFeature,
-  editFeature,
+  updateFeature,
   deleteFeature
 }
