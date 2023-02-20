@@ -5,9 +5,11 @@ import { Ingredient } from '../db/models/Ingredient'
 import { MealIngredient } from '../db/models/MealIngredient'
 import mealService from '../services/mealService'
 
+
 const getMeals = async (_req: Request, res: Response): Promise<void> => {
-  const meals = await mealService.getMeals()
-  console.log(meals)
+  // const meals = await mealService.getMeals()
+  // console.log(meals)
+console.log('holaaaa');
 
   const f = await Meal.findAll({
     include: [MealType, Ingredient],
@@ -34,19 +36,19 @@ const getMeal = async (_req: Request, res: Response): Promise<void> => {
 const createMeal = async (_req: Request, res: Response): Promise<Response> => {
   const meal = await mealService.createMeal()
   console.log(meal);
-  const { name, mealTypeId, ingredient } = _req.body
+  const { name, mealTypeId } = _req.body
   const m = await Meal.create({
     name,
     mealTypeId,
   })
   console.log(m.dataValues)
-  const i = await Ingredient.create({
+  /* const i = await Ingredient.create({
     name: ingredient.name,
     unit: ingredient.unit,
   })
   await m.$add('ingredient', i, {
     through: { model: MealIngredient, quantity: ingredient.quantity },
-  })
+  }) */
 
   return res.send(m.dataValues)
 }
@@ -65,7 +67,8 @@ const updateMeal = async (_req: Request, res: Response): Promise<void> => {
   res.send(m?.dataValues)
 }
 const deleteMeal = async (_req: Request, res: Response): Promise<void> => {
-  const meal = await mealService.deleteMeal()
+  const { id } = _req.params
+  const meal = await mealService.deleteMeal(+id)
   console.log(meal);
   const f = await Meal.findAll({
     include: [MealType, Ingredient],
