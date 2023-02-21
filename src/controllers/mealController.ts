@@ -4,6 +4,8 @@ import { MealType } from '../db/models/MealType'
 import { Ingredient } from '../db/models/Ingredient'
 import { MealIngredient } from '../db/models/MealIngredient'
 import mealService from '../services/mealService'
+import { Meal1 } from '../routes/mealRoutes'
+
 
 
 const getMeals = async (_req: Request, res: Response): Promise<void> => {
@@ -20,17 +22,18 @@ console.log('holaaaa');
   console.log(g) */
   res.send(f)
 }
-const getMeal = async (_req: Request, res: Response): Promise<void> => {
+const getMeal = async (_req: Request<{pepe:number}>, res: Response<Meal1>): Promise<void> => {
   const meal = await mealService.getMeal()
   console.log(meal);
-  const f = await Meal.findAll({
+  const g = _req.params.pepe
+  const f = await Meal.findByPk(g,{
     include: [MealType, Ingredient],
     order: [['id', 'ASC']],
   })
   /*   const g = await m.getIngredients()
   console.log(i.dataValues)
   console.log(g) */
-  res.send(f)
+  res.send(f as Meal1)
 }
 
 const createMeal = async (_req: Request, res: Response): Promise<Response> => {

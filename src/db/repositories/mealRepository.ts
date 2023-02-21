@@ -6,6 +6,6 @@ export class MealRepository extends BaseRepository<Meal>{
     constructor(){
         super(Meal)
     }
-
+    
 
 }

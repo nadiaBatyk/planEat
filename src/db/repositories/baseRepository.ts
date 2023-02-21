@@ -6,11 +6,20 @@ export abstract class BaseRepository<M extends Model> {
   constructor(model: ModelCtor<M>) {
     this.model = model
   }
-  delete(m: Model<M>) {
+  async delete(m: Model<M>) {
     try {
-      return this.model.destroy({
+      return await this.model.destroy({
         where: { id: m.id.toString() },
       })
+    } catch (error) {
+      const err = new HttpException(500, error as string)
+      throw err
+    }
+  }
+
+  async create(m: M) {
+    try {
+      return await this.model.create()
     } catch (error) {
       const err = new HttpException(500, error as string)
       throw err
