@@ -28,6 +28,8 @@ export class MealDao implements IMealDao {
         include: [MealType, Ingredient],
         order: [['id', 'ASC']],
       })
+      console.log(meals);
+      
       return meals
     } catch (error) {
       throw new HttpException(500, 'Internal server error', error as string)

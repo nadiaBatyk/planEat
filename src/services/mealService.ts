@@ -7,7 +7,7 @@ export class MealService {
   constructor() {
     this.mealDao = new MealDao()
   }
-  async getMeals() {
+   getMeals = async () => {    
     const meals = await this.mealDao.getMeals()
     return meals.map(m=>MealMap.toDTO(m))
   }

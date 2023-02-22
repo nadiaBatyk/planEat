@@ -8,14 +8,20 @@ export class MealController {
   mealService: MealService
   constructor() {
     this.mealService = new MealService()
+    this.getMealById = this.getMealById.bind(this)
+    
   }
-  async getMeals(
+   getMeals = async (
     _req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<void> {
+  ): Promise<void> => {
     try {
+      console.log('llamo');
+      
       const meals = await this.mealService.getMeals()
+      console.log(meals);
+      
       res.status(200).json(meals)
     } catch (error) {
       next(error)
