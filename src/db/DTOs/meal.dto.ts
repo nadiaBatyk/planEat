@@ -1,13 +1,10 @@
-import { IMeal } from "../../interfaces/meal.interface"
+import { IngredientDTO } from './ingredient.dto'
+import { MealTypeDTO } from './mealType.dto'
 
-export class MealDTO {
+export interface MealDTO {
   id?: number
   name: string
   mealTypeId: number
-
-  constructor(meal:IMeal) {
-    this.name = meal.name
-    this.mealTypeId = meal.mealTypeId
-    this.id = meal.id
-  }
+  mealType?: MealTypeDTO
+  ingredients?: IngredientDTO[]
 }

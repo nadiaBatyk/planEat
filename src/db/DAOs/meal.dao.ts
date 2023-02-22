@@ -1,10 +1,10 @@
 import HttpException from '../../common/error/HttpException'
-import { IMeal } from '../../interfaces/meal.interface'
+import { MealDTO } from '../DTOs/meal.dto'
+
 import { Ingredient } from '../models/Ingredient'
 import { Meal } from '../models/Meal'
 import { MealType } from '../models/MealType'
 import { IMealDao } from './interfaces/mealDao.interface'
-
 
 export class MealDao implements IMealDao {
   async getMealById(id: number): Promise<Meal> {
@@ -33,11 +33,11 @@ export class MealDao implements IMealDao {
       throw new HttpException(500, 'Internal server error', error as string)
     }
   }
-  async exists(m: Meal): Promise<boolean> {
-    const meal = await this.getMealById(m.id)
+  async exists(m: MealDTO): Promise<boolean> {
+    const meal = await this.getMealById(m?.id as number)
     return !!meal.dataValues
   }
-  async delete(m: Meal): Promise<void> {
+  async delete(m: MealDTO): Promise<void> {
     try {
       const rowNumber = await Meal.destroy({
         where: { id: m.id },
@@ -47,7 +47,7 @@ export class MealDao implements IMealDao {
       throw new HttpException(500, 'Internal server error', error as string)
     }
   }
-  async create(m: IMeal): Promise<Meal> {
+  async create(m: MealDTO): Promise<Meal> {
     try {
       const meal = await Meal.create({ ...m })
       return meal.dataValues

@@ -1,4 +1,4 @@
-export interface MealType {
+export interface MealTypeDTO {
     id?: number
     name: string
   }

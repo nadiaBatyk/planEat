@@ -1,4 +1,4 @@
-export interface Feature {
+export interface FeatureDTO {
     id?: number
     name: string
   }
