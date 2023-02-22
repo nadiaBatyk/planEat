@@ -7,7 +7,10 @@ export class MealService {
   constructor() {
     this.mealDao = new MealDao()
   }
-  async getMeals() {}
+  async getMeals() {
+    const meals = await this.mealDao.getMeals()
+    return meals.map(m=>MealMap.toDTO(m))
+  }
   async getMealById(id: number) {
     const meal = await this.mealDao.getMealById(id)
     return MealMap.toDTO(meal)
@@ -17,5 +20,8 @@ export class MealService {
     return MealMap.toDTO(newMeal)
   }
   async updateMeal() {}
-  async deleteMeal() {}
+  async deleteMeal(id: number) {
+    const message = await this.mealDao.delete(id)
+    return message
+  }
 }

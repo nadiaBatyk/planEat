@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { MealService } from '../services/mealService'
-import { Meal } from '../db/models/Meal'
+
 import { MealDTO } from '../db/DTOs/meal.dto'
 
 export class MealController {
@@ -14,7 +14,12 @@ export class MealController {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    res.send()
+    try {
+      const meals = await this.mealService.getMeals()
+      res.status(200).json(meals)
+    } catch (error) {
+      next(error)
+    }
   }
   async getMealById(
     req: Request,
@@ -43,5 +48,17 @@ export class MealController {
     }
   }
   async updateMeal() {}
-  async deleteMeal() {}
+  async deleteMeal(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { id } = req.params
+      const message = await this.mealService.deleteMeal(+id)
+      res.status(200).json(message)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

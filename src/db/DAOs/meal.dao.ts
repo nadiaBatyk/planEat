@@ -37,12 +37,20 @@ export class MealDao implements IMealDao {
     const meal = await this.getMealById(m?.id as number)
     return !!meal.dataValues
   }
-  async delete(m: MealDTO): Promise<void> {
+  async delete(id: number): Promise<string> {
     try {
       const rowNumber = await Meal.destroy({
-        where: { id: m.id },
+        where: { id: id },
       })
       console.log(rowNumber)
+      if (rowNumber) {
+        return `Meal #${id} has been succesfully deleted`
+      }
+      throw new HttpException(
+        404,
+        `Meal with id ${id} does not exist`,
+        'Not Found'
+      )
     } catch (error) {
       throw new HttpException(500, 'Internal server error', error as string)
     }
@@ -55,4 +63,12 @@ export class MealDao implements IMealDao {
       throw new HttpException(500, 'Internal server error', error as string)
     }
   }
+  // async update(m: MealDTO): Promise<Meal> {
+  //   try {
+  //     const meal = await Meal.update({...m})
+  //     return meal
+  //   } catch (error) {
+  //     throw new HttpException(500, 'Internal server error', error as string)
+  //   }
+  // }
 }
