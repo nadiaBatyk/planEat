@@ -1,5 +1,5 @@
 import { Meal } from "../db/models/Meal"
-import { MealRepository } from "../db/repositories/mealRepository"
+import { MealRepository } from "../db/DAOs/meal.dao"
 
 const getMeals = async () => {
   
