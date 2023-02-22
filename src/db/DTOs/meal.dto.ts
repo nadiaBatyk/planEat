@@ -5,7 +5,6 @@ export class MealDTO {
   name: string
   mealTypeId: number
 
- 
   constructor(meal:IMeal) {
     this.name = meal.name
     this.mealTypeId = meal.mealTypeId

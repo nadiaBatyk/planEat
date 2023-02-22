@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 import { MealService } from '../services/mealService'
 import { IMeal } from '../interfaces/meal.interface'
 
-export class mealController {
+export class MealController {
   mealService: MealService
   constructor() {
     this.mealService = new MealService()
