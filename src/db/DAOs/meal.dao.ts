@@ -75,12 +75,27 @@ export class MealDao implements IMealDao {
       throw new HttpException(500, 'Internal server error', error as string)
     }
   }
-  // async update(m: MealDTO): Promise<Meal> {
-  //   try {
-  //     const meal = await Meal.update({...m})
-  //     return meal
-  //   } catch (error) {
-  //     throw new HttpException(500, 'Internal server error', error as string)
-  //   }
-  // }
+  async update(id: number, m: MealDTO): Promise<Meal> {
+    try {
+      const meal = await Meal.findByPk(id)
+      if (meal) {
+        meal.set(m)
+        await meal.save()
+        console.log(meal)
+
+        return meal.dataValues
+      }
+
+      throw new HttpException(
+        404,
+        `Meal with id ${id} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error
+      }
+      throw new HttpException(500, 'Internal server error', error as string)
+    }
+  }
 }

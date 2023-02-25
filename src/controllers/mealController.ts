@@ -52,7 +52,20 @@ export class MealController {
       next(error)
     }
   }
-  async updateMeal() {}
+  updateMeal = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const newMeal: MealDTO = req.body
+      const meal = await this.mealService.updateMeal(+id, newMeal)
+      res.status(200).json(meal)
+    } catch (error) {
+      next(error)
+    }
+  }
   deleteMeal = async (
     req: Request,
     res: Response,
