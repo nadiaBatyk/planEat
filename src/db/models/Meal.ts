@@ -21,6 +21,7 @@ export class Meal extends Model {
   name!: string
 
   @ForeignKey(() => MealType)
+  @AllowNull(false)
   @Column(DataTypes.INTEGER)
   mealTypeId!: number
 

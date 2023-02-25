@@ -16,11 +16,7 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      console.log('llamo')
-
       const meals = await this.mealService.getMeals()
-      console.log(meals)
-
       res.status(200).json(meals)
     } catch (error) {
       next(error)

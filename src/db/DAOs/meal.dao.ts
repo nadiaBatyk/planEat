@@ -19,10 +19,7 @@ export class MealDao implements IMealDao {
         'Not Found'
       )
     } catch (error) {
-      if (error instanceof HttpException) {
-        throw error
-      }
-      throw new HttpException(500, 'Internal server error', error as string)
+      throw error
     }
   }
   async getMeals(): Promise<Meal[]> {
@@ -31,14 +28,9 @@ export class MealDao implements IMealDao {
         include: [MealType, Ingredient],
         order: [['id', 'ASC']],
       })
-      console.log(meals)
-
       return meals
     } catch (error) {
-      if (error instanceof HttpException) {
-        throw error
-      }
-      throw new HttpException(500, 'Internal server error', error as string)
+      throw error
     }
   }
   async exists(m: MealDTO): Promise<boolean> {
@@ -60,10 +52,7 @@ export class MealDao implements IMealDao {
         'Not Found'
       )
     } catch (error) {
-      if (error instanceof HttpException) {
-        throw error
-      }
-      throw new HttpException(500, 'Internal server error', error as string)
+      throw error
     }
   }
   async create(m: MealDTO): Promise<Meal> {
@@ -72,7 +61,7 @@ export class MealDao implements IMealDao {
       let f = await meal.$get('mealType')
       return { ...meal.dataValues, mealType: f?.dataValues }
     } catch (error) {
-      throw new HttpException(500, 'Internal server error', error as string)
+      throw error
     }
   }
   async update(id: number, m: MealDTO): Promise<Meal> {
@@ -81,8 +70,6 @@ export class MealDao implements IMealDao {
       if (meal) {
         meal.set(m)
         await meal.save()
-        console.log(meal)
-
         return meal.dataValues
       }
 
@@ -92,10 +79,7 @@ export class MealDao implements IMealDao {
         'Not Found'
       )
     } catch (error) {
-      if (error instanceof HttpException) {
-        throw error
-      }
-      throw new HttpException(500, 'Internal server error', error as string)
+      throw error
     }
   }
 }
