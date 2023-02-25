@@ -9,5 +9,5 @@ export const errorHandler = (
 ) => {
   const status = error.statusCode || 500
 
-  res.status(status).send(error)
+  res.status(status).send({ ...error, message: error.message })
 }

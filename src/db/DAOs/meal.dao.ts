@@ -19,6 +19,9 @@ export class MealDao implements IMealDao {
         'Not Found'
       )
     } catch (error) {
+      if (error instanceof HttpException) {
+        throw error
+      }
       throw new HttpException(500, 'Internal server error', error as string)
     }
   }
@@ -28,10 +31,13 @@ export class MealDao implements IMealDao {
         include: [MealType, Ingredient],
         order: [['id', 'ASC']],
       })
-      console.log(meals);
-      
+      console.log(meals)
+
       return meals
     } catch (error) {
+      if (error instanceof HttpException) {
+        throw error
+      }
       throw new HttpException(500, 'Internal server error', error as string)
     }
   }
@@ -54,13 +60,17 @@ export class MealDao implements IMealDao {
         'Not Found'
       )
     } catch (error) {
+      if (error instanceof HttpException) {
+        throw error
+      }
       throw new HttpException(500, 'Internal server error', error as string)
     }
   }
   async create(m: MealDTO): Promise<Meal> {
     try {
       const meal = await Meal.create({ ...m })
-      return meal.dataValues
+      let f = await meal.$get('mealType')
+      return { ...meal.dataValues, mealType: f?.dataValues }
     } catch (error) {
       throw new HttpException(500, 'Internal server error', error as string)
     }

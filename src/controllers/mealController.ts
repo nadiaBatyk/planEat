@@ -9,19 +9,18 @@ export class MealController {
   constructor() {
     this.mealService = new MealService()
     this.getMealById = this.getMealById.bind(this)
-    
   }
-   getMeals = async (
+  getMeals = async (
     _req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      console.log('llamo');
-      
+      console.log('llamo')
+
       const meals = await this.mealService.getMeals()
-      console.log(meals);
-      
+      console.log(meals)
+
       res.status(200).json(meals)
     } catch (error) {
       next(error)
@@ -40,11 +39,11 @@ export class MealController {
       next(error)
     }
   }
-  async createMeal(
+  createMeal = async (
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<void> {
+  ): Promise<void> => {
     try {
       const newMeal: MealDTO = req.body
       const meal = await this.mealService.createMeal(newMeal)
@@ -54,11 +53,11 @@ export class MealController {
     }
   }
   async updateMeal() {}
-  async deleteMeal(
+  deleteMeal = async (
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<void> {
+  ): Promise<void> => {
     try {
       const { id } = req.params
       const message = await this.mealService.deleteMeal(+id)
