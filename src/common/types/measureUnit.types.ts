@@ -8,4 +8,3 @@ export type MeasureUnit =
   | 'litros'
   | 'cucharas de te'
   | 'tazas'
-export let unit: MeasureUnit
