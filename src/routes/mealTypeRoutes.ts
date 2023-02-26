@@ -1,7 +1,8 @@
 import { Router } from 'express'
-import mealTypeController from '../controllers/mealTypeController'
+import { MealTypeController } from '../controllers/mealTypeController'
 
 const mealTypeRoutes = Router()
+const mealTypeController = new MealTypeController()
 
 mealTypeRoutes
   .route('/')
@@ -10,8 +11,10 @@ mealTypeRoutes
 
 mealTypeRoutes
   .route('/:id')
-  .get(mealTypeController.getMealType)
+  .get(mealTypeController.getMealTypeById)
   .put(mealTypeController.updateMealType)
   .delete(mealTypeController.deleteMealType)
+
+mealTypeRoutes.route('/:id/meals').get(mealTypeController.getMealsInType)
 
 export default mealTypeRoutes

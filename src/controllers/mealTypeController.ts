@@ -1,34 +1,95 @@
-import { Request, Response } from 'express'
-import { Meal } from '../db/models/Meal'
-import { MealType } from '../db/models/MealType'
+import { NextFunction, Request, Response } from 'express'
+import { MealTypeService } from '../services/mealTypeService'
+import { MealTypeDTO } from '../db/DTOs/mealType.dto'
 
-const getMealTypes = async (_req: Request, res: Response): Promise<void> => {
-  const f = await MealType.findAll({ include: [Meal] })
-  res.send(f)
-}
-const getMealType = async (_req: Request, res: Response): Promise<void> => {
-  const f = await MealType.findAll({ include: [Meal] })
-  res.send(f)
-}
-const createType = async (_req: Request, res: Response): Promise<void> => {
-  const { name } = _req.body
-  const m = await MealType.create({ name })
-  console.log(m)
-  res.send(m.dataValues)
-}
-const updateMealType = async (_req: Request, res: Response): Promise<void> => {
-  const f = await MealType.findAll({ include: [Meal] })
-  res.send(f)
-}
-const deleteMealType = async (_req: Request, res: Response): Promise<void> => {
-  const f = await MealType.findAll({ include: [Meal] })
-  res.send(f)
-}
+export class MealTypeController {
+  mealTypeService: MealTypeService
+  constructor() {
+    this.mealTypeService = new MealTypeService()
+  }
+  getMealTypes = async (
+    _req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const mealTypes = await this.mealTypeService.getMealTypes()
+      res.status(200).json(mealTypes)
+    } catch (error) {
+      next(error)
+    }
+  }
+  getMealTypeById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const mealType = await this.mealTypeService.getMealTypeById(+id)
+      res.status(200).json(mealType)
+    } catch (error) {
+      next(error)
+    }
+  }
+  getMealsInType = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const meals = await this.mealTypeService.getMealsInType(+id)
+      console.log(meals)
 
-export default {
-  getMealTypes,
-  createType,
-  getMealType,
-  updateMealType,
-  deleteMealType
+      res.status(200).json(meals)
+    } catch (error) {
+      console.log(error)
+
+      next(error)
+    }
+  }
+  createType = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const newMealType: MealTypeDTO = req.body
+      const mealType = await this.mealTypeService.createMealType(newMealType)
+      res.status(200).json(mealType)
+    } catch (error) {
+      next(error)
+    }
+  }
+  updateMealType = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const newMealType: MealTypeDTO = req.body
+      const mealType = await this.mealTypeService.updateMealType(
+        +id,
+        newMealType
+      )
+      res.status(200).json(mealType)
+    } catch (error) {
+      next(error)
+    }
+  }
+  deleteMealType = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const message = await this.mealTypeService.deleteMealType(+id)
+      res.status(200).json(message)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

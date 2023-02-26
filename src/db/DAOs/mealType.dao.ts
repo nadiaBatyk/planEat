@@ -12,6 +12,7 @@ export class MealTypeDao implements IMealTypeDao {
     try {
       const include = includeMeal ? { include: [Meal] } : {}
       const mealType = await MealType.findByPk(id, include)
+
       if (mealType) {
         return mealType?.dataValues
       }
