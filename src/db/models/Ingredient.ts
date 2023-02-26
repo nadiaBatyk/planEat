@@ -8,6 +8,7 @@ import {
 } from 'sequelize-typescript'
 import { Meal } from './Meal'
 import { MealIngredient } from './MealIngredient'
+import { MeasureUnit, unit } from '../../common/types/measureUnit.types'
 
 @Table({ timestamps: false })
 export class Ingredient extends Model {
@@ -16,8 +17,8 @@ export class Ingredient extends Model {
   name!: string
 
   @AllowNull(false)
-  @Column(DataTypes.STRING(100))
-  unit!: string
+  @Column(DataTypes.ENUM(...Object.values(unit)))
+  unit!: MeasureUnit
 
   @BelongsToMany(() => Meal, () => MealIngredient)
   meals!: Meal[]

@@ -1,10 +1,10 @@
-import HttpException from '../../common/error/HttpException'
-import { MealDTO } from '../DTOs/meal.dto'
+import HttpException from '../../../common/error/HttpException'
+import { MealDTO } from '../../DTOs/meal.dto'
 
-import { Ingredient } from '../models/Ingredient'
-import { Meal } from '../models/Meal'
-import { MealType } from '../models/MealType'
-import { IMealDao } from './interfaces/mealDao.interface'
+import { Ingredient } from '../../models/Ingredient'
+import { Meal } from '../../models/Meal'
+import { MealType } from '../../models/MealType'
+import { IMealDao } from '../interfaces/mealDao.interface'
 
 export class MealDao implements IMealDao {
   getMealById = async (id: number): Promise<Meal> => {
