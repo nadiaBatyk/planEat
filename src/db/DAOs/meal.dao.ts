@@ -33,10 +33,6 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
-  exists = async (m: MealDTO): Promise<boolean> => {
-    const meal = await this.getMealById(m?.id as number)
-    return !!meal.dataValues
-  }
   delete = async (id: number): Promise<string> => {
     try {
       const rowNumber = await Meal.destroy({
