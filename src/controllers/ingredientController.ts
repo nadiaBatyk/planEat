@@ -1,37 +1,78 @@
-import { Request, Response } from 'express'
-import { Meal } from '../db/models/Meal'
-import { Ingredient } from '../db/models/Ingredient'
+import { NextFunction, Request, Response } from 'express'
+import { IngredientService } from '../services/ingredientService'
+import { IngredientDTO } from '../db/DTOs/ingredient.dto'
 
-const getIngredients = async (_req: Request, res: Response): Promise<void> => {
-  const f = await Ingredient.findAll({ include: [Meal] })
-  res.send(f)
-}
-const getIngredient = async (_req: Request, res: Response): Promise<void> => {
-  const f = await Ingredient.findAll({ include: [Meal] })
-  res.send(f)
-}
-const createIngredient = async (
-  _req: Request,
-  res: Response
-): Promise<void> => {
-  const { name, unit } = _req.body
-  const m = await Ingredient.create({ name, unit })
-  console.log(m)
-  res.send(m.dataValues)
-}
-const updateIngredient = async (_req: Request, res: Response): Promise<void> => {
-  const f = await Ingredient.findAll({ include: [Meal] })
-  res.send(f)
-}
-const deleteIngredient = async (_req: Request, res: Response): Promise<void> => {
-  const f = await Ingredient.findAll({ include: [Meal] })
-  res.send(f)
-}
+export class IngredientController {
+  ingredientService: IngredientService = new IngredientService()
 
-export default {
-  getIngredients,
-  createIngredient,
-  getIngredient,
-  updateIngredient,
-  deleteIngredient
+  getIngredients = async (
+    _req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const ingredients = await this.ingredientService.getIngredients()
+      res.status(200).json(ingredients)
+    } catch (error) {
+      next(error)
+    }
+  }
+  getIngredientById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const ingredient = await this.ingredientService.getIngredientById(+id)
+      res.status(200).json(ingredient)
+    } catch (error) {
+      next(error)
+    }
+  }
+  createIngredient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const newIngredient: IngredientDTO = req.body
+      const ingredient = await this.ingredientService.createIngredient(
+        newIngredient
+      )
+      res.status(200).json(ingredient)
+    } catch (error) {
+      next(error)
+    }
+  }
+  updateIngredient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const newIngredient: IngredientDTO = req.body
+      const ingredient = await this.ingredientService.updateIngredient(
+        +id,
+        newIngredient
+      )
+      res.status(200).json(ingredient)
+    } catch (error) {
+      next(error)
+    }
+  }
+  deleteIngredient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const message = await this.ingredientService.deleteIngredient(+id)
+      res.status(200).json(message)
+    } catch (error) {
+      next(error)
+    }
+  }
 }

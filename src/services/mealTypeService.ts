@@ -1,4 +1,4 @@
-import { MealTypeDao } from '../db/DAOs/mealType.dao'
+import { MealTypeDao } from '../db/DAOs/classes/mealType.dao'
 import { MealDTO } from '../db/DTOs/meal.dto'
 import { MealTypeDTO } from '../db/DTOs/mealType.dto'
 import { MealMap } from '../db/mappers/meal.map'

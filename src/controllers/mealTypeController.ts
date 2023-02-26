@@ -40,8 +40,6 @@ export class MealTypeController {
     try {
       const { id } = req.params
       const meals = await this.mealTypeService.getMealsInType(+id)
-      console.log(meals)
-
       res.status(200).json(meals)
     } catch (error) {
       console.log(error)

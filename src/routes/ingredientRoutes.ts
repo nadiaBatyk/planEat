@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import ingredientController from '../controllers/ingredientController'
+import { IngredientController } from '../controllers/ingredientController'
 
 const ingredientRoutes = Router()
-
+const ingredientController = new IngredientController()
 ingredientRoutes
   .route('/')
   .get(ingredientController.getIngredients)
@@ -10,7 +10,7 @@ ingredientRoutes
 
 ingredientRoutes
   .route('/:id')
-  .get(ingredientController.getIngredient)
+  .get(ingredientController.getIngredientById)
   .put(ingredientController.updateIngredient)
   .delete(ingredientController.deleteIngredient)
 

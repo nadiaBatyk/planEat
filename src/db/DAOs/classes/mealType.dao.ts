@@ -1,8 +1,8 @@
-import HttpException from '../../common/error/HttpException'
-import { MealTypeDTO } from '../DTOs/mealType.dto'
-import { Meal } from '../models/Meal'
-import { MealType } from '../models/MealType'
-import { IMealTypeDao } from './interfaces/mealTypeDao.interface'
+import HttpException from '../../../common/error/HttpException'
+import { MealTypeDTO } from '../../DTOs/mealType.dto'
+import { Meal } from '../../models/Meal'
+import { MealType } from '../../models/MealType'
+import { IMealTypeDao } from '../interfaces/mealTypeDao.interface'
 
 export class MealTypeDao implements IMealTypeDao {
   getMealTypeById = async (

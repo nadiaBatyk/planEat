@@ -34,6 +34,21 @@ export class MealController {
       next(error)
     }
   }
+  getMealIngredient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const ingredients = await this.mealService.getMealIngredients(+id)
+      res.status(200).json(ingredients)
+    } catch (error) {
+      console.log(error)
+
+      next(error)
+    }
+  }
   createMeal = async (
     req: Request,
     res: Response,
@@ -47,6 +62,7 @@ export class MealController {
       next(error)
     }
   }
+  //TODO ADD INGREDIENTS TO MEAL PATCH?? O PUT???
   updateMeal = async (
     req: Request,
     res: Response,

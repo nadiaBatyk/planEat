@@ -14,5 +14,6 @@ mealRoutes
   .get(mealController.getMealById)
   .put(mealController.updateMeal)
   .delete(mealController.deleteMeal)
+mealRoutes.route('/:id/ingredients').get(mealController.getMealIngredient)
 
 export default mealRoutes

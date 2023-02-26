@@ -22,6 +22,14 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
+  getMealIngredients = async (id: number): Promise<Ingredient[]> => {
+    try {
+      const meal = await this.getMealById(id)
+      return meal.ingredients
+    } catch (error) {
+      throw error
+    }
+  }
   getMeals = async (): Promise<Meal[]> => {
     try {
       const meals = await Meal.findAll({
