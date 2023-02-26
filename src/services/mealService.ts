@@ -7,23 +7,23 @@ export class MealService {
   constructor() {
     this.mealDao = new MealDao()
   }
-  getMeals = async () => {
+  getMeals = async (): Promise<MealDTO[]> => {
     const meals = await this.mealDao.getMeals()
     return meals.map(m => MealMap.toDTO(m))
   }
-  async getMealById(id: number) {
+  getMealById = async (id: number): Promise<MealDTO> => {
     const meal = await this.mealDao.getMealById(id)
     return MealMap.toDTO(meal)
   }
-  async createMeal(meal: MealDTO): Promise<MealDTO> {
+  createMeal = async (meal: MealDTO): Promise<MealDTO> => {
     const newMeal = await this.mealDao.create(meal)
     return MealMap.toDTO(newMeal)
   }
-  async updateMeal(id: number, meal: MealDTO): Promise<MealDTO> {
+  updateMeal = async (id: number, meal: MealDTO): Promise<MealDTO> => {
     const updatedMeal = await this.mealDao.update(id, meal)
     return MealMap.toDTO(updatedMeal)
   }
-  async deleteMeal(id: number) {
+  deleteMeal = async (id: number): Promise<string> => {
     const message = await this.mealDao.delete(id)
     return message
   }

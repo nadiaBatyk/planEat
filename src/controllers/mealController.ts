@@ -8,7 +8,6 @@ export class MealController {
   mealService: MealService
   constructor() {
     this.mealService = new MealService()
-    this.getMealById = this.getMealById.bind(this)
   }
   getMeals = async (
     _req: Request,
@@ -22,11 +21,11 @@ export class MealController {
       next(error)
     }
   }
-  async getMealById(
+  getMealById = async (
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<void> {
+  ): Promise<void> => {
     try {
       const { id } = req.params
       const meal = await this.mealService.getMealById(+id)

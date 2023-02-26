@@ -6,7 +6,6 @@ export class MealMap {
     return {
       id: meal.id,
       name: meal.name,
-      mealTypeId: meal.mealTypeId,
       mealType: meal.mealType, // tambien tengo q mapearlo
       ingredients: meal.ingredients, // tambien tengo q mapearlo
     }

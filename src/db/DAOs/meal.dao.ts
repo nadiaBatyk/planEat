@@ -7,7 +7,7 @@ import { MealType } from '../models/MealType'
 import { IMealDao } from './interfaces/mealDao.interface'
 
 export class MealDao implements IMealDao {
-  async getMealById(id: number): Promise<Meal> {
+  getMealById = async (id: number): Promise<Meal> => {
     try {
       const meal = await Meal.findByPk(id, { include: [MealType, Ingredient] })
       if (meal) {
@@ -22,7 +22,7 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
-  async getMeals(): Promise<Meal[]> {
+  getMeals = async (): Promise<Meal[]> => {
     try {
       const meals = await Meal.findAll({
         include: [MealType, Ingredient],
@@ -33,11 +33,11 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
-  async exists(m: MealDTO): Promise<boolean> {
+  exists = async (m: MealDTO): Promise<boolean> => {
     const meal = await this.getMealById(m?.id as number)
     return !!meal.dataValues
   }
-  async delete(id: number): Promise<string> {
+  delete = async (id: number): Promise<string> => {
     try {
       const rowNumber = await Meal.destroy({
         where: { id: id },
@@ -55,7 +55,7 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
-  async create(m: MealDTO): Promise<Meal> {
+  create = async (m: MealDTO): Promise<Meal> => {
     try {
       const meal = await Meal.create({ ...m })
       let f = await meal.$get('mealType')
@@ -64,7 +64,7 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
-  async update(id: number, m: MealDTO): Promise<Meal> {
+  update = async (id: number, m: MealDTO): Promise<Meal> => {
     try {
       const meal = await Meal.findByPk(id)
       if (meal) {
