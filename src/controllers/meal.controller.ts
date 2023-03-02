@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express'
 import { MealService } from '../services/meal.service'
 
 import { MealDTO } from '../db/DTOs/meal.dto'
+import { MealIngredientDTO } from '../db/DTOs/mealIngredient.dto'
 
 export class MealController {
   mealService: MealService
@@ -34,7 +35,7 @@ export class MealController {
       next(error)
     }
   }
-  getMealIngredient = async (
+  getMealIngredients = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -44,8 +45,19 @@ export class MealController {
       const ingredients = await this.mealService.getMealIngredients(+id)
       res.status(200).json(ingredients)
     } catch (error) {
-      console.log(error)
-
+      next(error)
+    }
+  }
+  getMealFeatures = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const features = await this.mealService.getMealFeatures(+id)
+      res.status(200).json(features)
+    } catch (error) {
       next(error)
     }
   }
@@ -58,6 +70,23 @@ export class MealController {
       const newMeal: MealDTO = req.body
       const meal = await this.mealService.createMeal(newMeal)
       res.status(200).json(meal)
+    } catch (error) {
+      next(error)
+    }
+  }
+  addMealIngredient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const mealIngredient: MealIngredientDTO = req.body
+      mealIngredient.mealId = +id
+      const newmealIngredient = await this.mealService.addMealIngredient(
+        mealIngredient
+      )
+      res.status(200).json(newmealIngredient)
     } catch (error) {
       next(error)
     }

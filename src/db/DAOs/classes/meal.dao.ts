@@ -1,17 +1,22 @@
 import HttpException from '../../../common/error/HttpException'
 import { MealDTO } from '../../DTOs/meal.dto'
+import { MealIngredientDTO } from '../../DTOs/mealIngredient.dto'
+import { Feature } from '../../models/Feature'
 
 import { Ingredient } from '../../models/Ingredient'
 import { Meal } from '../../models/Meal'
+import { MealIngredient } from '../../models/MealIngredient'
 import { MealType } from '../../models/MealType'
 import { IMealDao } from '../interfaces/mealDao.interface'
 
 export class MealDao implements IMealDao {
   getMealById = async (id: number): Promise<Meal> => {
     try {
-      const meal = await Meal.findByPk(id, { include: [MealType, Ingredient] })
+      const meal = await Meal.findByPk(id, {
+        include: [Ingredient, MealType, Feature],
+      })
       if (meal) {
-        return meal?.dataValues
+        return meal
       }
       throw new HttpException(
         404,
@@ -30,6 +35,14 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
+  getMealFeatures = async (id: number): Promise<Feature[]> => {
+    try {
+      const meal = await this.getMealById(id)
+      return meal.features
+    } catch (error) {
+      throw error
+    }
+  }
   getMeals = async (): Promise<Meal[]> => {
     try {
       const meals = await Meal.findAll({
@@ -41,6 +54,28 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
+  addIngredientToMeal = async (
+    mealIngredient: MealIngredientDTO
+  ): Promise<Meal> => {
+    try {
+      const meal = await this.getMealById(mealIngredient.mealId as number)
+      if (meal) {
+        await meal.$add('ingredient', mealIngredient.ingredientId as number, {
+          through: { model: MealIngredient, quantity: mealIngredient.quantity },
+        })
+        return meal
+      }
+
+      throw new HttpException(
+        404,
+        `Meal with id ${mealIngredient.mealId} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  addFeatureToMeal = async () => {}
   delete = async (id: number): Promise<string> => {
     try {
       const rowNumber = await Meal.destroy({
