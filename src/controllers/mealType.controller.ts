@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { MealTypeService } from '../services/mealTypeService'
+import { MealTypeService } from '../services/mealType.service'
 import { MealTypeDTO } from '../db/DTOs/mealType.dto'
 
 export class MealTypeController {

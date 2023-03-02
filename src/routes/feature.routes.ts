@@ -1,7 +1,9 @@
 import { Router } from 'express'
-import featureController from '../controllers/featureController'
+import { FeatureController } from '../controllers/feature.controller'
+;('../controllers/feature.controller')
 
 const featureRoutes = Router()
+const featureController = new FeatureController()
 featureRoutes
   .route('/')
   .get(featureController.getFeatures)
@@ -9,7 +11,7 @@ featureRoutes
 
 featureRoutes
   .route('/:id')
-  .get(featureController.getFeature)
+  .get(featureController.getFeatureById)
   .put(featureController.updateFeature)
   .delete(featureController.deleteFeature)
 

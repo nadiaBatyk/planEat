@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { MealService } from '../services/mealService'
+import { MealService } from '../services/meal.service'
 
 import { MealDTO } from '../db/DTOs/meal.dto'
 

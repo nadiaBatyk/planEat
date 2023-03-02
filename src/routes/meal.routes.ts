@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { MealController } from '../controllers/mealController'
+import { MealController } from '../controllers/meal.controller'
 
 const mealRoutes = Router()
 const mealController = new MealController()
@@ -15,5 +15,5 @@ mealRoutes
   .put(mealController.updateMeal)
   .delete(mealController.deleteMeal)
 mealRoutes.route('/:id/ingredients').get(mealController.getMealIngredient)
-
+//mealRoutes.route('/:id/features').get(mealController.getMealIngredient)
 export default mealRoutes

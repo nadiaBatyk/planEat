@@ -37,7 +37,7 @@ export class FeatureDao implements IFeatureDao {
         where: { id: id },
       })
       if (rowNumber) {
-        return `MealType #${id} has been succesfully deleted`
+        return `Feature #${id} has been succesfully deleted`
       }
       throw new HttpException(
         404,

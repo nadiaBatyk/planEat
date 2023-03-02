@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { MealTypeController } from '../controllers/mealTypeController'
+import { MealTypeController } from '../controllers/mealType.controller'
 
 const mealTypeRoutes = Router()
 const mealTypeController = new MealTypeController()

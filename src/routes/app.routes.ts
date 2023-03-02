@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import mealRoutes from './mealRoutes'
-import ingredientRoutes from './ingredientRoutes'
-import featureRoutes from './featureRoutes'
-import mealTypeRoutes from './mealTypeRoutes'
+import mealRoutes from './meal.routes'
+import ingredientRoutes from './ingredient.routes'
+import featureRoutes from './feature.routes'
+import mealTypeRoutes from './mealType.routes'
 
 const appRouter = Router()
 
