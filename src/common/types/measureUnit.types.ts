@@ -8,3 +8,5 @@ export type MeasureUnit =
   | 'litros'
   | 'cucharas de te'
   | 'tazas'
+  | 'rodajas'
+  | 'piezas'
