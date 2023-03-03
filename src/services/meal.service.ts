@@ -24,6 +24,16 @@ export class MealService {
     const ingredients = await this.mealDao.getMealIngredients(id)
     return ingredients.map(i => IngredientMap.toDTO(i))
   }
+  getMealIngredientById = async (
+    mealId: number,
+    ingredientId: number
+  ): Promise<IngredientDTO> => {
+    const ingredient = await this.mealDao.getMealIngredientById(
+      mealId,
+      ingredientId
+    )
+    return IngredientMap.toDTO(ingredient)
+  }
   getMealFeatures = async (id: number): Promise<FeatureDTO[]> => {
     const features = await this.mealDao.getMealFeatures(id)
     return features.map(i => FeatureMap.toDTO(i))
@@ -36,6 +46,16 @@ export class MealService {
     mealIngredient: MealIngredientDTO
   ): Promise<MealDTO> => {
     const meal = await this.mealDao.addIngredientToMeal(mealIngredient)
+    return MealMap.toDTO(meal)
+  }
+  deleteMealIngredient = async (
+    mealId: number,
+    ingredientId: number
+  ): Promise<MealDTO> => {
+    const meal = await this.mealDao.removeIngredientFromMeal(
+      mealId,
+      ingredientId
+    )
     return MealMap.toDTO(meal)
   }
   updateMeal = async (id: number, meal: MealDTO): Promise<MealDTO> => {

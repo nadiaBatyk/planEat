@@ -15,13 +15,15 @@ mealRoutes
   .put(mealController.updateMeal)
   .delete(mealController.deleteMeal)
 mealRoutes
-  .route('/:id/ingredients')
+  .route('/:mealId/ingredients')
   .get(mealController.getMealIngredients)
   .post(mealController.addMealIngredient)
 
-// mealRoutes
-// .route('/:id/ingredients/:ingredientId').put(mealController.updateMealIngredient)
-// .delete(mealController.deleteMealIngredient)
+mealRoutes
+  .route('/:mealId/ingredients/:ingredientId')
+  .get(mealController.getMealIngredientById)
+  .put(mealController.addMealIngredient)
+  .delete(mealController.deleteMealIngredient)
 
 mealRoutes.route('/:id/features').get(mealController.getMealFeatures)
 export default mealRoutes

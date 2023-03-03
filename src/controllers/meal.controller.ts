@@ -48,6 +48,22 @@ export class MealController {
       next(error)
     }
   }
+  getMealIngredientById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { mealId, ingredientId } = req.params
+      const ingredient = await this.mealService.getMealIngredientById(
+        +mealId,
+        +ingredientId
+      )
+      res.status(200).json(ingredient)
+    } catch (error) {
+      next(error)
+    }
+  }
   getMealFeatures = async (
     req: Request,
     res: Response,
@@ -80,9 +96,9 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
+      const { mealId } = req.params
       const mealIngredient: MealIngredientDTO = req.body
-      mealIngredient.mealId = +id
+      mealIngredient.mealId = +mealId
       const newmealIngredient = await this.mealService.addMealIngredient(
         mealIngredient
       )
@@ -91,7 +107,23 @@ export class MealController {
       next(error)
     }
   }
-  //TODO ADD INGREDIENTS TO MEAL PATCH?? O PUT???
+  deleteMealIngredient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { mealId, ingredientId } = req.params
+
+      const updatedMeal = await this.mealService.deleteMealIngredient(
+        +mealId,
+        +ingredientId
+      )
+      res.status(200).json(updatedMeal)
+    } catch (error) {
+      next(error)
+    }
+  }
   updateMeal = async (
     req: Request,
     res: Response,

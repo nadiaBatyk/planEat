@@ -85,13 +85,52 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
+  getMealIngredientById = async (
+    mealId: number,
+    ingredientId: number
+  ): Promise<Ingredient> => {
+    try {
+      const ingredients = await this.getMealIngredients(mealId)
+      const ingredient = ingredients.find(value => value.id === ingredientId)
+      if (ingredient) {
+        return ingredient
+      }
+      throw new HttpException(
+        404,
+        `Ingredient with id ${ingredientId} does not exist on meal #${mealId}`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  removeIngredientFromMeal = async (
+    mealId: number,
+    ingredientId: number
+  ): Promise<Meal> => {
+    try {
+      const meal = await this.getMealById(mealId)
+      if (meal) {
+        await meal.$remove('ingredient', ingredientId)
+
+        return await this.getMealById(mealId)
+      }
+
+      throw new HttpException(
+        404,
+        `Meal with id ${mealId} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
   addFeatureToMeal = async () => {}
   delete = async (id: number): Promise<string> => {
     try {
       const rowNumber = await Meal.destroy({
         where: { id: id },
       })
-      console.log(rowNumber)
       if (rowNumber) {
         return `Meal #${id} has been succesfully deleted`
       }
