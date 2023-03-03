@@ -1,10 +1,12 @@
 import HttpException from '../../../common/error/HttpException'
 import { MealDTO } from '../../DTOs/meal.dto'
+import { MealFeatureDTO } from '../../DTOs/mealFeature.dto'
 import { MealIngredientDTO } from '../../DTOs/mealIngredient.dto'
 import { Feature } from '../../models/Feature'
 
 import { Ingredient } from '../../models/Ingredient'
 import { Meal } from '../../models/Meal'
+import { MealFeature } from '../../models/MealFeature'
 import { MealIngredient } from '../../models/MealIngredient'
 import { MealType } from '../../models/MealType'
 import { IMealDao } from '../interfaces/mealDao.interface'
@@ -17,7 +19,7 @@ export class MealDao implements IMealDao {
         include: [
           { model: Ingredient, through: { attributes: ['quantity'] } },
           { model: MealType, attributes: ['name'] },
-          Feature,
+          { model: Feature, through: { attributes: ['value'] } },
         ],
       })
       if (meal) {
@@ -39,6 +41,7 @@ export class MealDao implements IMealDao {
         include: [
           { model: Ingredient, through: { attributes: ['quantity'] } },
           { model: MealType, attributes: ['name'] },
+          { model: Feature, through: { attributes: ['value'] } },
         ],
         order: [['id', 'ASC']],
       })
@@ -154,7 +157,7 @@ export class MealDao implements IMealDao {
 
       throw new HttpException(
         404,
-        `Meal with id ${mealId} does not exist`,
+        `Ingredient with id ${ingredientId} does not exist on meal #${mealId}`,
         'Not Found'
       )
     } catch (error) {
@@ -163,5 +166,66 @@ export class MealDao implements IMealDao {
   }
   //MEAL_FEATURES CRUD
 
-  addFeatureToMeal = async () => {}
+  addFeatureToMeal = async (mealFeature: MealFeatureDTO): Promise<Meal> => {
+    try {
+      const meal = await this.getMealById(mealFeature.mealId)
+      if (meal) {
+        await meal.$add('feature', mealFeature.featureId, {
+          through: {
+            model: MealFeature,
+            value: mealFeature.value,
+          },
+        })
+        return await this.getMealById(mealFeature.mealId)
+      }
+
+      throw new HttpException(
+        404,
+        `Meal with id ${mealFeature.mealId} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  getMealFeatureById = async (
+    mealId: number,
+    featureId: number
+  ): Promise<Feature> => {
+    try {
+      const meal = await this.getMealById(mealId)
+      const feature = meal.features.find(value => value.id === featureId)
+      if (feature) {
+        return feature
+      }
+      throw new HttpException(
+        404,
+        `Feature with id ${featureId} does not exist on meal #${mealId}`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  removeFeatureFromMeal = async (
+    mealId: number,
+    featureId: number
+  ): Promise<Meal> => {
+    try {
+      const meal = await this.getMealById(mealId)
+      if (meal) {
+        await meal.$remove('feature', featureId)
+
+        return await this.getMealById(mealId)
+      }
+
+      throw new HttpException(
+        404,
+        `Feature with id ${featureId} does not exist on meal #${mealId}`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
 }

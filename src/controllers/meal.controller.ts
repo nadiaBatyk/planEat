@@ -4,6 +4,7 @@ import { MealService } from '../services/meal.service'
 
 import { MealDTO } from '../db/DTOs/meal.dto'
 import { MealIngredientDTO } from '../db/DTOs/mealIngredient.dto'
+import { MealFeatureDTO } from '../db/DTOs/mealFeature.dto'
 
 export class MealController {
   mealService: MealService
@@ -41,8 +42,8 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const ingredients = await this.mealService.getMealIngredients(+id)
+      const { mealId } = req.params
+      const ingredients = await this.mealService.getMealIngredients(+mealId)
       res.status(200).json(ingredients)
     } catch (error) {
       next(error)
@@ -70,8 +71,8 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const features = await this.mealService.getMealFeatures(+id)
+      const { mealId } = req.params
+      const features = await this.mealService.getMealFeatures(+mealId)
       res.status(200).json(features)
     } catch (error) {
       next(error)
@@ -147,6 +148,54 @@ export class MealController {
       const { id } = req.params
       const message = await this.mealService.deleteMeal(+id)
       res.status(200).json(message)
+    } catch (error) {
+      next(error)
+    }
+  }
+  addMealFeature = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { mealId } = req.params
+      const mealFeature: MealFeatureDTO = req.body
+      mealFeature.mealId = +mealId
+      const newmealFeature = await this.mealService.addMealFeature(mealFeature)
+      res.status(200).json(newmealFeature)
+    } catch (error) {
+      next(error)
+    }
+  }
+  deleteMealFeature = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { mealId, featureId } = req.params
+
+      const updatedMeal = await this.mealService.deleteMealFeature(
+        +mealId,
+        +featureId
+      )
+      res.status(200).json(updatedMeal)
+    } catch (error) {
+      next(error)
+    }
+  }
+  getMealFeatureById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { mealId, featureId } = req.params
+      const feature = await this.mealService.getMealFeatureById(
+        +mealId,
+        +featureId
+      )
+      res.status(200).json(feature)
     } catch (error) {
       next(error)
     }

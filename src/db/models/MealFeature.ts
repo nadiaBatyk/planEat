@@ -20,6 +20,6 @@ export class MealFeature extends Model {
   featureId!: number
 
   @AllowNull(false)
-  @Column(DataTypes.STRING(100))
+  @Column(DataTypes.STRING)
   value!: string
 }

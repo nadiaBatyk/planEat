@@ -25,5 +25,14 @@ mealRoutes
   .put(mealController.addMealIngredient)
   .delete(mealController.deleteMealIngredient)
 
-mealRoutes.route('/:id/features').get(mealController.getMealFeatures)
+mealRoutes
+  .route('/:mealId/features')
+  .get(mealController.getMealFeatures)
+  .post(mealController.addMealFeature)
+
+mealRoutes
+  .route('/:mealId/features/:featureId')
+  .get(mealController.getMealFeatureById)
+  .put(mealController.addMealFeature)
+  .delete(mealController.deleteMealFeature)
 export default mealRoutes

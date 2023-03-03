@@ -3,7 +3,6 @@ import { Meal } from '../models/Meal'
 import { FeatureMap } from './feature.map'
 import { IngredientMap } from './ingredient.map'
 import { MealTypeMap } from './mealType.map'
-//revisar los mappers xq aca es donde filtro la dataaa
 export class MealMap {
   public static toDTO(meal: Meal): MealDTO {
     return {
