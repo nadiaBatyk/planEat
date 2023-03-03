@@ -10,6 +10,7 @@ import { MealType } from '../../models/MealType'
 import { IMealDao } from '../interfaces/mealDao.interface'
 
 export class MealDao implements IMealDao {
+  //MEAL CRUD
   getMealById = async (id: number): Promise<Meal> => {
     try {
       const meal = await Meal.findByPk(id, {
@@ -31,22 +32,7 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
-  getMealIngredients = async (id: number): Promise<Ingredient[]> => {
-    try {
-      const meal = await this.getMealById(id)
-      return meal.ingredients
-    } catch (error) {
-      throw error
-    }
-  }
-  getMealFeatures = async (id: number): Promise<Feature[]> => {
-    try {
-      const meal = await this.getMealById(id)
-      return meal.features
-    } catch (error) {
-      throw error
-    }
-  }
+
   getMeals = async (): Promise<Meal[]> => {
     try {
       const meals = await Meal.findAll({
@@ -61,71 +47,7 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
-  addIngredientToMeal = async (
-    mealIngredient: MealIngredientDTO
-  ): Promise<Meal> => {
-    try {
-      const meal = await this.getMealById(mealIngredient.mealId)
-      if (meal) {
-        await meal.$add('ingredient', mealIngredient.ingredientId, {
-          through: {
-            model: MealIngredient,
-            quantity: mealIngredient.quantity,
-          },
-        })
-        return await this.getMealById(mealIngredient.mealId)
-      }
 
-      throw new HttpException(
-        404,
-        `Meal with id ${mealIngredient.mealId} does not exist`,
-        'Not Found'
-      )
-    } catch (error) {
-      throw error
-    }
-  }
-  getMealIngredientById = async (
-    mealId: number,
-    ingredientId: number
-  ): Promise<Ingredient> => {
-    try {
-      const ingredients = await this.getMealIngredients(mealId)
-      const ingredient = ingredients.find(value => value.id === ingredientId)
-      if (ingredient) {
-        return ingredient
-      }
-      throw new HttpException(
-        404,
-        `Ingredient with id ${ingredientId} does not exist on meal #${mealId}`,
-        'Not Found'
-      )
-    } catch (error) {
-      throw error
-    }
-  }
-  removeIngredientFromMeal = async (
-    mealId: number,
-    ingredientId: number
-  ): Promise<Meal> => {
-    try {
-      const meal = await this.getMealById(mealId)
-      if (meal) {
-        await meal.$remove('ingredient', ingredientId)
-
-        return await this.getMealById(mealId)
-      }
-
-      throw new HttpException(
-        404,
-        `Meal with id ${mealId} does not exist`,
-        'Not Found'
-      )
-    } catch (error) {
-      throw error
-    }
-  }
-  addFeatureToMeal = async () => {}
   delete = async (id: number): Promise<string> => {
     try {
       const rowNumber = await Meal.destroy({
@@ -170,4 +92,76 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
+
+  //MEAL_INGREDIENTS CRUD
+
+  addIngredientToMeal = async (
+    mealIngredient: MealIngredientDTO
+  ): Promise<Meal> => {
+    try {
+      const meal = await this.getMealById(mealIngredient.mealId)
+      if (meal) {
+        await meal.$add('ingredient', mealIngredient.ingredientId, {
+          through: {
+            model: MealIngredient,
+            quantity: mealIngredient.quantity,
+          },
+        })
+        return await this.getMealById(mealIngredient.mealId)
+      }
+
+      throw new HttpException(
+        404,
+        `Meal with id ${mealIngredient.mealId} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  getMealIngredientById = async (
+    mealId: number,
+    ingredientId: number
+  ): Promise<Ingredient> => {
+    try {
+      const meal = await this.getMealById(mealId)
+      const ingredient = meal.ingredients.find(
+        value => value.id === ingredientId
+      )
+      if (ingredient) {
+        return ingredient
+      }
+      throw new HttpException(
+        404,
+        `Ingredient with id ${ingredientId} does not exist on meal #${mealId}`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  removeIngredientFromMeal = async (
+    mealId: number,
+    ingredientId: number
+  ): Promise<Meal> => {
+    try {
+      const meal = await this.getMealById(mealId)
+      if (meal) {
+        await meal.$remove('ingredient', ingredientId)
+
+        return await this.getMealById(mealId)
+      }
+
+      throw new HttpException(
+        404,
+        `Meal with id ${mealId} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  //MEAL_FEATURES CRUD
+
+  addFeatureToMeal = async () => {}
 }
