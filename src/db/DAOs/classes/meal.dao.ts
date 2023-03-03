@@ -13,7 +13,11 @@ export class MealDao implements IMealDao {
   getMealById = async (id: number): Promise<Meal> => {
     try {
       const meal = await Meal.findByPk(id, {
-        include: [Ingredient, MealType, Feature],
+        include: [
+          { model: Ingredient, through: { attributes: ['quantity'] } },
+          { model: MealType, attributes: ['name'] },
+          Feature,
+        ],
       })
       if (meal) {
         return meal
@@ -46,7 +50,10 @@ export class MealDao implements IMealDao {
   getMeals = async (): Promise<Meal[]> => {
     try {
       const meals = await Meal.findAll({
-        include: [MealType, Ingredient],
+        include: [
+          { model: Ingredient, through: { attributes: ['quantity'] } },
+          { model: MealType, attributes: ['name'] },
+        ],
         order: [['id', 'ASC']],
       })
       return meals
@@ -58,12 +65,15 @@ export class MealDao implements IMealDao {
     mealIngredient: MealIngredientDTO
   ): Promise<Meal> => {
     try {
-      const meal = await this.getMealById(mealIngredient.mealId as number)
+      const meal = await this.getMealById(mealIngredient.mealId)
       if (meal) {
-        await meal.$add('ingredient', mealIngredient.ingredientId as number, {
-          through: { model: MealIngredient, quantity: mealIngredient.quantity },
+        await meal.$add('ingredient', mealIngredient.ingredientId, {
+          through: {
+            model: MealIngredient,
+            quantity: mealIngredient.quantity,
+          },
         })
-        return meal
+        return await this.getMealById(mealIngredient.mealId)
       }
 
       throw new HttpException(
@@ -109,7 +119,7 @@ export class MealDao implements IMealDao {
       if (meal) {
         meal.set(m)
         await meal.save()
-        return meal.dataValues
+        return meal
       }
 
       throw new HttpException(

@@ -1,5 +1,5 @@
 export interface MealIngredientDTO {
-  mealId?: number
-  ingredientId?: number
+  mealId: number
+  ingredientId: number
   quantity: number
 }

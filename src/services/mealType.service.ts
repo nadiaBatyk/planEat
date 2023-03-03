@@ -19,7 +19,7 @@ export class MealTypeService {
   }
   getMealsInType = async (id: number): Promise<MealDTO[]> => {
     const meals = await this.mealTypeDao.getMealsInType(id)
-    return meals.map(m => MealMap.toDTO(m.dataValues))
+    return meals.map(m => MealMap.toDTO(m))
   }
   createMealType = async (mealType: MealTypeDTO): Promise<MealTypeDTO> => {
     const newMeal = await this.mealTypeDao.create(mealType)
