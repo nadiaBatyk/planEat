@@ -25,7 +25,7 @@ mealRoutes
 mealRoutes
   .route('/:mealId/ingredients/:ingredientId')
   .get(mealController.getMealIngredientById)
-  .put(mealController.addMealIngredient)
+  .put(validate(MealIngredientSchema), mealController.addMealIngredient)
   .delete(mealController.deleteMealIngredient)
 
 mealRoutes
