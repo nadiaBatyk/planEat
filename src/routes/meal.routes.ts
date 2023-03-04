@@ -1,5 +1,7 @@
 import { Router } from 'express'
 import { MealController } from '../controllers/meal.controller'
+import { validate } from '../middlewares/validation/validate'
+import { MealSchema } from '../middlewares/validation/schemas/meal.schema'
 
 const mealRoutes = Router()
 const mealController = new MealController()
@@ -7,7 +9,7 @@ const mealController = new MealController()
 mealRoutes
   .route('/')
   .get(mealController.getMeals)
-  .post(mealController.createMeal)
+  .post(validate(MealSchema), mealController.createMeal)
 
 mealRoutes
   .route('/:id')
