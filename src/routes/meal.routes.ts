@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { MealController } from '../controllers/meal.controller'
 import { validate } from '../middlewares/validation/validate'
 import { MealSchema } from '../middlewares/validation/schemas/meal.schema'
+import { MealIngredientSchema } from '../middlewares/validation/schemas/mealIngredient.schema'
 
 const mealRoutes = Router()
 const mealController = new MealController()
@@ -14,12 +15,12 @@ mealRoutes
 mealRoutes
   .route('/:id')
   .get(mealController.getMealById)
-  .put(mealController.updateMeal)
+  .put(validate(MealSchema), mealController.updateMeal)
   .delete(mealController.deleteMeal)
 mealRoutes
   .route('/:mealId/ingredients')
   .get(mealController.getMealIngredients)
-  .post(mealController.addMealIngredient)
+  .post(validate(MealIngredientSchema), mealController.addMealIngredient)
 
 mealRoutes
   .route('/:mealId/ingredients/:ingredientId')
