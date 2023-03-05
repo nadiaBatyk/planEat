@@ -14,7 +14,7 @@ import { MealFeature } from './MealFeature'
 export class Feature extends Model {
   @AllowNull(false)
   @Unique(true)
-  @Column(DataTypes.STRING(80))
+  @Column(DataTypes.STRING(100))
   name!: string
 
   @BelongsToMany(() => Meal, () => MealFeature)

@@ -3,6 +3,7 @@ import { MealController } from '../controllers/meal.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { MealSchema } from '../middlewares/validation/schemas/meal.schema'
 import { MealIngredientSchema } from '../middlewares/validation/schemas/mealIngredient.schema'
+import { MealFeatureSchema } from '../middlewares/validation/schemas/mealFeature.schema'
 
 const mealRoutes = Router()
 const mealController = new MealController()
@@ -31,11 +32,11 @@ mealRoutes
 mealRoutes
   .route('/:mealId/features')
   .get(mealController.getMealFeatures)
-  .post(mealController.addMealFeature)
+  .post(validate(MealFeatureSchema), mealController.addMealFeature)
 
 mealRoutes
   .route('/:mealId/features/:featureId')
   .get(mealController.getMealFeatureById)
-  .put(mealController.addMealFeature)
+  .put(validate(MealFeatureSchema), mealController.addMealFeature)
   .delete(mealController.deleteMealFeature)
 export default mealRoutes

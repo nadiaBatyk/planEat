@@ -1,10 +1,7 @@
 import { Router } from 'express'
 import { MealTypeController } from '../controllers/mealType.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
-import {
-  MealTypeSchema,
-  PartialMealTypeSchema,
-} from '../middlewares/validation/schemas/mealType.schema'
+import { MealTypeSchema } from '../middlewares/validation/schemas/mealType.schema'
 
 const mealTypeRoutes = Router()
 const mealTypeController = new MealTypeController()
@@ -17,7 +14,7 @@ mealTypeRoutes
 mealTypeRoutes
   .route('/:id')
   .get(mealTypeController.getMealTypeById)
-  .put(validate(PartialMealTypeSchema), mealTypeController.updateMealType)
+  .put(validate(MealTypeSchema), mealTypeController.updateMealType)
   .delete(mealTypeController.deleteMealType)
 
 mealTypeRoutes.route('/:id/meals').get(mealTypeController.getMealsInType)

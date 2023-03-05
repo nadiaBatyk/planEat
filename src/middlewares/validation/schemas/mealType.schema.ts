@@ -10,4 +10,3 @@ export const MealTypeSchema = z.object({
     .min(1, 'Meal Type name cannot be empty')
     .max(100, 'Meal Type name max length is 100 characters'),
 })
-export const PartialMealTypeSchema = MealTypeSchema.partial()
