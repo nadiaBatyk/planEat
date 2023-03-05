@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { MealController } from '../controllers/meal.controller'
-import { validate } from '../middlewares/validation/validate'
+import { validate } from '../middlewares/validation/validate.middleware'
 import { MealSchema } from '../middlewares/validation/schemas/meal.schema'
 import { MealIngredientSchema } from '../middlewares/validation/schemas/mealIngredient.schema'
 

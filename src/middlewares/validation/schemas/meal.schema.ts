@@ -16,3 +16,4 @@ export const MealSchema = z.object({
     })
     .positive(),
 })
+export const PartialMealSchema = MealSchema.partial()

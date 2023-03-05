@@ -19,20 +19,8 @@ export class Ingredient extends Model {
 
   @AllowNull(false)
   @Is('validUnit', value => {
-    const units: MeasureUnit[] = [
-      'unidades',
-      'cucharas de sopa',
-      'gramos',
-      'kilos',
-      'mililitros',
-      'cm3',
-      'litros',
-      'cucharas de te',
-      'tazas',
-      'rodajas',
-      'piezas',
-    ]
-    if (!units.includes(value)) throw new Error('not a valid optioon')
+    if (!Object.keys(MeasureUnit).includes(value))
+      throw new Error('not a valid optioon')
   })
   @Column(DataTypes.STRING(50))
   unit!: MeasureUnit
