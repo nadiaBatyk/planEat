@@ -10,7 +10,38 @@ import {
 import { Meal } from './Meal'
 import { MealIngredient } from './MealIngredient'
 import { MeasureUnit } from '../../common/types/measureUnit.types'
-
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Ingredient:
+ *       type: object
+ *       required:
+ *         - name
+ *         - unit
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *           example: Rice
+ *         unit:
+ *           type: string
+ *           enum:
+ *             - unidades
+ *             - cucharas de sopa
+ *             - gramos
+ *             - kilos
+ *             - cm3
+ *             - mililitros
+ *             - litros
+ *             - cucharas de te
+ *             - tazas
+ *             - rodajas
+ *             - piezas
+ *             - hojas
+ *
+ */
 @Table({ timestamps: false })
 export class Ingredient extends Model {
   @AllowNull(false)
