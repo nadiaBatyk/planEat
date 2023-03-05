@@ -18,11 +18,11 @@ import { MealFeature } from './MealFeature'
  *       required:
  *         - name
  *       properties:
- *         id:
- *           type: integer
  *         name:
  *           type: string
  *           example: Instructions
+ *         MealFeature:
+ *           $ref: "#/components/schemas/MealFeature"
  *
  */
 @Table({ timestamps: false })

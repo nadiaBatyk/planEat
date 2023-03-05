@@ -40,6 +40,8 @@ import { MeasureUnit } from '../../common/types/measureUnit.types'
  *             - rodajas
  *             - piezas
  *             - hojas
+ *         MealIngredient:
+ *           $ref: "#/components/schemas/MealIngredient"
  *
  */
 @Table({ timestamps: false })

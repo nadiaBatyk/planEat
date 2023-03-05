@@ -28,6 +28,16 @@ import { MealFeature } from './MealFeature'
  *           example: Fideos con tuco
  *         mealTypeId:
  *           type: integer
+ *         mealType:
+ *           $ref: "#/components/schemas/MealType"
+ *         ingredients:
+ *           type: array
+ *           items:
+ *              $ref: "#/components/schemas/Ingredient"
+ *         features:
+ *           type: array
+ *           items:
+ *              $ref: "#/components/schemas/Feature"
  */
 @Table({ timestamps: false })
 export class Meal extends Model {
