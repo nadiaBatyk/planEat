@@ -11,15 +11,20 @@ const options: swaggerJsdoc.Options = {
     },
     openapi: '3.0.0',
   },
-  apis: ['../routes/*.ts'],
+  servers: [
+    {
+      url: 'http://localhost:3000',
+    },
+  ],
+  apis: ['./src/routes/*.ts', './src/db/models/*.ts'],
 }
 const swaggerSpec = swaggerJsdoc(options)
 
 function swaggerDocs(app: Express, port: number) {
   //swagger page
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+  app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
   //docs in JSON format
-  app.get('/docs.json', (_req: Request, res: Response) => {
+  app.get('/api/v1/docs.json', (_req: Request, res: Response) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(swaggerSpec)
   })

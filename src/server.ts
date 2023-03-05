@@ -26,13 +26,13 @@ async function main(): Promise<void> {
     app.listen(PORT, () => {
       console.log(`Succesfully connected to port ${PORT}`)
       swaggerDocs(app, 3000)
+      app.use(errorHandler)
+      app.use(notFoundHandler)
     })
   } catch (error) {
     console.error('Unable to connect to the database:', error)
     app.on('error', err => console.log(`Error on server: ${err}`))
   }
-  app.use(errorHandler)
-  app.use(notFoundHandler)
 }
 
 void main()

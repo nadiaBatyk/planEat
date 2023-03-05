@@ -7,7 +7,27 @@ import { MealFeatureSchema } from '../middlewares/validation/schemas/mealFeature
 
 const mealRoutes = Router()
 const mealController = new MealController()
-
+/**
+ * @openapi
+ *  /api/v1/meals:
+ *   get:
+ *     tags:
+ *       - Meals
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 mealTypeId:
+ *                   type: integer
+ */
 mealRoutes
   .route('/')
   .get(mealController.getMeals)
