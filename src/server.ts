@@ -4,6 +4,7 @@ import { sequelize } from './db/config'
 import appRouter from './routes/app.routes'
 import { errorHandler } from './middlewares/error.middleware'
 import { notFoundHandler } from './middlewares/not-found.middleware'
+import swaggerDocs from './common/swagger'
 
 dotenv.config()
 const app = express()
@@ -17,8 +18,6 @@ async function main(): Promise<void> {
 
   // ROUTES
   app.use('/api/v1', appRouter)
-  app.use(errorHandler)
-  app.use(notFoundHandler)
 
   try {
     await sequelize.authenticate()
@@ -26,11 +25,14 @@ async function main(): Promise<void> {
     await sequelize.sync({ alter: isDev })
     app.listen(PORT, () => {
       console.log(`Succesfully connected to port ${PORT}`)
+      swaggerDocs(app, 3000)
     })
   } catch (error) {
     console.error('Unable to connect to the database:', error)
     app.on('error', err => console.log(`Error on server: ${err}`))
   }
+  app.use(errorHandler)
+  app.use(notFoundHandler)
 }
 
 void main()
