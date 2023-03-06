@@ -29,7 +29,7 @@ import { MealIngredientDTOResponse } from './mealIngredient.dto'
  *             - piezas
  *             - hojas
  *         MealIngredient:
- *           $ref: "#/components/schemas/MealIngredient"
+ *           $ref: "#/components/schemas/MealIngredientDTOResponse"
  *
  */
 export interface IngredientDTOResponse {

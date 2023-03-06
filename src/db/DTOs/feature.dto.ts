@@ -13,7 +13,7 @@ import { MealFeatureDTOResponse } from './mealFeature.dto'
  *           type: string
  *           example: Instructions
  *         MealFeature:
- *           $ref: "#/components/schemas/MealFeature"
+ *           $ref: "#/components/schemas/MealFeatureDTOResponse"
  */
 export interface FeatureDTOResponse {
   id?: number

@@ -18,7 +18,9 @@ const mealTypeController = new MealTypeController()
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealType"
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/MealTypeDTOResponse"
  *   post:
  *     tags:
  *       - MealTypes
@@ -28,7 +30,7 @@ const mealTypeController = new MealTypeController()
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/MealType"
+ *             $ref: "#/components/schemas/MealTypeDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -36,7 +38,7 @@ const mealTypeController = new MealTypeController()
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealType"
+ *               $ref: "#/components/schemas/MealTypeDTOResponse"
  *       400:
  *         description: Invalid input
  */
@@ -47,26 +49,20 @@ mealTypeRoutes
 
 /**
  * @openapi
- *  /api/v1/mealTypes/{id}:
+ *  /api/v1/mealTypes/{mealTypeId}:
  *   get:
  *     tags:
  *       - MealTypes
  *     summary: Find meal type by Id
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of meal Type to return
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/mealTypeId"
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealType"
+ *               $ref: "#/components/schemas/MealTypeDTOResponse"
  *       400:
  *         description: Bad Request
  *       404:
@@ -76,19 +72,13 @@ mealTypeRoutes
  *       - MealTypes
  *     summary: Updates an existing meal type
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of meal Type to update
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/mealTypeId"
  *     requestBody:
  *       description: Update a meal type
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/MealType"
+ *             $ref: "#/components/schemas/MealTypeDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -96,7 +86,7 @@ mealTypeRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealType"
+ *               $ref: "#/components/schemas/MealTypeDTOResponse"
  *       400:
  *         description: Invalid input
  *   delete:
@@ -104,31 +94,49 @@ mealTypeRoutes
  *       - MealTypes
  *     summary: Deletes an existing meal type
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of meal Type to delete
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/mealTypeId"
  *     responses:
  *       200:
  *         description: OK - New Meal Type successfully deleted
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealType"
+ *               type: string
  *       400:
  *         description: Invalid input
  *       404:
  *         description: Meal Type not found
  */
 mealTypeRoutes
-  .route('/:id')
+  .route('/:mealTypeId')
   .get(mealTypeController.getMealTypeById)
   .put(validate(MealTypeSchema), mealTypeController.updateMealType)
   .delete(mealTypeController.deleteMealType)
 
-mealTypeRoutes.route('/:id/meals').get(mealTypeController.getMealsInType)
+/**
+ * @openapi
+ *  /api/v1/mealTypes/{mealTypeId}/meals:
+ *   get:
+ *     tags:
+ *       - MealTypes
+ *     summary: Find meals by type
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealTypeId"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             type: array
+ *              items:
+ *                $ref: "#/components/schemas/MealTypeDTOResponse"
+ *       400:
+ *         description: Bad Request
+ *       404:
+ *         description: Meal Type not found
+ */
+mealTypeRoutes
+  .route('/:mealTypeId/meals')
+  .get(mealTypeController.getMealsInType)
 
 export default mealTypeRoutes
