@@ -1,6 +1,6 @@
 import HttpException from '../../../common/error/HttpException'
 import { MealDTORequest } from '../../DTOs/meal.dto'
-import { MealFeatureDTO } from '../../DTOs/mealFeature.dto'
+import { MealFeatureDTORequest } from '../../DTOs/mealFeature.dto'
 import { MealIngredientDTORequest } from '../../DTOs/mealIngredient.dto'
 import { Feature } from '../../models/Feature'
 
@@ -167,22 +167,25 @@ export class MealDao implements IMealDao {
   }
   //MEAL_FEATURES CRUD
 
-  addFeatureToMeal = async (mealFeature: MealFeatureDTO): Promise<Meal> => {
+  addFeatureToMeal = async (
+    mealId: number,
+    mealFeatureReq: MealFeatureDTORequest
+  ): Promise<Meal> => {
     try {
-      const meal = await this.getMealById(mealFeature.mealId)
+      const meal = await this.getMealById(mealId)
       if (meal) {
-        await meal.$add('feature', mealFeature.featureId, {
+        await meal.$add('feature', mealFeatureReq.featureId, {
           through: {
             model: MealFeature,
-            value: mealFeature.value,
+            value: mealFeatureReq.value,
           },
         })
-        return await this.getMealById(mealFeature.mealId)
+        return await this.getMealById(mealId)
       }
 
       throw new HttpException(
         404,
-        `Meal with id ${mealFeature.mealId} does not exist`,
+        `Meal with id ${mealId} does not exist`,
         'Not Found'
       )
     } catch (error) {

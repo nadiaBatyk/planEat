@@ -1,4 +1,4 @@
-import { MealFeatureDTO } from './mealFeature.dto'
+import { MealFeatureDTOResponse } from './mealFeature.dto'
 /**
  * @openapi
  * components:
@@ -18,7 +18,7 @@ import { MealFeatureDTO } from './mealFeature.dto'
 export interface FeatureDTOResponse {
   id?: number
   name: string
-  mealFeature?: MealFeatureDTO
+  mealFeature?: MealFeatureDTOResponse
 }
 /**
  * @openapi
