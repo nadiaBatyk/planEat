@@ -25,8 +25,8 @@ export class MealTypeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const mealType = await this.mealTypeService.getMealTypeById(+id)
+      const { mealTypeId } = req.params
+      const mealType = await this.mealTypeService.getMealTypeById(+mealTypeId)
       res.status(200).json(mealType)
     } catch (error) {
       next(error)
@@ -38,8 +38,8 @@ export class MealTypeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const meals = await this.mealTypeService.getMealsInType(+id)
+      const { mealTypeId } = req.params
+      const meals = await this.mealTypeService.getMealsInType(+mealTypeId)
       res.status(200).json(meals)
     } catch (error) {
       console.log(error)
@@ -66,10 +66,10 @@ export class MealTypeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
+      const { mealTypeId } = req.params
       const newMealType: MealTypeDTORequest = req.body
       const mealType = await this.mealTypeService.updateMealType(
-        +id,
+        +mealTypeId,
         newMealType
       )
       res.status(200).json(mealType)
@@ -83,8 +83,8 @@ export class MealTypeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const message = await this.mealTypeService.deleteMealType(+id)
+      const { mealTypeId } = req.params
+      const message = await this.mealTypeService.deleteMealType(+mealTypeId)
       res.status(200).json(message)
     } catch (error) {
       next(error)
