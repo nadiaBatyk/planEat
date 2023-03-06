@@ -1,12 +1,14 @@
-import { FeatureDTO } from './feature.dto'
-import { IngredientDTO } from './ingredient.dto'
-import { MealTypeDTO } from './mealType.dto'
+import { FeatureDTOResponse } from './feature.dto'
+import { IngredientDTOResponse } from './ingredient.dto'
+import { MealTypeDTOResponse } from './mealType.dto'
 
-export interface MealDTO {
+export interface MealDTOResponse {
   id?: number
   name: string
   mealTypeId?: number
-  mealType?: MealTypeDTO
-  ingredients?: IngredientDTO[]
-  features?: FeatureDTO[]
+  mealType?: MealTypeDTOResponse
+  ingredients?: IngredientDTOResponse[]
+  features?: FeatureDTOResponse[]
 }
+
+export type MealDTORequest = Pick<MealDTOResponse, 'name' | 'mealTypeId'>

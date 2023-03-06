@@ -1,5 +1,5 @@
 import HttpException from '../../../common/error/HttpException'
-import { IngredientDTO } from '../../DTOs/ingredient.dto'
+import { IngredientDTORequest } from '../../DTOs/ingredient.dto'
 import { Ingredient } from '../../models/Ingredient'
 import { IIngredientDao } from '../interfaces/ingredientDao.interface'
 
@@ -47,7 +47,7 @@ export class IngredientDao implements IIngredientDao {
       throw error
     }
   }
-  create = async (ingredient: IngredientDTO): Promise<Ingredient> => {
+  create = async (ingredient: IngredientDTORequest): Promise<Ingredient> => {
     try {
       const newIngredient = await Ingredient.create({ ...ingredient })
       return newIngredient.dataValues
@@ -57,7 +57,7 @@ export class IngredientDao implements IIngredientDao {
   }
   update = async (
     id: number,
-    ingredient: IngredientDTO
+    ingredient: IngredientDTORequest
   ): Promise<Ingredient> => {
     try {
       const currentIngredient = await Ingredient.findByPk(id)

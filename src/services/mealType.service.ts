@@ -1,6 +1,9 @@
 import { MealTypeDao } from '../db/DAOs/classes/mealType.dao'
-import { MealDTO } from '../db/DTOs/meal.dto'
-import { MealTypeDTO } from '../db/DTOs/mealType.dto'
+import { MealDTOResponse } from '../db/DTOs/meal.dto'
+import {
+  MealTypeDTORequest,
+  MealTypeDTOResponse,
+} from '../db/DTOs/mealType.dto'
 import { MealMap } from '../db/mappers/meal.map'
 import { MealTypeMap } from '../db/mappers/mealType.map'
 
@@ -9,26 +12,28 @@ export class MealTypeService {
   constructor() {
     this.mealTypeDao = new MealTypeDao()
   }
-  getMealTypes = async (): Promise<MealTypeDTO[]> => {
+  getMealTypes = async (): Promise<MealTypeDTOResponse[]> => {
     const mealTypes = await this.mealTypeDao.getMealTypes()
     return mealTypes.map(m => MealTypeMap.toDTO(m))
   }
-  getMealTypeById = async (id: number): Promise<MealTypeDTO> => {
+  getMealTypeById = async (id: number): Promise<MealTypeDTOResponse> => {
     const mealType = await this.mealTypeDao.getMealTypeById(id)
     return MealTypeMap.toDTO(mealType)
   }
-  getMealsInType = async (id: number): Promise<MealDTO[]> => {
+  getMealsInType = async (id: number): Promise<MealDTOResponse[]> => {
     const meals = await this.mealTypeDao.getMealsInType(id)
     return meals.map(m => MealMap.toDTO(m))
   }
-  createMealType = async (mealType: MealTypeDTO): Promise<MealTypeDTO> => {
+  createMealType = async (
+    mealType: MealTypeDTORequest
+  ): Promise<MealTypeDTOResponse> => {
     const newMeal = await this.mealTypeDao.create(mealType)
     return MealTypeMap.toDTO(newMeal)
   }
   updateMealType = async (
     id: number,
-    mealType: MealTypeDTO
-  ): Promise<MealTypeDTO> => {
+    mealType: MealTypeDTOResponse
+  ): Promise<MealTypeDTOResponse> => {
     const updatedMealType = await this.mealTypeDao.update(id, mealType)
     return MealTypeMap.toDTO(updatedMealType)
   }

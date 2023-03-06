@@ -1,5 +1,5 @@
 import HttpException from '../../../common/error/HttpException'
-import { FeatureDTO } from '../../DTOs/feature.dto'
+import { FeatureDTORequest } from '../../DTOs/feature.dto'
 import { Feature } from '../../models/Feature'
 import { IFeatureDao } from '../interfaces/featureDao.interface'
 
@@ -48,7 +48,7 @@ export class FeatureDao implements IFeatureDao {
       throw error
     }
   }
-  create = async (t: FeatureDTO): Promise<Feature> => {
+  create = async (t: FeatureDTORequest): Promise<Feature> => {
     try {
       const mealType = await Feature.create({ ...t })
       return mealType.dataValues
@@ -56,7 +56,7 @@ export class FeatureDao implements IFeatureDao {
       throw error
     }
   }
-  update = async (id: number, m: FeatureDTO): Promise<Feature> => {
+  update = async (id: number, m: FeatureDTORequest): Promise<Feature> => {
     try {
       const mealType = await Feature.findByPk(id)
       if (mealType) {

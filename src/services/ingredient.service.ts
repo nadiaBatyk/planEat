@@ -1,5 +1,8 @@
 import { IngredientDao } from '../db/DAOs/classes/ingredient.dao'
-import { IngredientDTO } from '../db/DTOs/ingredient.dto'
+import {
+  IngredientDTORequest,
+  IngredientDTOResponse,
+} from '../db/DTOs/ingredient.dto'
 import { IngredientMap } from '../db/mappers/ingredient.map'
 
 export class IngredientService {
@@ -7,24 +10,24 @@ export class IngredientService {
   constructor() {
     this.ingredientDao = new IngredientDao()
   }
-  getIngredients = async (): Promise<IngredientDTO[]> => {
+  getIngredients = async (): Promise<IngredientDTOResponse[]> => {
     const ingredients = await this.ingredientDao.getIngredients()
     return ingredients.map(m => IngredientMap.toDTO(m))
   }
-  getIngredientById = async (id: number): Promise<IngredientDTO> => {
+  getIngredientById = async (id: number): Promise<IngredientDTOResponse> => {
     const ingredient = await this.ingredientDao.getIngredientById(id)
     return IngredientMap.toDTO(ingredient)
   }
   createIngredient = async (
-    ingredient: IngredientDTO
-  ): Promise<IngredientDTO> => {
+    ingredient: IngredientDTORequest
+  ): Promise<IngredientDTOResponse> => {
     const newIngredient = await this.ingredientDao.create(ingredient)
     return IngredientMap.toDTO(newIngredient)
   }
   updateIngredient = async (
     id: number,
-    ingredient: IngredientDTO
-  ): Promise<IngredientDTO> => {
+    ingredient: IngredientDTORequest
+  ): Promise<IngredientDTOResponse> => {
     const updatedIngredient = await this.ingredientDao.update(id, ingredient)
     return IngredientMap.toDTO(updatedIngredient)
   }

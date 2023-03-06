@@ -1,4 +1,5 @@
-export interface MealTypeDTO {
-    id?: number
-    name: string
-  }
+export interface MealTypeDTOResponse {
+  id?: number
+  name: string
+}
+export type MealTypeDTORequest = Pick<MealTypeDTOResponse, 'name'>

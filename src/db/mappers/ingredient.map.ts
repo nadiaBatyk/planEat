@@ -1,8 +1,8 @@
-import { IngredientDTO } from '../DTOs/ingredient.dto'
+import { IngredientDTOResponse } from '../DTOs/ingredient.dto'
 import { Ingredient } from '../models/Ingredient'
 
 export class IngredientMap {
-  public static toDTO(ingredient: Ingredient): IngredientDTO {
+  public static toDTO(ingredient: Ingredient): IngredientDTOResponse {
     return {
       id: ingredient.id,
       name: ingredient.name,

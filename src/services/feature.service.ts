@@ -1,5 +1,5 @@
 import { FeatureDao } from '../db/DAOs/classes/feature.dao'
-import { FeatureDTO } from '../db/DTOs/feature.dto'
+import { FeatureDTORequest, FeatureDTOResponse } from '../db/DTOs/feature.dto'
 import { FeatureMap } from '../db/mappers/feature.map'
 
 export class FeatureService {
@@ -7,22 +7,24 @@ export class FeatureService {
   constructor() {
     this.featureDao = new FeatureDao()
   }
-  getFeatures = async (): Promise<FeatureDTO[]> => {
+  getFeatures = async (): Promise<FeatureDTOResponse[]> => {
     const features = await this.featureDao.getFeatures()
     return features.map(m => FeatureMap.toDTO(m))
   }
-  getFeatureById = async (id: number): Promise<FeatureDTO> => {
+  getFeatureById = async (id: number): Promise<FeatureDTOResponse> => {
     const feature = await this.featureDao.getFeatureById(id)
     return FeatureMap.toDTO(feature)
   }
-  createFeature = async (feature: FeatureDTO): Promise<FeatureDTO> => {
+  createFeature = async (
+    feature: FeatureDTORequest
+  ): Promise<FeatureDTOResponse> => {
     const newfeature = await this.featureDao.create(feature)
     return FeatureMap.toDTO(newfeature)
   }
   updateFeature = async (
     id: number,
-    feature: FeatureDTO
-  ): Promise<FeatureDTO> => {
+    feature: FeatureDTORequest
+  ): Promise<FeatureDTOResponse> => {
     const updatedfeature = await this.featureDao.update(id, feature)
     return FeatureMap.toDTO(updatedfeature)
   }

@@ -1,5 +1,5 @@
 import HttpException from '../../../common/error/HttpException'
-import { MealTypeDTO } from '../../DTOs/mealType.dto'
+import { MealTypeDTORequest } from '../../DTOs/mealType.dto'
 import { Meal } from '../../models/Meal'
 import { MealType } from '../../models/MealType'
 import { IMealTypeDao } from '../interfaces/mealTypeDao.interface'
@@ -61,7 +61,7 @@ export class MealTypeDao implements IMealTypeDao {
       throw error
     }
   }
-  create = async (t: MealTypeDTO): Promise<MealType> => {
+  create = async (t: MealTypeDTORequest): Promise<MealType> => {
     try {
       const mealType = await MealType.create({ ...t })
       return mealType.dataValues
@@ -69,7 +69,7 @@ export class MealTypeDao implements IMealTypeDao {
       throw error
     }
   }
-  update = async (id: number, m: MealTypeDTO): Promise<MealType> => {
+  update = async (id: number, m: MealTypeDTORequest): Promise<MealType> => {
     try {
       const mealType = await MealType.findByPk(id)
       if (mealType) {
