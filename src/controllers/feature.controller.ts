@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { FeatureService } from '../services/feature.service'
-import { FeatureDTO } from '../db/DTOs/feature.dto'
+import { FeatureDTORequest } from '../db/DTOs/feature.dto'
 
 export class FeatureController {
   featureService: FeatureService
@@ -39,7 +39,7 @@ export class FeatureController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const newFeature: FeatureDTO = req.body
+      const newFeature: FeatureDTORequest = req.body
       const feature = await this.featureService.createFeature(newFeature)
       res.status(200).json(feature)
     } catch (error) {
@@ -53,7 +53,7 @@ export class FeatureController {
   ): Promise<void> => {
     try {
       const { id } = req.params
-      const newFeature: FeatureDTO = req.body
+      const newFeature: FeatureDTORequest = req.body
       const feature = await this.featureService.updateFeature(+id, newFeature)
       res.status(200).json(feature)
     } catch (error) {

@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
-
 import { MealService } from '../services/meal.service'
-
-import { MealDTO } from '../db/DTOs/meal.dto'
 import { MealIngredientDTO } from '../db/DTOs/mealIngredient.dto'
 import { MealFeatureDTO } from '../db/DTOs/mealFeature.dto'
+import { MealDTORequest } from '../db/DTOs/meal.dto'
 
 export class MealController {
   mealService: MealService
@@ -84,7 +82,7 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const newMeal: MealDTO = req.body
+      const newMeal: MealDTORequest = req.body
       const meal = await this.mealService.createMeal(newMeal)
       res.status(200).json(meal)
     } catch (error) {
@@ -132,7 +130,7 @@ export class MealController {
   ): Promise<void> => {
     try {
       const { id } = req.params
-      const newMeal: MealDTO = req.body
+      const newMeal: MealDTORequest = req.body
       const meal = await this.mealService.updateMeal(+id, newMeal)
       res.status(200).json(meal)
     } catch (error) {

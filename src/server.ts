@@ -4,7 +4,7 @@ import { sequelize } from './db/config'
 import appRouter from './routes/app.routes'
 import { errorHandler } from './middlewares/error.middleware'
 import { notFoundHandler } from './middlewares/not-found.middleware'
-import swaggerDocs from './common/swagger'
+import swaggerDocs from './common/docs/swagger'
 
 dotenv.config()
 const app = express()

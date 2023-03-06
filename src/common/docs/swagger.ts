@@ -1,6 +1,6 @@
 import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
-import { version } from '../../package.json'
+import { version } from '../../../package.json'
 import { Express, Response, Request } from 'express'
 
 const options: swaggerJsdoc.Options = {
@@ -17,7 +17,7 @@ const options: swaggerJsdoc.Options = {
       description: 'Local server',
     },
   ],
-  apis: ['./src/routes/*.ts', './src/db/models/*.ts'],
+  apis: ['./src/routes/*.ts', './src/db/DTOs/*.ts'],
 }
 const swaggerSpec = swaggerJsdoc(options)
 

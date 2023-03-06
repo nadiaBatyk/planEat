@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { IngredientService } from '../services/ingredient.service'
-import { IngredientDTO } from '../db/DTOs/ingredient.dto'
+import { IngredientDTORequest } from '../db/DTOs/ingredient.dto'
 
 export class IngredientController {
   ingredientService: IngredientService = new IngredientService()
@@ -36,7 +36,7 @@ export class IngredientController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const newIngredient: IngredientDTO = req.body
+      const newIngredient: IngredientDTORequest = req.body
       const ingredient = await this.ingredientService.createIngredient(
         newIngredient
       )
@@ -52,7 +52,7 @@ export class IngredientController {
   ): Promise<void> => {
     try {
       const { id } = req.params
-      const newIngredient: IngredientDTO = req.body
+      const newIngredient: IngredientDTORequest = req.body
       const ingredient = await this.ingredientService.updateIngredient(
         +id,
         newIngredient
