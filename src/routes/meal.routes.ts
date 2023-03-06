@@ -164,7 +164,7 @@ mealRoutes
 
 /**
  * @openapi
- *  /api/v1/meals/{mealId}/ingredients/{ingredientId}
+ *  /api/v1/meals/{mealId}/ingredients/{ingredientId}:
  *   get:
  *     tags:
  *       - Meals
@@ -279,7 +279,7 @@ mealRoutes
 
 /**
  * @openapi
- *  /api/v1/meals/{mealId}/features/{featureId}
+ *  /api/v1/meals/{mealId}/features/{featureId}:
  *   get:
  *     tags:
  *       - Meals
