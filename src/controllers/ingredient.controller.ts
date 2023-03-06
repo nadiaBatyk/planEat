@@ -23,8 +23,10 @@ export class IngredientController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const ingredient = await this.ingredientService.getIngredientById(+id)
+      const { ingredientId } = req.params
+      const ingredient = await this.ingredientService.getIngredientById(
+        +ingredientId
+      )
       res.status(200).json(ingredient)
     } catch (error) {
       next(error)
@@ -51,10 +53,10 @@ export class IngredientController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
+      const { ingredientId } = req.params
       const newIngredient: IngredientDTORequest = req.body
       const ingredient = await this.ingredientService.updateIngredient(
-        +id,
+        +ingredientId,
         newIngredient
       )
       res.status(200).json(ingredient)
@@ -68,8 +70,10 @@ export class IngredientController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const message = await this.ingredientService.deleteIngredient(+id)
+      const { ingredientId } = req.params
+      const message = await this.ingredientService.deleteIngredient(
+        +ingredientId
+      )
       res.status(200).json(message)
     } catch (error) {
       next(error)

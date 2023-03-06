@@ -35,3 +35,17 @@ export interface FeatureDTOResponse {
  *
  */
 export type FeatureDTORequest = Pick<FeatureDTOResponse, 'name'>
+
+/**
+ * @openapi
+ * components:
+ *   parameters:
+ *     featureId:
+ *         name: id
+ *         in: path
+ *         description: ID of feature to return
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           format: int64
+ */

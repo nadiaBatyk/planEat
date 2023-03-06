@@ -25,8 +25,8 @@ export class FeatureController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const feature = await this.featureService.getFeatureById(+id)
+      const { featureId } = req.params
+      const feature = await this.featureService.getFeatureById(+featureId)
       res.status(200).json(feature)
     } catch (error) {
       next(error)
@@ -52,9 +52,12 @@ export class FeatureController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
+      const { featureId } = req.params
       const newFeature: FeatureDTORequest = req.body
-      const feature = await this.featureService.updateFeature(+id, newFeature)
+      const feature = await this.featureService.updateFeature(
+        +featureId,
+        newFeature
+      )
       res.status(200).json(feature)
     } catch (error) {
       next(error)
@@ -66,8 +69,8 @@ export class FeatureController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const message = await this.featureService.deleteFeature(+id)
+      const { featureId } = req.params
+      const message = await this.featureService.deleteFeature(+featureId)
       res.status(200).json(message)
     } catch (error) {
       next(error)

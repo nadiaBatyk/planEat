@@ -1,5 +1,6 @@
 import { MeasureUnit } from '../../common/types/measureUnit.types'
-import { MealIngredientDTO } from './mealIngredient.dto'
+import { MealIngredientDTOResponse } from './mealIngredient.dto'
+
 /**
  * @openapi
  * components:
@@ -35,7 +36,7 @@ export interface IngredientDTOResponse {
   id?: number
   name: string
   unit: MeasureUnit
-  mealIngredient?: MealIngredientDTO
+  mealIngredient?: MealIngredientDTOResponse
 }
 /**
  * @openapi
@@ -67,3 +68,17 @@ export interface IngredientDTOResponse {
  *             - hojas
  */
 export type IngredientDTORequest = Pick<IngredientDTOResponse, 'name' | 'unit'>
+
+/**
+ * @openapi
+ * components:
+ *   parameters:
+ *     ingredientId:
+ *         name: id
+ *         in: path
+ *         description: ID of ingredient to return
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           format: int64
+ */

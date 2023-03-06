@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { MealService } from '../services/meal.service'
-import { MealIngredientDTO } from '../db/DTOs/mealIngredient.dto'
 import { MealFeatureDTO } from '../db/DTOs/mealFeature.dto'
 import { MealDTORequest } from '../db/DTOs/meal.dto'
+import { MealIngredientDTORequest } from '../db/DTOs/mealIngredient.dto'
 
 export class MealController {
   mealService: MealService
@@ -27,8 +27,8 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const meal = await this.mealService.getMealById(+id)
+      const { mealId } = req.params
+      const meal = await this.mealService.getMealById(+mealId)
       res.status(200).json(meal)
     } catch (error) {
       next(error)
@@ -96,10 +96,10 @@ export class MealController {
   ): Promise<void> => {
     try {
       const { mealId } = req.params
-      const mealIngredient: MealIngredientDTO = req.body
-      mealIngredient.mealId = +mealId
+      const mealIngredientReq: MealIngredientDTORequest = req.body
       const newmealIngredient = await this.mealService.addMealIngredient(
-        mealIngredient
+        +mealId,
+        mealIngredientReq
       )
       res.status(200).json(newmealIngredient)
     } catch (error) {
@@ -129,9 +129,9 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
+      const { mealId } = req.params
       const newMeal: MealDTORequest = req.body
-      const meal = await this.mealService.updateMeal(+id, newMeal)
+      const meal = await this.mealService.updateMeal(+mealId, newMeal)
       res.status(200).json(meal)
     } catch (error) {
       next(error)

@@ -3,7 +3,7 @@ import { FeatureDTOResponse } from '../db/DTOs/feature.dto'
 import { IngredientDTOResponse } from '../db/DTOs/ingredient.dto'
 import { MealDTORequest, MealDTOResponse } from '../db/DTOs/meal.dto'
 import { MealFeatureDTO } from '../db/DTOs/mealFeature.dto'
-import { MealIngredientDTO } from '../db/DTOs/mealIngredient.dto'
+import { MealIngredientDTORequest } from '../db/DTOs/mealIngredient.dto'
 import { FeatureMap } from '../db/mappers/feature.map'
 import { IngredientMap } from '../db/mappers/ingredient.map'
 import { MealMap } from '../db/mappers/meal.map'
@@ -44,9 +44,13 @@ export class MealService {
     return MealMap.toDTO(newMeal)
   }
   addMealIngredient = async (
-    mealIngredient: MealIngredientDTO
+    mealId: number,
+    mealIngredientReq: MealIngredientDTORequest
   ): Promise<MealDTOResponse> => {
-    const meal = await this.mealDao.addIngredientToMeal(mealIngredient)
+    const meal = await this.mealDao.addIngredientToMeal(
+      mealId,
+      mealIngredientReq
+    )
     return MealMap.toDTO(meal)
   }
   deleteMealIngredient = async (

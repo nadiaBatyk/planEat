@@ -53,19 +53,13 @@ ingredientRoutes
 
 /**
  * @openapi
- *  /api/v1/ingredients/{id}:
+ *  /api/v1/ingredients/{ingredientId}:
  *   get:
  *     tags:
  *       - Ingredients
  *     summary: Find ingredient by Id
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of ingredient to return
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/ingredientId"
  *     responses:
  *       200:
  *         description: OK
@@ -82,13 +76,7 @@ ingredientRoutes
  *       - Ingredients
  *     summary: Updates an existing ingredient
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of ingredient to update
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/ingredientId"
  *     requestBody:
  *       description: Update a ingredient
  *       content:
@@ -110,13 +98,7 @@ ingredientRoutes
  *       - Ingredients
  *     summary: Deletes an existing ingredient
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of ingredient to delete
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/ingredientId"
  *     responses:
  *       200:
  *         description: OK - New ingredient successfully deleted
@@ -130,7 +112,7 @@ ingredientRoutes
  *         description: ingredient not found
  */
 ingredientRoutes
-  .route('/:id')
+  .route('/:ingredientId')
   .get(ingredientController.getIngredientById)
   .put(validate(PartialIngredientSchema), ingredientController.updateIngredient)
   .delete(ingredientController.deleteIngredient)

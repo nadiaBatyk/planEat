@@ -51,19 +51,13 @@ featureRoutes
 
 /**
  * @openapi
- *  /api/v1/features/{id}:
+ *  /api/v1/features/{featureId}:
  *   get:
  *     tags:
  *       - Features
  *     summary: Find feature by Id
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of feature to return
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/featureId"
  *     responses:
  *       200:
  *         description: OK
@@ -80,13 +74,7 @@ featureRoutes
  *       - Features
  *     summary: Updates an existing feature
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of feature to update
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/featureId"
  *     requestBody:
  *       description: Update a feature
  *       content:
@@ -108,13 +96,7 @@ featureRoutes
  *       - Features
  *     summary: Deletes an existing feature
  *     parameters:
- *      - name: id
- *        in: path
- *        description: ID of feature to delete
- *        required: true
- *        schema:
- *          type: integer
- *          format: int64
+ *      - $ref: "#/components/parameters/featureId"
  *     responses:
  *       200:
  *         description: OK - New feature successfully deleted
@@ -128,7 +110,7 @@ featureRoutes
  *         description: feature not found
  */
 featureRoutes
-  .route('/:id')
+  .route('/:featureId')
   .get(featureController.getFeatureById)
   .put(validate(FeatureSchema), featureController.updateFeature)
   .delete(featureController.deleteFeature)

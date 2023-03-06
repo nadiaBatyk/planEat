@@ -14,31 +14,6 @@ import { MealIngredient } from './MealIngredient'
 import { Feature } from './Feature'
 import { MealFeature } from './MealFeature'
 
-/**
- * @openapi
- * components:
- *   schemas:
- *     Meal:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *         name:
- *           type: string
- *           example: Fideos con tuco
- *         mealTypeId:
- *           type: integer
- *         mealType:
- *           $ref: "#/components/schemas/MealType"
- *         ingredients:
- *           type: array
- *           items:
- *              $ref: "#/components/schemas/Ingredient"
- *         features:
- *           type: array
- *           items:
- *              $ref: "#/components/schemas/Feature"
- */
 @Table({ timestamps: false })
 export class Meal extends Model {
   @AllowNull(false)
