@@ -20,7 +20,7 @@ const featureController = new FeatureController()
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Feature"
+ *               $ref: "#/components/schemas/FeatureDTOResponse"
  *   post:
  *     tags:
  *       - Features
@@ -30,7 +30,7 @@ const featureController = new FeatureController()
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Feature"
+ *             $ref: "#/components/schemas/FeatureDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -38,7 +38,7 @@ const featureController = new FeatureController()
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Feature"
+ *               $ref: "#/components/schemas/FeatureDTOResponse"
  *       400:
  *         description: Invalid input
  */
@@ -68,7 +68,7 @@ featureRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Feature"
+ *               $ref: "#/components/schemas/FeatureDTOResponse"
  *       400:
  *         description: Bad Request
  *       404:
@@ -90,7 +90,7 @@ featureRoutes
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Feature"
+ *             $ref: "#/components/schemas/FeatureDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -98,7 +98,7 @@ featureRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Feature"
+ *               $ref: "#/components/schemas/FeatureDTOResponse"
  *       400:
  *         description: Invalid input
  *   delete:
@@ -119,7 +119,7 @@ featureRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Feature"
+ *               type: string
  *       400:
  *         description: Invalid input
  *       404:

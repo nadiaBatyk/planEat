@@ -14,6 +14,16 @@ import { MealFeatureDTO } from './mealFeature.dto'
  *           example: Instructions
  *         MealFeature:
  *           $ref: "#/components/schemas/MealFeature"
+ */
+export interface FeatureDTOResponse {
+  id?: number
+  name: string
+  mealFeature?: MealFeatureDTO
+}
+/**
+ * @openapi
+ * components:
+ *   schemas:
  *     FeatureDTORequest:
  *       type: object
  *       required:
@@ -24,9 +34,4 @@ import { MealFeatureDTO } from './mealFeature.dto'
  *           example: Instructions
  *
  */
-export interface FeatureDTOResponse {
-  id?: number
-  name: string
-  mealFeature?: MealFeatureDTO
-}
 export type FeatureDTORequest = Pick<FeatureDTOResponse, 'name'>
