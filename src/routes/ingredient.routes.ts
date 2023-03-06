@@ -22,7 +22,9 @@ const ingredientController = new IngredientController()
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Ingredient"
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/IngredientDTOResponse"
  *   post:
  *     tags:
  *       - Ingredients
@@ -32,7 +34,7 @@ const ingredientController = new IngredientController()
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Ingredient"
+ *             $ref: "#/components/schemas/IngredientDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -40,7 +42,7 @@ const ingredientController = new IngredientController()
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Ingredient"
+ *               $ref: "#/components/schemas/IngredientDTOResponse"
  *       400:
  *         description: Invalid input
  */
@@ -70,7 +72,7 @@ ingredientRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Ingredient"
+ *               $ref: "#/components/schemas/IngredientDTOResponse"
  *       400:
  *         description: Bad Request
  *       404:
@@ -92,7 +94,7 @@ ingredientRoutes
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/Ingredient"
+ *             $ref: "#/components/schemas/IngredientDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -100,7 +102,7 @@ ingredientRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Ingredient"
+ *               $ref: "#/components/schemas/IngredientDTOResponse"
  *       400:
  *         description: Invalid input
  *   delete:
@@ -121,7 +123,7 @@ ingredientRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Ingredient"
+ *               type: string
  *       400:
  *         description: Invalid input
  *       404:

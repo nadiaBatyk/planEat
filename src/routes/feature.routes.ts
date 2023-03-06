@@ -20,7 +20,9 @@ const featureController = new FeatureController()
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/FeatureDTOResponse"
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/FeatureDTOResponse"
  *   post:
  *     tags:
  *       - Features
