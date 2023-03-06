@@ -128,8 +128,8 @@ mealTypeRoutes
  *         content:
  *           application/json:
  *             type: array
- *              items:
- *                $ref: "#/components/schemas/MealTypeDTOResponse"
+ *             items:
+ *               $ref: "#/components/schemas/MealTypeDTOResponse"
  *       400:
  *         description: Bad Request
  *       404:

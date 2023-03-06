@@ -41,7 +41,7 @@ export type FeatureDTORequest = Pick<FeatureDTOResponse, 'name'>
  * components:
  *   parameters:
  *     featureId:
- *         name: id
+ *         name: featureId
  *         in: path
  *         description: ID of feature to return
  *         required: true

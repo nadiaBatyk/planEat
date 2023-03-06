@@ -74,7 +74,7 @@ export type IngredientDTORequest = Pick<IngredientDTOResponse, 'name' | 'unit'>
  * components:
  *   parameters:
  *     ingredientId:
- *         name: id
+ *         name: ingredientId
  *         in: path
  *         description: ID of ingredient to return
  *         required: true

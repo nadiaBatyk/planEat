@@ -162,17 +162,184 @@ mealRoutes
   .get(mealController.getMealIngredients)
   .post(validate(MealIngredientSchema), mealController.addMealIngredient)
 
+/**
+ * @openapi
+ *  /api/v1/meals/{mealId}/ingredients/{ingredientId}
+ *   get:
+ *     tags:
+ *       - Meals
+ *     summary: Find meal ingredient by Id
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *      - $ref: "#/components/parameters/ingredientId"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/IngredientDTOResponse"
+ *       400:
+ *         description: Bad Request
+ *       404:
+ *         description: meal not found
+ *   put:
+ *     tags:
+ *       - Meals
+ *     summary: Updates the quantity of an existent ingredient in meal
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *      - $ref: "#/components/parameters/ingredientId"
+ *     requestBody:
+ *       description: Update a meal ingredient
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/MealIngredientDTORequest"
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: OK - Ingredient in meal successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/MealDTOResponse"
+ *       400:
+ *         description: Invalid input
+ *   delete:
+ *     tags:
+ *       - Meals
+ *     summary: Deletes an existing meal ingredient
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *      - $ref: "#/components/parameters/ingredientId"
+ *     responses:
+ *       200:
+ *         description: OK - Meal ingredient successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *       400:
+ *         description: Invalid input
+ *       404:
+ *         description: meal not found
+ */
 mealRoutes
   .route('/:mealId/ingredients/:ingredientId')
   .get(mealController.getMealIngredientById)
   .put(validate(MealIngredientSchema), mealController.addMealIngredient)
   .delete(mealController.deleteMealIngredient)
 
+/**
+ * @openapi
+ *  /api/v1/meals/{mealId}/features:
+ *   get:
+ *     tags:
+ *       - Meals
+ *     summary: Find all features in one meal
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/FeatureDTOResponse"
+ *   post:
+ *     tags:
+ *       - Meals
+ *     summary: Add a feature to a meal
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *     requestBody:
+ *       description: Add an ingredient to a meal
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/MealFeatureDTORequest"
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: OK - New feature successfully added to meal
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/MealDTOResponse"
+ *       400:
+ *         description: Invalid input
+ */
 mealRoutes
   .route('/:mealId/features')
   .get(mealController.getMealFeatures)
   .post(validate(MealFeatureSchema), mealController.addMealFeature)
 
+/**
+ * @openapi
+ *  /api/v1/meals/{mealId}/features/{featureId}
+ *   get:
+ *     tags:
+ *       - Meals
+ *     summary: Find meal feature by Id
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *      - $ref: "#/components/parameters/featureId"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/FeatureDTOResponse"
+ *       400:
+ *         description: Bad Request
+ *       404:
+ *         description: meal not found
+ *   put:
+ *     tags:
+ *       - Meals
+ *     summary: Updates the value of an existent feature in meal
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *      - $ref: "#/components/parameters/featureId"
+ *     requestBody:
+ *       description: Update a meal feature
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/MealFeatureDTORequest"
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: OK - Feature in meal successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/MealDTOResponse"
+ *       400:
+ *         description: Invalid input
+ *   delete:
+ *     tags:
+ *       - Meals
+ *     summary: Deletes an existing meal feature
+ *     parameters:
+ *      - $ref: "#/components/parameters/mealId"
+ *      - $ref: "#/components/parameters/featureId"
+ *     responses:
+ *       200:
+ *         description: OK - Meal feature successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *       400:
+ *         description: Invalid input
+ *       404:
+ *         description: meal not found
+ */
 mealRoutes
   .route('/:mealId/features/:featureId')
   .get(mealController.getMealFeatureById)

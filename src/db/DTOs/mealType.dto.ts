@@ -37,7 +37,7 @@ export type MealTypeDTORequest = Pick<MealTypeDTOResponse, 'name'>
  * components:
  *   parameters:
  *     mealTypeId:
- *         name: id
+ *         name: mealTypeId
  *         in: path
  *         description: ID of feature to return
  *         required: true

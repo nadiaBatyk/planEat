@@ -57,7 +57,7 @@ export type MealDTORequest = Pick<MealDTOResponse, 'name' | 'mealTypeId'>
  * components:
  *   parameters:
  *     mealId:
- *         name: id
+ *         name: mealId
  *         in: path
  *         description: ID of meal to return
  *         required: true
