@@ -1,5 +1,8 @@
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
+import { MealDTOResponse } from '../db/DTOs/meal.dto'
 import { PlannerDTORequest, PlannerDTOResponse } from '../db/DTOs/planner.dto'
+import { PlannerMealDTORequest } from '../db/DTOs/plannerMeal.dto'
+import { MealMap } from '../db/mappers/meal.map'
 import { PlannerMap } from '../db/mappers/planner.map'
 
 export class PlannerService {
@@ -31,5 +34,19 @@ export class PlannerService {
   deletePlanner = async (id: number): Promise<string> => {
     const message = await this.plannerDao.delete(id)
     return message
+  }
+  getPlannerMeals = async (id: number): Promise<MealDTOResponse[]> => {
+    const planner = await this.plannerDao.getPlannerById(id)
+    return planner.meals.map(i => MealMap.toDTO(i))
+  }
+  addMealtoPlanner = async (
+    plannerId: number,
+    plannerMealReq: PlannerMealDTORequest
+  ): Promise<MealDTOResponse> => {
+    const planner = await this.plannerDao.addMealToPlanner(
+      plannerId,
+      plannerMealReq
+    )
+    return PlannerMap.toDTO(planner)
   }
 }

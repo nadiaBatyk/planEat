@@ -1,7 +1,9 @@
 import HttpException from '../../../common/error/HttpException'
 import { PlannerDTORequest } from '../../DTOs/planner.dto'
+import { PlannerMealDTORequest } from '../../DTOs/plannerMeal.dto'
 import { Meal } from '../../models/Meal'
 import { Planner } from '../../models/Planner'
+import { PlannerMeal } from '../../models/PlannerMeal'
 import { IPlannerDao } from '../interfaces/plannerDao.interface'
 
 export class PlannerDao implements IPlannerDao {
@@ -72,6 +74,32 @@ export class PlannerDao implements IPlannerDao {
       throw new HttpException(
         404,
         `Planner with id ${id} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+  addMealToPlanner = async (
+    plannerId: number,
+    plannerMealReq: PlannerMealDTORequest
+  ): Promise<Planner> => {
+    try {
+      const planner = await this.getPlannerById(plannerId)
+      if (planner) {
+        await planner.$add('meal', plannerMealReq.mealId, {
+          through: {
+            model: PlannerMeal,
+            mealTypeId: plannerMealReq.mealTypeId,
+            mealDate: plannerMealReq.mealDate,
+          },
+        })
+        return await this.getPlannerById(plannerId)
+      }
+
+      throw new HttpException(
+        404,
+        `Planner with id ${plannerId} does not exist`,
         'Not Found'
       )
     } catch (error) {
