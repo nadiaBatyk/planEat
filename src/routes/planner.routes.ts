@@ -114,11 +114,13 @@ plannerRoutes
 
 /**
  * @openapi
- *  /api/v1/planners/{:plannerId}/meals:
+ *  /api/v1/planners/{plannerId}/meals:
  *   get:
  *     tags:
  *       - Planners
  *     summary: Find all meals in one planner
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
  *     responses:
  *       200:
  *         description: OK
@@ -132,6 +134,8 @@ plannerRoutes
  *     tags:
  *       - Planners
  *     summary: Add a meal to a planner
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
  *     requestBody:
  *       description: Add a meal to a planner
  *       content:

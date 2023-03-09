@@ -25,7 +25,7 @@ export interface PlannerMealDTOResponse {
  * @openapi
  * components:
  *   schemas:
- *     PlannerMealDTOResponse:
+ *     PlannerMealDTORequest:
  *       type: object
  *       required:
  *         - mealId
