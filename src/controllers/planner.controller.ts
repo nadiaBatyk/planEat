@@ -46,7 +46,7 @@ export class PlannerController {
       next(error)
     }
   }
-  createMeal = async (
+  createPlanner = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -76,31 +76,47 @@ export class PlannerController {
       next(error)
     }
   }
-  //   updateMeal = async (
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ): Promise<void> => {
-  //     try {
-  //       const { mealId } = req.params
-  //       const newMeal: MealDTORequest = req.body
-  //       const meal = await this.plannerService.updateMeal(+mealId, newMeal)
-  //       res.status(200).json(meal)
-  //     } catch (error) {
-  //       next(error)
-  //     }
-  //   }
-  //   deleteMeal = async (
-  //     req: Request,
-  //     res: Response,
-  //     next: NextFunction
-  //   ): Promise<void> => {
-  //     try {
-  //       const { id } = req.params
-  //       const message = await this.plannerService.deleteMeal(+id)
-  //       res.status(200).json(message)
-  //     } catch (error) {
-  //       next(error)
-  //     }
-  //   }
+  getPlannerMeals = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { plannerId } = req.params
+      const meals = await this.plannerService.getPlannerMeals(+plannerId)
+      res.status(200).json(meals)
+    } catch (error) {
+      next(error)
+    }
+  }
+  updatePlanner = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { plannerId } = req.params
+      const newPlanner: PlannerDTORequest = req.body
+      const planner = await this.plannerService.updatePlanner(
+        +plannerId,
+        newPlanner
+      )
+      res.status(200).json(planner)
+    } catch (error) {
+      next(error)
+    }
+  }
+  deletePlanner = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const message = await this.plannerService.deletePlanner(+id)
+      res.status(200).json(message)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
