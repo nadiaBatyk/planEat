@@ -104,32 +104,11 @@ export class PlannerDao implements IPlannerDao {
     }
   }
   addEntryToPlanner = async (
-    plannerId: number,
+    planner: Planner,
     plannerEntryReq: PlannerEntryDTORequest
   ): Promise<Planner> => {
+    const plannerId = planner.id
     try {
-      const planner = await this.getPlannerById(plannerId)
-      const existentEntry = planner.plannerEntries.find(
-        entry =>
-          entry.mealId === plannerEntryReq.mealId &&
-          entry.mealTypeId === plannerEntryReq.mealTypeId &&
-          entry.mealDate === plannerEntryReq.mealDate
-      )
-      if (!planner) {
-        throw new HttpException(
-          404,
-          `Planner with id ${plannerId} does not exist`,
-          'Not Found'
-        )
-      }
-      if (existentEntry) {
-        throw new HttpException(
-          400,
-          `Planner already has an entry with mealId #${plannerEntryReq.mealId} and mealTypeId #${plannerEntryReq.mealTypeId} for the date ${plannerEntryReq.mealDate} `,
-          'Duplicated entry'
-        )
-      }
-
       const entry = await PlannerEntry.create({
         plannerId,
         ...plannerEntryReq,

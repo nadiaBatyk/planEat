@@ -29,7 +29,7 @@ export interface PlannerEntryDTOResponse {
   plannerId?: number
   mealId?: number
   mealTypeId?: number
-  mealDate?: Date
+  mealDate: Date
   planner?: PlannerDTOResponse
   meal?: MealDTOResponse
   mealType?: MealTypeDTOResponse

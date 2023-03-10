@@ -1,3 +1,4 @@
+import HttpException from '../common/error/HttpException'
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
 import { MealDTOResponse } from '../db/DTOs/meal.dto'
 import { PlannerDTORequest, PlannerDTOResponse } from '../db/DTOs/planner.dto'
@@ -53,10 +54,43 @@ export class PlannerService {
     plannerId: number,
     plannerEntryReq: PlannerEntryDTORequest
   ): Promise<PlannerDTOResponse> => {
-    const planner = await this.plannerDao.addEntryToPlanner(
-      plannerId,
+    const planner = await this.plannerDao.getPlannerById(plannerId)
+    const existentEntry =
+      planner.plannerEntries &&
+      planner.plannerEntries.find(
+        entry =>
+          entry.mealId === plannerEntryReq.mealId &&
+          entry.mealTypeId === plannerEntryReq.mealTypeId &&
+          entry.mealDate === plannerEntryReq.mealDate
+      )
+    if (
+      plannerEntryReq.mealDate < planner.startDate ||
+      plannerEntryReq.mealDate > planner.finishDate
+    ) {
+      throw new HttpException(
+        400,
+        `Planner is active from ${planner.startDate} to ${planner.finishDate}`,
+        'Meal date out of planner date range'
+      )
+    }
+    if (existentEntry) {
+      throw new HttpException(
+        400,
+        `Planner already has an entry with mealId #${plannerEntryReq.mealId} and mealTypeId #${plannerEntryReq.mealTypeId} for the date ${plannerEntryReq.mealDate} `,
+        'Duplicated entry'
+      )
+    }
+    if (!planner) {
+      throw new HttpException(
+        404,
+        `Planner with id ${plannerId} does not exist`,
+        'Not Found'
+      )
+    }
+    const updatedPlanner = await this.plannerDao.addEntryToPlanner(
+      planner,
       plannerEntryReq
     )
-    return PlannerMap.toDTO(planner)
+    return PlannerMap.toDTO(updatedPlanner)
   }
 }
