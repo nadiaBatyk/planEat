@@ -11,7 +11,17 @@ export class PlannerDao implements IPlannerDao {
   getPlannerById = async (id: number): Promise<Planner> => {
     try {
       const planner = await Planner.findByPk(id, {
-        include: [{ model: Meal }, { model: MealType }],
+        include: {
+          model: PlannerMeal,
+          include: [
+            {
+              model: Meal,
+            },
+            {
+              model: MealType,
+            },
+          ],
+        },
       })
 
       if (planner) {
@@ -29,7 +39,17 @@ export class PlannerDao implements IPlannerDao {
   getPlanners = async (): Promise<Planner[]> => {
     try {
       const planner = await Planner.findAll({
-        include: [{ model: Meal }],
+        include: {
+          model: PlannerMeal,
+          include: [
+            {
+              model: Meal,
+            },
+            {
+              model: MealType,
+            },
+          ],
+        },
         order: [['id', 'ASC']],
       })
       return planner

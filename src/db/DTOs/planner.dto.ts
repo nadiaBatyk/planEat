@@ -1,4 +1,4 @@
-import { MealDTOResponse } from './meal.dto'
+import { PlannerMealDTOResponse } from './plannerMeal.dto'
 
 /**
  * @openapi
@@ -31,7 +31,7 @@ export interface PlannerDTOResponse {
   startDate: Date
   finishDate: Date
   active: boolean
-  meals?: MealDTOResponse[]
+  meals?: PlannerMealDTOResponse[]
 }
 /**
  * @openapi

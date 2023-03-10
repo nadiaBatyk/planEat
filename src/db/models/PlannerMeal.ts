@@ -5,6 +5,7 @@ import {
   Model,
   ForeignKey,
   AllowNull,
+  BelongsTo,
 } from 'sequelize-typescript'
 import { Meal } from './Meal'
 import { Planner } from './Planner'
@@ -27,4 +28,13 @@ export class PlannerMeal extends Model {
   @AllowNull(false)
   @Column(DataTypes.DATEONLY)
   mealDate!: Date
+
+  @BelongsTo(() => Planner)
+  planner!: Planner
+
+  @BelongsTo(() => Meal)
+  meal!: Meal
+
+  @BelongsTo(() => MealType)
+  mealType!: MealType
 }

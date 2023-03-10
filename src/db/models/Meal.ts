@@ -7,12 +7,14 @@ import {
   ForeignKey,
   BelongsTo,
   BelongsToMany,
+  HasMany,
 } from 'sequelize-typescript'
 import { MealType } from './MealType'
 import { Ingredient } from './Ingredient'
 import { MealIngredient } from './MealIngredient'
 import { Feature } from './Feature'
 import { MealFeature } from './MealFeature'
+import { PlannerMeal } from './PlannerMeal'
 
 @Table({ timestamps: false })
 export class Meal extends Model {
@@ -33,4 +35,7 @@ export class Meal extends Model {
 
   @BelongsToMany(() => Feature, () => MealFeature)
   features!: Feature[]
+
+  @HasMany(() => PlannerMeal)
+  plannerMeals!: PlannerMeal[]
 }

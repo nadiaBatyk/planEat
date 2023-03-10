@@ -37,7 +37,7 @@ export class PlannerService {
   }
   getPlannerMeals = async (id: number): Promise<MealDTOResponse[]> => {
     const planner = await this.plannerDao.getPlannerById(id)
-    return planner.meals.map(i => MealMap.toDTO(i))
+    return planner.plannerMeals.map(i => MealMap.toDTO(i.meal))
   }
   addMealtoPlanner = async (
     plannerId: number,
