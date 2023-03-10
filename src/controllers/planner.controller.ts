@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { PlannerService } from '../services/planner.service'
 import { PlannerDTORequest } from '../db/DTOs/planner.dto'
-import { PlannerMealDTORequest } from '../db/DTOs/plannerEntry.dto'
+import { PlannerEntryDTORequest } from '../db/DTOs/plannerEntry.dto'
 
 export class PlannerController {
   plannerService: PlannerService
@@ -33,7 +33,7 @@ export class PlannerController {
       next(error)
     }
   }
-  getPlannerIngredients = async (
+  getPlannerMeals = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -42,6 +42,19 @@ export class PlannerController {
       const { plannerId } = req.params
       const meals = await this.plannerService.getPlannerMeals(+plannerId)
       res.status(200).json(meals)
+    } catch (error) {
+      next(error)
+    }
+  }
+  getPlannerEntries = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { plannerId } = req.params
+      const entries = await this.plannerService.getPlannerEntries(+plannerId)
+      res.status(200).json(entries)
     } catch (error) {
       next(error)
     }
@@ -66,29 +79,17 @@ export class PlannerController {
   ): Promise<void> => {
     try {
       const { plannerId } = req.params
-      const plannerMealReq: PlannerMealDTORequest = req.body
-      const newplannerMeal = await this.plannerService.addMealtoPlanner(
+      const plannerEntryReq: PlannerEntryDTORequest = req.body
+      const newplannerMeal = await this.plannerService.addEntrytoPlanner(
         +plannerId,
-        plannerMealReq
+        plannerEntryReq
       )
       res.status(200).json(newplannerMeal)
     } catch (error) {
       next(error)
     }
   }
-  getPlannerMeals = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> => {
-    try {
-      const { plannerId } = req.params
-      const meals = await this.plannerService.getPlannerMeals(+plannerId)
-      res.status(200).json(meals)
-    } catch (error) {
-      next(error)
-    }
-  }
+
   updatePlanner = async (
     req: Request,
     res: Response,

@@ -1,10 +1,10 @@
 import HttpException from '../../../common/error/HttpException'
 import { PlannerDTORequest } from '../../DTOs/planner.dto'
-import { PlannerMealDTORequest } from '../../DTOs/plannerEntry.dto'
+import { PlannerEntryDTORequest } from '../../DTOs/plannerEntry.dto'
 import { Meal } from '../../models/Meal'
 import { MealType } from '../../models/MealType'
 import { Planner } from '../../models/Planner'
-import { PlannerMeal } from '../../models/PlannerEntry'
+import { PlannerEntry } from '../../models/PlannerEntry'
 import { IPlannerDao } from '../interfaces/plannerDao.interface'
 
 export class PlannerDao implements IPlannerDao {
@@ -12,7 +12,7 @@ export class PlannerDao implements IPlannerDao {
     try {
       const planner = await Planner.findByPk(id, {
         include: {
-          model: PlannerMeal,
+          model: PlannerEntry,
           include: [
             {
               model: Meal,
@@ -40,7 +40,7 @@ export class PlannerDao implements IPlannerDao {
     try {
       const planner = await Planner.findAll({
         include: {
-          model: PlannerMeal,
+          model: PlannerEntry,
           include: [
             {
               model: Meal,
@@ -52,6 +52,8 @@ export class PlannerDao implements IPlannerDao {
         },
         order: [['id', 'ASC']],
       })
+      console.log(planner)
+
       return planner
     } catch (error) {
       throw error
@@ -101,28 +103,39 @@ export class PlannerDao implements IPlannerDao {
       throw error
     }
   }
-  addMealToPlanner = async (
+  addEntryToPlanner = async (
     plannerId: number,
-    plannerMealReq: PlannerMealDTORequest
+    plannerEntryReq: PlannerEntryDTORequest
   ): Promise<Planner> => {
     try {
       const planner = await this.getPlannerById(plannerId)
-      if (planner) {
-        await planner.$add('meal', plannerMealReq.mealId, {
-          through: {
-            model: PlannerMeal,
-            mealTypeId: plannerMealReq.mealTypeId,
-            mealDate: plannerMealReq.mealDate,
-          },
-        })
-        return await this.getPlannerById(plannerId)
+      const existentEntry = planner.plannerEntries.find(
+        entry =>
+          entry.mealId === plannerEntryReq.mealId &&
+          entry.mealTypeId === plannerEntryReq.mealTypeId &&
+          entry.mealDate === plannerEntryReq.mealDate
+      )
+      if (!planner) {
+        throw new HttpException(
+          404,
+          `Planner with id ${plannerId} does not exist`,
+          'Not Found'
+        )
+      }
+      if (existentEntry) {
+        throw new HttpException(
+          400,
+          `Planner already has an entry with mealId #${plannerEntryReq.mealId} and mealTypeId #${plannerEntryReq.mealTypeId} for the date ${plannerEntryReq.mealDate} `,
+          'Duplicated entry'
+        )
       }
 
-      throw new HttpException(
-        404,
-        `Planner with id ${plannerId} does not exist`,
-        'Not Found'
-      )
+      const entry = await PlannerEntry.create({
+        plannerId,
+        ...plannerEntryReq,
+      })
+      await planner.$add('plannerEntry', entry)
+      return await this.getPlannerById(plannerId)
     } catch (error) {
       throw error
     }

@@ -26,10 +26,10 @@ import { PlannerDTOResponse } from './planner.dto'
  *           $ref: "#/components/schemas/MealTypeDTOResponse"
  */
 export interface PlannerEntryDTOResponse {
-  plannerId: number
-  mealId: number
-  mealTypeId: number
-  mealDate: Date
+  plannerId?: number
+  mealId?: number
+  mealTypeId?: number
+  mealDate?: Date
   planner?: PlannerDTOResponse
   meal?: MealDTOResponse
   mealType?: MealTypeDTOResponse

@@ -14,7 +14,7 @@ export class PlannerMap {
         planner?.plannerEntries &&
         planner?.plannerEntries.map(i => {
           return {
-            ...i,
+            mealDate: i.mealDate,
             meal: MealMap.toDTO(i.meal),
             mealType: MealTypeMap.toDTO(i.mealType),
           }

@@ -141,7 +141,7 @@ plannerRoutes
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/PlannerMealDTORequest"
+ *             $ref: "#/components/schemas/PlannerEntryDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -157,3 +157,26 @@ plannerRoutes
   .route('/:plannerId/meals')
   .get(plannerController.getPlannerMeals)
   .post(plannerController.addMealToPlanner)
+
+/**
+ * @openapi
+ *  /api/v1/planners/{plannerId}/entries:
+ *   get:
+ *     tags:
+ *       - Planners
+ *     summary: Find all entries in one planner
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/PlannerEntryDTOResponse"
+ */
+plannerRoutes
+  .route('/:plannerId/entries')
+  .get(plannerController.getPlannerEntries)
