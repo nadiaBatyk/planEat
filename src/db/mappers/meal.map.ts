@@ -12,7 +12,6 @@ export class MealMap {
       ingredients:
         meal?.ingredients && meal.ingredients.map(i => IngredientMap.toDTO(i)),
       features: meal?.features && meal.features.map(i => FeatureMap.toDTO(i)),
-      plannerMeal: meal.dataValues?.PlannerMeal,
     }
   }
 }

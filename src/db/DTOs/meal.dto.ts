@@ -1,7 +1,6 @@
 import { FeatureDTOResponse } from './feature.dto'
 import { IngredientDTOResponse } from './ingredient.dto'
 import { MealTypeDTOResponse } from './mealType.dto'
-import { PlannerEntryDTOResponse } from './plannerEntry.dto'
 /**
  * @openapi
  * components:
@@ -34,7 +33,6 @@ export interface MealDTOResponse {
   mealType?: MealTypeDTOResponse
   ingredients?: IngredientDTOResponse[]
   features?: FeatureDTOResponse[]
-  plannerEntries?: PlannerEntryDTOResponse[]
 }
 /**
  * @openapi

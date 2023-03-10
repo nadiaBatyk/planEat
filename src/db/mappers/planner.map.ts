@@ -10,13 +10,13 @@ export class PlannerMap {
       startDate: planner.startDate,
       finishDate: planner.finishDate,
       active: planner.active,
-      meals:
-        planner?.plannerMeals &&
-        planner?.plannerMeals.map(i => {
+      plannerEntries:
+        planner?.plannerEntries &&
+        planner?.plannerEntries.map(i => {
           return {
             ...i,
-            ...MealMap.toDTO(i.meal),
-            ...MealTypeMap.toDTO(i.mealType),
+            meal: MealMap.toDTO(i.meal),
+            mealType: MealTypeMap.toDTO(i.mealType),
           }
         }),
     }
