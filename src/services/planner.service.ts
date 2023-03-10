@@ -1,5 +1,6 @@
 import HttpException from '../common/error/HttpException'
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
+import { PlannerEntryDao } from '../db/DAOs/classes/plannerEntry.dao'
 import { MealDTOResponse } from '../db/DTOs/meal.dto'
 import { PlannerDTORequest, PlannerDTOResponse } from '../db/DTOs/planner.dto'
 import {
@@ -11,8 +12,10 @@ import { PlannerMap } from '../db/mappers/planner.map'
 
 export class PlannerService {
   plannerDao: PlannerDao
+  plannerEntryDao: PlannerEntryDao
   constructor() {
     this.plannerDao = new PlannerDao()
+    this.plannerEntryDao = new PlannerEntryDao()
   }
   getPlanners = async (): Promise<PlannerDTOResponse[]> => {
     const planners = await this.plannerDao.getPlanners()
@@ -87,10 +90,8 @@ export class PlannerService {
         'Not Found'
       )
     }
-    const updatedPlanner = await this.plannerDao.addEntryToPlanner(
-      planner,
-      plannerEntryReq
-    )
+    await this.plannerEntryDao.create(plannerEntryReq)
+    const updatedPlanner = await this.plannerDao.getPlannerById(plannerId)
     return PlannerMap.toDTO(updatedPlanner)
   }
 }

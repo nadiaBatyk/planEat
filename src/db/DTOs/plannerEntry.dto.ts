@@ -9,6 +9,8 @@ import { PlannerDTOResponse } from './planner.dto'
  *     PlannerEntryDTOResponse:
  *       type: object
  *       properties:
+ *         id:
+ *           type: integer
  *         plannerId:
  *           type: integer
  *         mealId:
@@ -42,10 +44,13 @@ export interface PlannerEntryDTOResponse {
  *     PlannerEntryDTORequest:
  *       type: object
  *       required:
+ *         - plannerId
  *         - mealId
  *         - mealTypeId
  *         - mealDate
  *       properties:
+ *         plannerId:
+ *           type: integer
  *         mealId:
  *           type: integer
  *         mealTypeId:
@@ -56,5 +61,5 @@ export interface PlannerEntryDTOResponse {
  */
 export type PlannerEntryDTORequest = Pick<
   PlannerEntryDTOResponse,
-  'mealId' | 'mealTypeId' | 'mealDate'
+  'mealId' | 'mealTypeId' | 'mealDate' | 'plannerId'
 >
