@@ -113,8 +113,8 @@ export class PlannerController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const message = await this.plannerService.deletePlanner(+id)
+      const { plannerId } = req.params
+      const message = await this.plannerService.deletePlanner(+plannerId)
       res.status(200).json(message)
     } catch (error) {
       next(error)
