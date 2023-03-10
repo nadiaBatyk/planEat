@@ -1,7 +1,7 @@
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
 import { MealDTOResponse } from '../db/DTOs/meal.dto'
 import { PlannerDTORequest, PlannerDTOResponse } from '../db/DTOs/planner.dto'
-import { PlannerMealDTORequest } from '../db/DTOs/plannerMeal.dto'
+import { PlannerMealDTORequest } from '../db/DTOs/plannerEntry.dto'
 import { MealMap } from '../db/mappers/meal.map'
 import { PlannerMap } from '../db/mappers/planner.map'
 

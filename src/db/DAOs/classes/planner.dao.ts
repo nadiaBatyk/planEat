@@ -1,10 +1,10 @@
 import HttpException from '../../../common/error/HttpException'
 import { PlannerDTORequest } from '../../DTOs/planner.dto'
-import { PlannerMealDTORequest } from '../../DTOs/plannerMeal.dto'
+import { PlannerMealDTORequest } from '../../DTOs/plannerEntry.dto'
 import { Meal } from '../../models/Meal'
 import { MealType } from '../../models/MealType'
 import { Planner } from '../../models/Planner'
-import { PlannerMeal } from '../../models/PlannerMeal'
+import { PlannerMeal } from '../../models/PlannerEntry'
 import { IPlannerDao } from '../interfaces/plannerDao.interface'
 
 export class PlannerDao implements IPlannerDao {

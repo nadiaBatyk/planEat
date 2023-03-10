@@ -1,4 +1,4 @@
-import { PlannerMealDTOResponse } from './plannerMeal.dto'
+import { PlannerEntryDTOResponse } from './plannerEntry.dto'
 
 /**
  * @openapi
@@ -20,10 +20,10 @@ import { PlannerMealDTOResponse } from './plannerMeal.dto'
  *           format: date
  *         active:
  *           type: boolean
- *         meals:
+ *         plannerEntries:
  *           type: array
  *           items:
- *              $ref: "#/components/schemas/MealDTOResponse"
+ *              $ref: "#/components/schemas/PlannerEntryDTOResponse"
  */
 export interface PlannerDTOResponse {
   id?: number
@@ -31,7 +31,7 @@ export interface PlannerDTOResponse {
   startDate: Date
   finishDate: Date
   active: boolean
-  meals?: PlannerMealDTOResponse[]
+  plannerEntries?: PlannerEntryDTOResponse[]
 }
 /**
  * @openapi
@@ -57,7 +57,10 @@ export interface PlannerDTOResponse {
  *         active:
  *           type: boolean
  */
-export type PlannerDTORequest = Omit<PlannerDTOResponse, 'meals' | 'id'>
+export type PlannerDTORequest = Omit<
+  PlannerDTOResponse,
+  'plannerEntries' | 'id'
+>
 
 /**
  * @openapi

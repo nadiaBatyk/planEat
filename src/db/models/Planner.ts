@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import { Table, Column, Model, AllowNull, HasMany } from 'sequelize-typescript'
-import { PlannerMeal } from './PlannerMeal'
+import { PlannerEntry } from './PlannerEntry'
 
 @Table({ timestamps: false })
 export class Planner extends Model {
@@ -20,6 +20,6 @@ export class Planner extends Model {
   @Column(DataTypes.BOOLEAN)
   active!: boolean
 
-  @HasMany(() => PlannerMeal)
-  plannerMeals!: PlannerMeal[]
+  @HasMany(() => PlannerEntry)
+  plannerEntries!: PlannerEntry[]
 }

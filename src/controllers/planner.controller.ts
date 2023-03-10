@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { PlannerService } from '../services/planner.service'
 import { PlannerDTORequest } from '../db/DTOs/planner.dto'
-import { PlannerMealDTORequest } from '../db/DTOs/plannerMeal.dto'
+import { PlannerMealDTORequest } from '../db/DTOs/plannerEntry.dto'
 
 export class PlannerController {
   plannerService: PlannerService

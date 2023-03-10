@@ -12,7 +12,7 @@ import { Planner } from './Planner'
 import { MealType } from './MealType'
 
 @Table({ timestamps: false })
-export class PlannerMeal extends Model {
+export class PlannerEntry extends Model {
   @ForeignKey(() => Planner)
   @Column
   plannerId!: number

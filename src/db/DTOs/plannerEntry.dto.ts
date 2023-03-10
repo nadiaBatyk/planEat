@@ -1,8 +1,12 @@
+import { MealDTOResponse } from './meal.dto'
+import { MealTypeDTOResponse } from './mealType.dto'
+import { PlannerDTOResponse } from './planner.dto'
+
 /**
  * @openapi
  * components:
  *   schemas:
- *     PlannerMealDTOResponse:
+ *     PlannerEntryDTOResponse:
  *       type: object
  *       properties:
  *         plannerId:
@@ -14,26 +18,33 @@
  *         mealDate:
  *           type: integer
  *           format: date
+ *         planner:
+ *           $ref: "#/components/schemas/PlannerDTOResponse"
+ *         meal:
+ *           $ref: "#/components/schemas/MealDTOResponse"
+ *         mealType:
+ *           $ref: "#/components/schemas/MealTypeDTOResponse"
  */
-export interface PlannerMealDTOResponse {
+export interface PlannerEntryDTOResponse {
   plannerId: number
   mealId: number
   mealTypeId: number
   mealDate: Date
+  planner?: PlannerDTOResponse
+  meal?: MealDTOResponse
+  mealType?: MealTypeDTOResponse
 }
 /**
  * @openapi
  * components:
  *   schemas:
- *     PlannerMealDTORequest:
+ *     PlannerEntryDTORequest:
  *       type: object
  *       required:
  *         - mealId
  *         - mealTypeId
  *         - mealDate
  *       properties:
- *         plannerId:
- *           type: integer
  *         mealId:
  *           type: integer
  *         mealTypeId:
@@ -42,4 +53,7 @@ export interface PlannerMealDTOResponse {
  *           type: integer
  *           format: date
  */
-export type PlannerMealDTORequest = Omit<PlannerMealDTOResponse, 'plannerId'>
+export type PlannerEntryDTORequest = Pick<
+  PlannerEntryDTOResponse,
+  'mealId' | 'mealTypeId' | 'mealDate'
+>

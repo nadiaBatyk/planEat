@@ -14,7 +14,7 @@ import { Ingredient } from './Ingredient'
 import { MealIngredient } from './MealIngredient'
 import { Feature } from './Feature'
 import { MealFeature } from './MealFeature'
-import { PlannerMeal } from './PlannerMeal'
+import { PlannerEntry } from './PlannerEntry'
 
 @Table({ timestamps: false })
 export class Meal extends Model {
@@ -36,6 +36,6 @@ export class Meal extends Model {
   @BelongsToMany(() => Feature, () => MealFeature)
   features!: Feature[]
 
-  @HasMany(() => PlannerMeal)
-  plannerMeals!: PlannerMeal[]
+  @HasMany(() => PlannerEntry)
+  plannerEntries!: PlannerEntry[]
 }
