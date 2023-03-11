@@ -49,10 +49,10 @@ export interface PlannerDTOResponse {
  *           type: string
  *           example: Meal prep for the week
  *         startDate:
- *           type: integer
+ *           type: string
  *           format: date
  *         finishDate:
- *           type: integer
+ *           type: string
  *           format: date
  *         active:
  *           type: boolean
