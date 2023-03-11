@@ -63,3 +63,17 @@ export type PlannerEntryDTORequest = Pick<
   PlannerEntryDTOResponse,
   'mealId' | 'mealTypeId' | 'mealDate' | 'plannerId'
 >
+
+/**
+ * @openapi
+ * components:
+ *   parameters:
+ *     entryId:
+ *         name: entryId
+ *         in: path
+ *         description: ID of entry to return
+ *         required: true
+ *         schema:
+ *           type: integer
+ *           format: int64
+ */

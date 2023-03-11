@@ -1,7 +1,6 @@
 import { PlannerDTOResponse } from '../DTOs/planner.dto'
 import { Planner } from '../models/Planner'
-import { MealMap } from './meal.map'
-import { MealTypeMap } from './mealType.map'
+import { PlannerEntryMap } from './plannerEntry.map'
 export class PlannerMap {
   public static toDTO(planner: Planner): PlannerDTOResponse {
     return {
@@ -12,14 +11,7 @@ export class PlannerMap {
       active: planner.active,
       plannerEntries:
         planner?.plannerEntries &&
-        planner?.plannerEntries.map(i => {
-          return {
-            id: i.id,
-            mealDate: i.mealDate,
-            meal: MealMap.toDTO(i.meal),
-            mealType: MealTypeMap.toDTO(i.mealType),
-          }
-        }),
+        planner?.plannerEntries.map(i => PlannerEntryMap.toDTO(i)),
     }
   }
 }

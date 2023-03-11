@@ -180,3 +180,72 @@ plannerRoutes
 plannerRoutes
   .route('/:plannerId/entries')
   .get(plannerController.getPlannerEntries)
+
+/**
+ * @openapi
+ *  /api/v1/planners/{plannerId}/entries/{entryId}:
+ *   get:
+ *     tags:
+ *       - Planners
+ *     summary: Find entry by Id
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
+ *      - $ref: "#/components/parameters/entryId"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PlannerEntryDTOResponse"
+ *       400:
+ *         description: Bad Request
+ *       404:
+ *         description: entry not found
+ *   put:
+ *     tags:
+ *       - Planners
+ *     summary: Updates the value of an planner entry
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
+ *      - $ref: "#/components/parameters/entryId"
+ *     requestBody:
+ *       description: Update a planner entry
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/PlannerEntryDTORequest"
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: OK - Entry in planner successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PlannerDTOResponse"
+ *       400:
+ *         description: Invalid input
+ *   delete:
+ *     tags:
+ *       - Planners
+ *     summary: Deletes an existing entry
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
+ *      - $ref: "#/components/parameters/entryId"
+ *     responses:
+ *       200:
+ *         description: OK - Entry successfully deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: string
+ *       400:
+ *         description: Invalid input
+ *       404:
+ *         description: Entry not found
+ */
+plannerRoutes
+  .route('/:plannerId/entries/:entryId')
+  .get(plannerController.getPlannerEntryById)
+  .put(plannerController.updatePlannerEntry)
+  .delete(plannerController.deletePlannerEntry)

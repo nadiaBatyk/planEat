@@ -59,6 +59,19 @@ export class PlannerController {
       next(error)
     }
   }
+  getPlannerEntryById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { entryId } = req.params
+      const entry = await this.plannerService.getPlannerEntryById(+entryId)
+      res.status(200).json(entry)
+    } catch (error) {
+      next(error)
+    }
+  }
   createPlanner = async (
     req: Request,
     res: Response,
@@ -89,6 +102,24 @@ export class PlannerController {
       next(error)
     }
   }
+  updatePlannerEntry = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { plannerId, entryId } = req.params
+      const plannerEntryReq: PlannerEntryDTORequest = req.body
+      const updatedPlannerEntry = await this.plannerService.updatePlannerEntry(
+        +plannerId,
+        +entryId,
+        plannerEntryReq
+      )
+      res.status(200).json(updatedPlannerEntry)
+    } catch (error) {
+      next(error)
+    }
+  }
 
   updatePlanner = async (
     req: Request,
@@ -115,6 +146,19 @@ export class PlannerController {
     try {
       const { plannerId } = req.params
       const message = await this.plannerService.deletePlanner(+plannerId)
+      res.status(200).json(message)
+    } catch (error) {
+      next(error)
+    }
+  }
+  deletePlannerEntry = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { entryId } = req.params
+      const message = await this.plannerService.deletePlannerEntry(+entryId)
       res.status(200).json(message)
     } catch (error) {
       next(error)
