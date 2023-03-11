@@ -130,10 +130,31 @@ plannerRoutes
  *               type: array
  *               items:
  *                 $ref: "#/components/schemas/MealDTOResponse"
+ */
+plannerRoutes.route('/:plannerId/meals').get(plannerController.getPlannerMeals)
+
+/**
+ * @openapi
+ *  /api/v1/planners/{plannerId}/entries:
+ *   get:
+ *     tags:
+ *       - Planner Entries
+ *     summary: Find all entries in one planner
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/PlannerEntryDTOResponse"
  *   post:
  *     tags:
- *       - Planners
- *     summary: Add a meal to a planner
+ *       - Planner Entries
+ *     summary: Add a entry to a planner
  *     parameters:
  *      - $ref: "#/components/parameters/plannerId"
  *     requestBody:
@@ -154,39 +175,16 @@ plannerRoutes
  *         description: Invalid input
  */
 plannerRoutes
-  .route('/:plannerId/meals')
-  .get(plannerController.getPlannerMeals)
-  .post(plannerController.addMealToPlanner)
-
-/**
- * @openapi
- *  /api/v1/planners/{plannerId}/entries:
- *   get:
- *     tags:
- *       - Planners
- *     summary: Find all entries in one planner
- *     parameters:
- *      - $ref: "#/components/parameters/plannerId"
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: "#/components/schemas/PlannerEntryDTOResponse"
- */
-plannerRoutes
   .route('/:plannerId/entries')
   .get(plannerController.getPlannerEntries)
+  .post(plannerController.addMealToPlanner)
 
 /**
  * @openapi
  *  /api/v1/planners/{plannerId}/entries/{entryId}:
  *   get:
  *     tags:
- *       - Planners
+ *       - Planner Entries
  *     summary: Find entry by Id
  *     parameters:
  *      - $ref: "#/components/parameters/plannerId"
@@ -204,7 +202,7 @@ plannerRoutes
  *         description: entry not found
  *   put:
  *     tags:
- *       - Planners
+ *       - Planner Entries
  *     summary: Updates the value of an planner entry
  *     parameters:
  *      - $ref: "#/components/parameters/plannerId"
@@ -227,7 +225,7 @@ plannerRoutes
  *         description: Invalid input
  *   delete:
  *     tags:
- *       - Planners
+ *       - Planner Entries
  *     summary: Deletes an existing entry
  *     parameters:
  *      - $ref: "#/components/parameters/plannerId"

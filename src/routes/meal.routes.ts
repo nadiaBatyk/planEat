@@ -121,7 +121,7 @@ mealRoutes
  *  /api/v1/meals/{mealId}/ingredients:
  *   get:
  *     tags:
- *       - Meals
+ *       - Meal Ingredients
  *     summary: Find all ingredients in one meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -136,7 +136,7 @@ mealRoutes
  *                 $ref: "#/components/schemas/IngredientDTOResponse"
  *   post:
  *     tags:
- *       - Meals
+ *       - Meal Ingredients
  *     summary: Add an ingredient to a meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -167,7 +167,7 @@ mealRoutes
  *  /api/v1/meals/{mealId}/ingredients/{ingredientId}:
  *   get:
  *     tags:
- *       - Meals
+ *       - Meal Ingredients
  *     summary: Find meal ingredient by Id
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -185,7 +185,7 @@ mealRoutes
  *         description: meal not found
  *   put:
  *     tags:
- *       - Meals
+ *       - Meal Ingredients
  *     summary: Updates the quantity of an existent ingredient in meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -208,7 +208,7 @@ mealRoutes
  *         description: Invalid input
  *   delete:
  *     tags:
- *       - Meals
+ *       - Meal Ingredients
  *     summary: Deletes an existing meal ingredient
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -236,7 +236,7 @@ mealRoutes
  *  /api/v1/meals/{mealId}/features:
  *   get:
  *     tags:
- *       - Meals
+ *       - Meal features
  *     summary: Find all features in one meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -251,7 +251,7 @@ mealRoutes
  *                 $ref: "#/components/schemas/FeatureDTOResponse"
  *   post:
  *     tags:
- *       - Meals
+ *       - Meal features
  *     summary: Add a feature to a meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -282,7 +282,7 @@ mealRoutes
  *  /api/v1/meals/{mealId}/features/{featureId}:
  *   get:
  *     tags:
- *       - Meals
+ *       - Meal features
  *     summary: Find meal feature by Id
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -300,7 +300,7 @@ mealRoutes
  *         description: meal not found
  *   put:
  *     tags:
- *       - Meals
+ *       - Meal features
  *     summary: Updates the value of an existent feature in meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
@@ -323,7 +323,7 @@ mealRoutes
  *         description: Invalid input
  *   delete:
  *     tags:
- *       - Meals
+ *       - Meal features
  *     summary: Deletes an existing meal feature
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
