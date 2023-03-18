@@ -11,13 +11,12 @@ import { PlannerEntryDTOResponse } from './plannerEntry.dto'
  *           type: integer
  *         name:
  *           type: string
- *           example: Meal prep for the week
  *         startDate:
  *           type: integer
- *           format: date
+ *           format: date-time
  *         finishDate:
  *           type: integer
- *           format: date
+ *           format: date-time
  *         active:
  *           type: boolean
  *         plannerEntries:
@@ -50,10 +49,12 @@ export interface PlannerDTOResponse {
  *           example: Meal prep for the week
  *         startDate:
  *           type: string
- *           format: date
+ *           format: date-time
+ *           example: 2023-01-01T00:00:00Z
  *         finishDate:
  *           type: string
- *           format: date
+ *           format: date-time
+ *           example: 2023-01-10T00:00:00Z
  *         active:
  *           type: boolean
  */
