@@ -21,7 +21,7 @@ export const PlannerSchema = z
       })
       .refine(
         async startDate =>
-          new Date(startDate).getTime() >= new Date().getTime(),
+          new Date(startDate).getUTCDate() >= new Date().getUTCDate(),
         {
           message: `start date can't be a past date`,
         }
@@ -37,7 +37,7 @@ export const PlannerSchema = z
       })
       .refine(
         async finishDate =>
-          new Date(finishDate).getTime() >= new Date().getTime(),
+          new Date(finishDate).getUTCDate() >= new Date().getUTCDate(),
         {
           message: `finish Date can't be a past date`,
         }

@@ -9,11 +9,11 @@ export class Planner extends Model {
   name!: string
 
   @AllowNull(false)
-  @Column(DataTypes.DATEONLY)
+  @Column(DataTypes.DATE)
   startDate!: Date
 
   @AllowNull(false)
-  @Column(DataTypes.DATEONLY)
+  @Column(DataTypes.DATE)
   finishDate!: Date
 
   @AllowNull(false)

@@ -68,6 +68,8 @@ export class PlannerService {
   createPlanner = async (
     planner: PlannerDTORequest
   ): Promise<PlannerDTOResponse> => {
+    // planner.startDate = new Date(planner.startDate)
+    // planner.finishDate = new Date(planner.finishDate)
     const newPlanner = await this.plannerDao.create(planner)
     return PlannerMap.toDTO(newPlanner)
   }

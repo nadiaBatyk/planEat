@@ -6,8 +6,8 @@ export class PlannerMap {
     return {
       id: planner.id,
       name: planner.name,
-      startDate: new Date(planner.startDate.toLocaleDateString()),
-      finishDate: new Date(planner.finishDate.toLocaleDateString()),
+      startDate: planner.startDate,
+      finishDate: planner.finishDate,
       active: planner.active,
       plannerEntries:
         planner?.plannerEntries &&

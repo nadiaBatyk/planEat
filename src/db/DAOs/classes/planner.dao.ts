@@ -77,6 +77,8 @@ export class PlannerDao implements IPlannerDao {
   }
   create = async (t: PlannerDTORequest): Promise<Planner> => {
     try {
+      console.log(t)
+
       const planner = await Planner.create({ ...t })
       return planner.dataValues
     } catch (error) {
