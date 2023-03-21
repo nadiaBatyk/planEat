@@ -16,10 +16,6 @@ export class Planner extends Model {
   @Column(DataTypes.DATEONLY)
   finishDate!: Date
 
-  @AllowNull(false)
-  @Column(DataTypes.BOOLEAN)
-  active!: boolean
-
   @HasMany(() => PlannerEntry)
   plannerEntries!: PlannerEntry[]
 }

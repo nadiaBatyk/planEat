@@ -17,8 +17,6 @@ import { PlannerEntryDTOResponse } from './plannerEntry.dto'
  *         finishDate:
  *           type: string
  *           format: date
- *         active:
- *           type: boolean
  *         plannerEntries:
  *           type: array
  *           items:
@@ -29,7 +27,6 @@ export interface PlannerDTOResponse {
   name: string
   startDate: Date
   finishDate: Date
-  active: boolean
   plannerEntries?: PlannerEntryDTOResponse[]
 }
 /**
@@ -42,7 +39,6 @@ export interface PlannerDTOResponse {
  *         - name
  *         - startDate
  *         - finishDate
- *         - active
  *       properties:
  *         name:
  *           type: string
@@ -55,8 +51,6 @@ export interface PlannerDTOResponse {
  *           type: string
  *           format: date
  *           example: 2023-01-10
- *         active:
- *           type: boolean
  */
 export type PlannerDTORequest = Omit<
   PlannerDTOResponse,

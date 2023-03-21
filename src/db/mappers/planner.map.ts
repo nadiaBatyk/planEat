@@ -8,7 +8,6 @@ export class PlannerMap {
       name: planner.name,
       startDate: planner.startDate,
       finishDate: planner.finishDate,
-      active: planner.active,
       plannerEntries:
         planner?.plannerEntries &&
         planner?.plannerEntries.map(i => PlannerEntryMap.toDTO(i)),

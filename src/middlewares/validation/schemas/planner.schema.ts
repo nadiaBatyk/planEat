@@ -35,10 +35,6 @@ export const PlannerSchema = z
       })
       .superRefine(refineDate)
       .transform(finishDate => new Date(finishDate)),
-    active: z.boolean({
-      required_error: 'active is required',
-      invalid_type_error: 'active must be a boolean',
-    }),
   })
   .required()
   .strict()
