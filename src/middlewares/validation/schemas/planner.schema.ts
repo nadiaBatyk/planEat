@@ -1,5 +1,7 @@
 import { z } from 'zod'
-let dateOnlyRegex: RegExp = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/
+import { dateOnlyRegex, refineDate } from '../../../common/helpers/dates'
+
+let regexMessage: string = ` must be a UTC date with the format YYYY-MM-DD ex '2023-01-03'`
 export const PlannerSchema = z
   .object({
     name: z
@@ -16,30 +18,9 @@ export const PlannerSchema = z
         invalid_type_error: 'startDate must be a string',
       })
       .regex(dateOnlyRegex, {
-        message: `startDate must be a UTC date with the format YYYY-MM-DD ex '2023-01-03'`,
+        message: `startDate ${regexMessage}`,
       })
-      .superRefine((startDate, ctx) => {
-        if (!isValidDate(startDate)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'invalid date',
-            fatal: true,
-          })
-
-          return z.NEVER
-        }
-
-        if (!isCurrentDate(startDate)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: `start date can't be a past date`,
-            fatal: true,
-          })
-
-          return z.NEVER
-        }
-        return true
-      })
+      .superRefine(refineDate)
       .transform(startDate => new Date(startDate)),
     finishDate: z
       .string({
@@ -47,30 +28,9 @@ export const PlannerSchema = z
         invalid_type_error: 'finishDate must be a string',
       })
       .regex(dateOnlyRegex, {
-        message: `finishDate must be a UTC date with the format YYYY-MM-DD ex '2023-01-03'`,
+        message: `finishDate ${regexMessage}`,
       })
-      .superRefine((finishDate, ctx) => {
-        if (!isValidDate(finishDate)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'invalid date',
-            fatal: true,
-          })
-
-          return z.NEVER
-        }
-
-        if (!isCurrentDate(finishDate)) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: `finishDate can't be a past date`,
-            fatal: true,
-          })
-
-          return z.NEVER
-        }
-        return true
-      })
+      .superRefine(refineDate)
       .transform(finishDate => new Date(finishDate)),
     active: z.boolean({
       required_error: 'active is required',
@@ -82,19 +42,3 @@ export const PlannerSchema = z
   .refine(async data => data.startDate.getTime() < data.finishDate.getTime(), {
     message: 'start date must be before finish date',
   })
-function isValidDate(startDate: string): boolean {
-  let newDate = new Date(startDate)
-  return newDate instanceof Date && !isNaN(newDate.getTime())
-}
-function isCurrentDate(date: string) {
-  let localDate = new Date()
-  let currentUTCDate = new Date(
-    Date.UTC(
-      localDate.getUTCFullYear(),
-      localDate.getUTCMonth(),
-      localDate.getUTCDate()
-    )
-  )
-
-  return new Date(date) >= currentUTCDate
-}
