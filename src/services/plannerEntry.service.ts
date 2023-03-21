@@ -1,4 +1,6 @@
 import HttpException from '../common/error/HttpException'
+import { MealDao } from '../db/DAOs/classes/meal.dao'
+import { MealTypeDao } from '../db/DAOs/classes/mealType.dao'
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
 import { PlannerEntryDao } from '../db/DAOs/classes/plannerEntry.dao'
 import { PlannerDTOResponse } from '../db/DTOs/planner.dto'
@@ -13,9 +15,13 @@ import { Planner } from '../db/models/Planner'
 export class PlannerEntryService {
   plannerEntryDao: PlannerEntryDao
   plannerDao: PlannerDao
+  mealDao: MealDao
+  mealTypeDao: MealTypeDao
   constructor() {
     this.plannerEntryDao = new PlannerEntryDao()
     this.plannerDao = new PlannerDao()
+    this.mealDao = new MealDao()
+    this.mealTypeDao = new MealTypeDao()
   }
   /**
    * @throws {HttpException}
@@ -51,9 +57,6 @@ export class PlannerEntryService {
         'Duplicated entry'
       )
     }
-    if (!planner) {
-      throw new HttpException(404, `Planner does not exist`, 'Not Found')
-    }
   }
   getPlannerEntries = async (
     id: number
@@ -75,6 +78,8 @@ export class PlannerEntryService {
     plannerEntryReq: PlannerEntryDTORequest
   ): Promise<PlannerDTOResponse> => {
     const planner = await this.plannerDao.getPlannerById(plannerId)
+    await this.mealDao.getMealById(plannerEntryReq.mealId)
+    await this.mealTypeDao.getMealTypeById(plannerEntryReq.mealTypeId)
     this.validateEntryRequest(planner, plannerEntryReq)
     await this.plannerEntryDao.create(plannerEntryReq)
     const updatedPlanner = await this.plannerDao.getPlannerById(plannerId)

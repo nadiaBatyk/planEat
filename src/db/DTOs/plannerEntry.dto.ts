@@ -30,9 +30,9 @@ import { PlannerDTOResponse } from './planner.dto'
  */
 export interface PlannerEntryDTOResponse {
   id: number
-  plannerId?: number
-  mealId?: number
-  mealTypeId?: number
+  plannerId: number
+  mealId: number
+  mealTypeId: number
   mealDate: Date
   planner?: PlannerDTOResponse
   meal?: MealDTOResponse
