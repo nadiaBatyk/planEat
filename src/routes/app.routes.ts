@@ -4,6 +4,7 @@ import ingredientRoutes from './ingredient.routes'
 import featureRoutes from './feature.routes'
 import mealTypeRoutes from './mealType.routes'
 import { plannerRoutes } from './planner.routes'
+import { plannerEntryRoutes } from './plannerEntry.routes'
 
 const appRouter = Router()
 
@@ -12,5 +13,6 @@ appRouter.use('/ingredients', ingredientRoutes)
 appRouter.use('/features', featureRoutes)
 appRouter.use('/mealTypes', mealTypeRoutes)
 appRouter.use('/planners', plannerRoutes)
+appRouter.use('/plannerEntries', plannerEntryRoutes)
 
 export default appRouter
