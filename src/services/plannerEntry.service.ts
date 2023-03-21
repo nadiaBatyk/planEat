@@ -25,13 +25,23 @@ export class PlannerEntryService {
   }
   /**
    * @throws {HttpException}
-   * @param planner
+   * @param plannerId
    * @param plannerEntryReq
    */
-  validateEntryRequest = (
+  validateEntryRequest = async (
+    plannerId: number,
+    plannerEntryReq: PlannerEntryDTORequest
+  ): Promise<void> => {
+    const planner = await this.plannerDao.getPlannerById(plannerId)
+    await this.mealDao.getMealById(plannerEntryReq.mealId)
+    await this.mealTypeDao.getMealTypeById(plannerEntryReq.mealTypeId)
+    this.checkPlannerRange(planner, plannerEntryReq)
+    this.checkDuplicateEntry(planner, plannerEntryReq)
+  }
+  checkDuplicateEntry = (
     planner: Planner,
     plannerEntryReq: PlannerEntryDTORequest
-  ): never | void => {
+  ) => {
     const existentEntry =
       planner.plannerEntries &&
       planner.plannerEntries.find(
@@ -40,6 +50,19 @@ export class PlannerEntryService {
           entry.mealTypeId === plannerEntryReq.mealTypeId &&
           entry.mealDate === plannerEntryReq.mealDate
       )
+
+    if (existentEntry) {
+      throw new HttpException(
+        400,
+        `Planner already has an entry with mealId #${plannerEntryReq.mealId} and mealTypeId #${plannerEntryReq.mealTypeId} for the date ${plannerEntryReq.mealDate} `,
+        'Duplicated entry'
+      )
+    }
+  }
+  checkPlannerRange = (
+    planner: Planner,
+    plannerEntryReq: PlannerEntryDTORequest
+  ): void => {
     if (
       plannerEntryReq.mealDate < planner.startDate ||
       plannerEntryReq.mealDate > planner.finishDate
@@ -48,13 +71,6 @@ export class PlannerEntryService {
         400,
         `Planner is active from ${planner.startDate} to ${planner.finishDate}`,
         'Meal date out of planner date range'
-      )
-    }
-    if (existentEntry) {
-      throw new HttpException(
-        400,
-        `Planner already has an entry with mealId #${plannerEntryReq.mealId} and mealTypeId #${plannerEntryReq.mealTypeId} for the date ${plannerEntryReq.mealDate} `,
-        'Duplicated entry'
       )
     }
   }
@@ -77,10 +93,7 @@ export class PlannerEntryService {
     plannerId: number,
     plannerEntryReq: PlannerEntryDTORequest
   ): Promise<PlannerDTOResponse> => {
-    const planner = await this.plannerDao.getPlannerById(plannerId)
-    await this.mealDao.getMealById(plannerEntryReq.mealId)
-    await this.mealTypeDao.getMealTypeById(plannerEntryReq.mealTypeId)
-    this.validateEntryRequest(planner, plannerEntryReq)
+    await this.validateEntryRequest(plannerId, plannerEntryReq)
     await this.plannerEntryDao.create(plannerEntryReq)
     const updatedPlanner = await this.plannerDao.getPlannerById(plannerId)
     return PlannerMap.toDTO(updatedPlanner)
@@ -90,8 +103,7 @@ export class PlannerEntryService {
     entryId: number,
     plannerEntryReq: PlannerEntryDTORequest
   ): Promise<PlannerDTOResponse> => {
-    const planner = await this.plannerDao.getPlannerById(plannerId)
-    this.validateEntryRequest(planner, plannerEntryReq)
+    await this.validateEntryRequest(plannerId, plannerEntryReq)
     await this.plannerEntryDao.update(entryId, plannerEntryReq)
     const updatedPlanner = await this.plannerDao.getPlannerById(plannerId)
     return PlannerMap.toDTO(updatedPlanner)
