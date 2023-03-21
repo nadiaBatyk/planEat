@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const MealTypeSchema = z.object({
+export const mealTimeSchema = z.object({
   name: z
     .string({
       required_error: 'Meal Type name is required',

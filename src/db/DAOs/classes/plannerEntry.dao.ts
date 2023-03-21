@@ -1,7 +1,7 @@
 import HttpException from '../../../common/error/HttpException'
 import { PlannerEntryDTORequest } from '../../DTOs/plannerEntry.dto'
 import { Meal } from '../../models/Meal'
-import { MealType } from '../../models/MealType'
+import { MealTime } from '../../models/MealTime'
 import { PlannerEntry } from '../../models/PlannerEntry'
 import { IPlannerEntryDao } from '../interfaces/plannerEntryDao.interface'
 
@@ -14,7 +14,7 @@ export class PlannerEntryDao implements IPlannerEntryDao {
             model: Meal,
           },
           {
-            model: MealType,
+            model: MealTime,
           },
         ],
       })
@@ -39,7 +39,7 @@ export class PlannerEntryDao implements IPlannerEntryDao {
             model: Meal,
           },
           {
-            model: MealType,
+            model: MealTime,
           },
         ],
 

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const FeatureSchema = z.object({
+export const featureSchema = z.object({
   name: z
     .string({
       required_error: 'Feature name is required',

@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript'
 import { Meal } from './Meal'
 import { Planner } from './Planner'
-import { MealType } from './MealType'
+import { MealTime } from './MealTime'
 
 @Table({ timestamps: false })
 export class PlannerEntry extends Model {
@@ -21,9 +21,9 @@ export class PlannerEntry extends Model {
   @Column
   mealId!: number
 
-  @ForeignKey(() => MealType)
+  @ForeignKey(() => MealTime)
   @Column
-  mealTypeId!: number
+  MealTimeId!: number
 
   @AllowNull(false)
   @Column(DataTypes.DATEONLY)
@@ -35,6 +35,6 @@ export class PlannerEntry extends Model {
   @BelongsTo(() => Meal)
   meal!: Meal
 
-  @BelongsTo(() => MealType)
-  mealType!: MealType
+  @BelongsTo(() => MealTime)
+  MealTime!: MealTime
 }

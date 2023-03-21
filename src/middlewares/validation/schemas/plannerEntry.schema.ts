@@ -5,7 +5,7 @@ import {
   regexMessage,
 } from '../../../common/helpers/dates'
 
-export const PlannerEntrySchema = z
+export const plannerEntrySchema = z
   .object({
     plannerId: z
       .number({
@@ -19,12 +19,12 @@ export const PlannerEntrySchema = z
         invalid_type_error: 'mealId must be a number',
       })
       .positive({ message: 'mealId must be greater than 0' }),
-    mealTypeId: z
+    MealTimeId: z
       .number({
-        required_error: 'mealTypeId  is required',
-        invalid_type_error: 'mealTypeId must be a number',
+        required_error: 'MealTimeId  is required',
+        invalid_type_error: 'MealTimeId must be a number',
       })
-      .positive({ message: 'mealTypeId must be greater than 0' }),
+      .positive({ message: 'MealTimeId must be greater than 0' }),
     mealDate: z
       .string({
         required_error: 'mealDate is required',

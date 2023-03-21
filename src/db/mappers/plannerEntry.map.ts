@@ -1,7 +1,7 @@
 import { PlannerEntryDTOResponse } from '../DTOs/plannerEntry.dto'
 import { PlannerEntry } from '../models/PlannerEntry'
 import { MealMap } from './meal.map'
-import { MealTypeMap } from './mealType.map'
+import { MealTimeMap } from './mealTime.map'
 
 export class PlannerEntryMap {
   public static toDTO(plannerEntry: PlannerEntry): PlannerEntryDTOResponse {
@@ -9,10 +9,10 @@ export class PlannerEntryMap {
       id: plannerEntry.id,
       plannerId: plannerEntry.plannerId,
       mealId: plannerEntry.mealId,
-      mealTypeId: plannerEntry.mealTypeId,
+      MealTimeId: plannerEntry.MealTimeId,
       mealDate: plannerEntry.mealDate,
       meal: MealMap.toDTO(plannerEntry.meal),
-      mealType: MealTypeMap.toDTO(plannerEntry.mealType),
+      MealTime: MealTimeMap.toDTO(plannerEntry.MealTime),
     }
   }
 }

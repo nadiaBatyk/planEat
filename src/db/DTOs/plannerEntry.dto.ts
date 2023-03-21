@@ -1,5 +1,5 @@
 import { MealDTOResponse } from './meal.dto'
-import { MealTypeDTOResponse } from './mealType.dto'
+import { MealTimeDTOResponse } from './MealTime.dto'
 import { PlannerDTOResponse } from './planner.dto'
 
 /**
@@ -15,7 +15,7 @@ import { PlannerDTOResponse } from './planner.dto'
  *           type: integer
  *         mealId:
  *           type: integer
- *         mealTypeId:
+ *         MealTimeId:
  *           type: integer
  *         mealDate:
  *           type: string
@@ -25,18 +25,18 @@ import { PlannerDTOResponse } from './planner.dto'
  *           $ref: "#/components/schemas/PlannerDTOResponse"
  *         meal:
  *           $ref: "#/components/schemas/MealDTOResponse"
- *         mealType:
- *           $ref: "#/components/schemas/MealTypeDTOResponse"
+ *         MealTime:
+ *           $ref: "#/components/schemas/MealTimeDTOResponse"
  */
 export interface PlannerEntryDTOResponse {
   id: number
   plannerId: number
   mealId: number
-  mealTypeId: number
+  MealTimeId: number
   mealDate: Date
   planner?: PlannerDTOResponse
   meal?: MealDTOResponse
-  mealType?: MealTypeDTOResponse
+  MealTime?: MealTimeDTOResponse
 }
 /**
  * @openapi
@@ -47,14 +47,14 @@ export interface PlannerEntryDTOResponse {
  *       required:
  *         - plannerId
  *         - mealId
- *         - mealTypeId
+ *         - MealTimeId
  *         - mealDate
  *       properties:
  *         plannerId:
  *           type: integer
  *         mealId:
  *           type: integer
- *         mealTypeId:
+ *         MealTimeId:
  *           type: integer
  *         mealDate:
  *           type: string
@@ -63,7 +63,7 @@ export interface PlannerEntryDTOResponse {
  */
 export type PlannerEntryDTORequest = Pick<
   PlannerEntryDTOResponse,
-  'plannerId' | 'mealId' | 'mealTypeId' | 'mealDate'
+  'plannerId' | 'mealId' | 'MealTimeId' | 'mealDate'
 >
 
 /**

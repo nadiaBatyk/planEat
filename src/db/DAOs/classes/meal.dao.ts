@@ -8,7 +8,7 @@ import { Ingredient } from '../../models/Ingredient'
 import { Meal } from '../../models/Meal'
 import { MealFeature } from '../../models/MealFeature'
 import { MealIngredient } from '../../models/MealIngredient'
-import { MealType } from '../../models/MealType'
+import { MealTime } from '../../models/MealTime'
 import { IMealDao } from '../interfaces/mealDao.interface'
 
 export class MealDao implements IMealDao {
@@ -18,7 +18,7 @@ export class MealDao implements IMealDao {
       const meal = await Meal.findByPk(id, {
         include: [
           { model: Ingredient, through: { attributes: ['quantity'] } },
-          { model: MealType, attributes: ['name'] },
+          { model: MealTime, attributes: ['name'] },
           { model: Feature, through: { attributes: ['value'] } },
         ],
       })
@@ -40,7 +40,7 @@ export class MealDao implements IMealDao {
       const meals = await Meal.findAll({
         include: [
           { model: Ingredient, through: { attributes: ['quantity'] } },
-          { model: MealType, attributes: ['name'] },
+          { model: MealTime, attributes: ['name'] },
           { model: Feature, through: { attributes: ['value'] } },
         ],
         order: [['id', 'ASC']],
@@ -71,8 +71,7 @@ export class MealDao implements IMealDao {
   create = async (m: MealDTORequest): Promise<Meal> => {
     try {
       const meal = await Meal.create({ ...m })
-      let f = await meal.$get('mealType')
-      return { ...meal.dataValues, mealType: f?.dataValues }
+      return meal
     } catch (error) {
       throw error
     }

@@ -5,7 +5,7 @@ import {
   regexMessage,
 } from '../../../common/helpers/dates'
 
-export const PlannerSchema = z
+export const plannerSchema = z
   .object({
     name: z
       .string({

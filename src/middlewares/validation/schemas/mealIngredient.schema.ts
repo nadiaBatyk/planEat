@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const MealIngredientSchema = z.object({
+export const mealIngredientSchema = z.object({
   quantity: z
     .number({
       required_error: 'quantity is required',

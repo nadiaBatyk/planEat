@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { MeasureUnit } from '../../../common/types/measureUnit.types'
 
-export const IngredientSchema = z.object({
+export const ingredientSchema = z.object({
   name: z
     .string({
       required_error: 'Ingredient name is required',
@@ -12,4 +12,4 @@ export const IngredientSchema = z.object({
     .max(100, 'Ingredient name max length is 100 characters'),
   unit: z.nativeEnum(MeasureUnit),
 })
-export const PartialIngredientSchema = IngredientSchema.partial()
+export const partialIngredientSchema = ingredientSchema.partial()

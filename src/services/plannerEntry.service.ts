@@ -1,6 +1,6 @@
 import HttpException from '../common/error/HttpException'
 import { MealDao } from '../db/DAOs/classes/meal.dao'
-import { MealTypeDao } from '../db/DAOs/classes/mealType.dao'
+import { MealTimeDao } from '../db/DAOs/classes/mealTime.dao'
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
 import { PlannerEntryDao } from '../db/DAOs/classes/plannerEntry.dao'
 import { PlannerDTOResponse } from '../db/DTOs/planner.dto'
@@ -16,12 +16,12 @@ export class PlannerEntryService {
   plannerEntryDao: PlannerEntryDao
   plannerDao: PlannerDao
   mealDao: MealDao
-  mealTypeDao: MealTypeDao
+  mealTimeDao: MealTimeDao
   constructor() {
     this.plannerEntryDao = new PlannerEntryDao()
     this.plannerDao = new PlannerDao()
     this.mealDao = new MealDao()
-    this.mealTypeDao = new MealTypeDao()
+    this.mealTimeDao = new MealTimeDao()
   }
   /**
    * @throws {HttpException}
@@ -34,7 +34,7 @@ export class PlannerEntryService {
   ): Promise<void> => {
     const planner = await this.plannerDao.getPlannerById(plannerId)
     await this.mealDao.getMealById(plannerEntryReq.mealId)
-    await this.mealTypeDao.getMealTypeById(plannerEntryReq.mealTypeId)
+    await this.mealTimeDao.getMealTimeById(plannerEntryReq.MealTimeId)
     this.checkPlannerRange(planner, plannerEntryReq)
     this.checkDuplicateEntry(planner, plannerEntryReq)
   }
@@ -47,14 +47,14 @@ export class PlannerEntryService {
       planner.plannerEntries.find(
         entry =>
           entry.mealId === plannerEntryReq.mealId &&
-          entry.mealTypeId === plannerEntryReq.mealTypeId &&
+          entry.MealTimeId === plannerEntryReq.MealTimeId &&
           entry.mealDate === plannerEntryReq.mealDate
       )
 
     if (existentEntry) {
       throw new HttpException(
         400,
-        `Planner already has an entry with mealId #${plannerEntryReq.mealId} and mealTypeId #${plannerEntryReq.mealTypeId} for the date ${plannerEntryReq.mealDate} `,
+        `Planner already has an entry with mealId #${plannerEntryReq.mealId} and MealTimeId #${plannerEntryReq.MealTimeId} for the date ${plannerEntryReq.mealDate} `,
         'Duplicated entry'
       )
     }

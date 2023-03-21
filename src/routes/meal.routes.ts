@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import { MealController } from '../controllers/meal.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
-import { MealSchema } from '../middlewares/validation/schemas/meal.schema'
-import { MealFeatureSchema } from '../middlewares/validation/schemas/mealFeature.schema'
-import { MealIngredientSchema } from '../middlewares/validation/schemas/mealIngredient.schema'
+import { mealSchema } from '../middlewares/validation/schemas/meal.schema'
+import { mealFeatureSchema } from '../middlewares/validation/schemas/mealFeature.schema'
+import { mealIngredientSchema } from '../middlewares/validation/schemas/mealIngredient.schema'
 
 const mealRoutes = Router()
 const mealController = new MealController()
@@ -48,7 +48,7 @@ const mealController = new MealController()
 mealRoutes
   .route('/')
   .get(mealController.getMeals)
-  .post(validate(MealSchema), mealController.createMeal)
+  .post(validate(mealSchema), mealController.createMeal)
 
 /**
  * @openapi
@@ -113,7 +113,7 @@ mealRoutes
 mealRoutes
   .route('/:mealId')
   .get(mealController.getMealById)
-  .put(validate(MealSchema), mealController.updateMeal)
+  .put(validate(mealSchema), mealController.updateMeal)
   .delete(mealController.deleteMeal)
 
 /**
@@ -160,7 +160,7 @@ mealRoutes
 mealRoutes
   .route('/:mealId/ingredients')
   .get(mealController.getMealIngredients)
-  .post(validate(MealIngredientSchema), mealController.addMealIngredient)
+  .post(validate(mealIngredientSchema), mealController.addMealIngredient)
 
 /**
  * @openapi
@@ -228,7 +228,7 @@ mealRoutes
 mealRoutes
   .route('/:mealId/ingredients/:ingredientId')
   .get(mealController.getMealIngredientById)
-  .put(validate(MealIngredientSchema), mealController.addMealIngredient)
+  .put(validate(mealIngredientSchema), mealController.addMealIngredient)
   .delete(mealController.deleteMealIngredient)
 
 /**
@@ -275,7 +275,7 @@ mealRoutes
 mealRoutes
   .route('/:mealId/features')
   .get(mealController.getMealFeatures)
-  .post(validate(MealFeatureSchema), mealController.addMealFeature)
+  .post(validate(mealFeatureSchema), mealController.addMealFeature)
 
 /**
  * @openapi
@@ -343,6 +343,6 @@ mealRoutes
 mealRoutes
   .route('/:mealId/features/:featureId')
   .get(mealController.getMealFeatureById)
-  .put(validate(MealFeatureSchema), mealController.addMealFeature)
+  .put(validate(mealFeatureSchema), mealController.addMealFeature)
   .delete(mealController.deleteMealFeature)
 export default mealRoutes

@@ -1,6 +1,5 @@
 import { FeatureDTOResponse } from './feature.dto'
 import { IngredientDTOResponse } from './ingredient.dto'
-import { MealTypeDTOResponse } from './mealType.dto'
 /**
  * @openapi
  * components:
@@ -12,11 +11,7 @@ import { MealTypeDTOResponse } from './mealType.dto'
  *           type: integer
  *         name:
  *           type: string
- *           example: Fideos con tuco
- *         mealTypeId:
- *           type: integer
- *         mealType:
- *           $ref: "#/components/schemas/MealTypeDTOResponse"
+ *           example: Pasta with tomato sauce
  *         ingredients:
  *           type: array
  *           items:
@@ -29,8 +24,6 @@ import { MealTypeDTOResponse } from './mealType.dto'
 export interface MealDTOResponse {
   id?: number
   name: string
-  mealTypeId?: number
-  mealType?: MealTypeDTOResponse
   ingredients?: IngredientDTOResponse[]
   features?: FeatureDTOResponse[]
 }
@@ -42,15 +35,12 @@ export interface MealDTOResponse {
  *       type: object
  *       required:
  *         - name
- *         - mealTypeId
  *       properties:
  *         name:
  *           type: string
- *           example: Fideos con tuco
- *         mealTypeId:
- *           type: integer
+ *           example: Pasta with tomato sauce
  */
-export type MealDTORequest = Pick<MealDTOResponse, 'name' | 'mealTypeId'>
+export type MealDTORequest = Pick<MealDTOResponse, 'name'>
 
 /**
  * @openapi

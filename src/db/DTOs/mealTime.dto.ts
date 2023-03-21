@@ -2,7 +2,7 @@
  * @openapi
  * components:
  *   schemas:
- *     MealTypeDTOResponse:
+ *     MealTimeDTOResponse:
  *       type: object
  *       properties:
  *         id:
@@ -13,7 +13,7 @@
  *           example: Breakfast
  *
  */
-export interface MealTypeDTOResponse {
+export interface MealTimeDTOResponse {
   id?: number
   name: string
 }
@@ -21,7 +21,7 @@ export interface MealTypeDTOResponse {
  * @openapi
  * components:
  *   schemas:
- *     MealTypeDTORequest:
+ *     MealTimeDTORequest:
  *       type: object
  *       required:
  *         - name
@@ -31,13 +31,13 @@ export interface MealTypeDTOResponse {
  *           example: Breakfast
  *
  */
-export type MealTypeDTORequest = Pick<MealTypeDTOResponse, 'name'>
+export type MealTimeDTORequest = Pick<MealTimeDTOResponse, 'name'>
 /**
  * @openapi
  * components:
  *   parameters:
- *     mealTypeId:
- *         name: mealTypeId
+ *     MealTimeId:
+ *         name: MealTimeId
  *         in: path
  *         description: ID of feature to return
  *         required: true

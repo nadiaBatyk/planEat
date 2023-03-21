@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const MealFeatureSchema = z.object({
+export const mealFeatureSchema = z.object({
   value: z
     .string({
       required_error: 'Value is required',

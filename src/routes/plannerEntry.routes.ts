@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { PlannerEntryController } from '../controllers/plannerEntry.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
-import { PlannerEntrySchema } from '../middlewares/validation/schemas/plannerEntry.schema'
+import { plannerEntrySchema } from '../middlewares/validation/schemas/plannerEntry.schema'
 
 export const plannerEntryRoutes = Router()
 const plannerEntryController = new PlannerEntryController()
@@ -50,7 +50,7 @@ const plannerEntryController = new PlannerEntryController()
 plannerEntryRoutes
   .route('/:plannerId')
   .get(plannerEntryController.getPlannerEntries)
-  .post(validate(PlannerEntrySchema), plannerEntryController.addMealToPlanner)
+  .post(validate(plannerEntrySchema), plannerEntryController.addMealToPlanner)
 
 /**
  * @openapi
@@ -118,5 +118,5 @@ plannerEntryRoutes
 plannerEntryRoutes
   .route('/:plannerId/entries/:entryId')
   .get(plannerEntryController.getPlannerEntryById)
-  .put(validate(PlannerEntrySchema), plannerEntryController.updatePlannerEntry)
+  .put(validate(plannerEntrySchema), plannerEntryController.updatePlannerEntry)
   .delete(plannerEntryController.deletePlannerEntry)
