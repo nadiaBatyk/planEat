@@ -1,6 +1,8 @@
 import { z } from 'zod'
 export let dateOnlyRegex: RegExp = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/
 
+export let regexMessage: string = ` must be a UTC date with the format YYYY-MM-DD ex '2023-01-03'`
+
 export function isValidDate(startDate: string): boolean {
   let newDate = new Date(startDate)
   return newDate instanceof Date && !isNaN(newDate.getTime())

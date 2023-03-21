@@ -1,7 +1,10 @@
 import { z } from 'zod'
-import { dateOnlyRegex, refineDate } from '../../../common/helpers/dates'
+import {
+  dateOnlyRegex,
+  refineDate,
+  regexMessage,
+} from '../../../common/helpers/dates'
 
-let regexMessage: string = ` must be a UTC date with the format YYYY-MM-DD ex '2023-01-03'`
 export const PlannerSchema = z
   .object({
     name: z
@@ -39,6 +42,6 @@ export const PlannerSchema = z
   })
   .required()
   .strict()
-  .refine(async data => data.startDate.getTime() < data.finishDate.getTime(), {
+  .refine(data => data.startDate.getTime() < data.finishDate.getTime(), {
     message: 'start date must be before finish date',
   })
