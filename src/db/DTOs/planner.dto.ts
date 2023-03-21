@@ -12,11 +12,11 @@ import { PlannerEntryDTOResponse } from './plannerEntry.dto'
  *         name:
  *           type: string
  *         startDate:
- *           type: integer
- *           format: date-time
+ *           type: string
+ *           format: date
  *         finishDate:
- *           type: integer
- *           format: date-time
+ *           type: string
+ *           format: date
  *         active:
  *           type: boolean
  *         plannerEntries:

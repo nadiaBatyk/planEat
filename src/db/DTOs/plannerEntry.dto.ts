@@ -18,8 +18,9 @@ import { PlannerDTOResponse } from './planner.dto'
  *         mealTypeId:
  *           type: integer
  *         mealDate:
- *           type: integer
+ *           type: string
  *           format: date
+ *           example: 2023-01-10
  *         planner:
  *           $ref: "#/components/schemas/PlannerDTOResponse"
  *         meal:
@@ -56,12 +57,13 @@ export interface PlannerEntryDTOResponse {
  *         mealTypeId:
  *           type: integer
  *         mealDate:
- *           type: integer
+ *           type: string
  *           format: date
+ *           example: 2023-01-10
  */
 export type PlannerEntryDTORequest = Pick<
   PlannerEntryDTOResponse,
-  'mealId' | 'mealTypeId' | 'mealDate' | 'plannerId'
+  'plannerId' | 'mealId' | 'mealTypeId' | 'mealDate'
 >
 
 /**
