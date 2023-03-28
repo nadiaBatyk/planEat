@@ -19,7 +19,7 @@ export const plannerEntrySchema = z
         invalid_type_error: 'mealId must be a number',
       })
       .positive({ message: 'mealId must be greater than 0' }),
-    MealTimeId: z
+    mealTimeId: z
       .number({
         required_error: 'MealTimeId  is required',
         invalid_type_error: 'MealTimeId must be a number',

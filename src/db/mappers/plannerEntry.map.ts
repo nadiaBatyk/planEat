@@ -8,11 +8,9 @@ export class PlannerEntryMap {
     return {
       id: plannerEntry.id,
       plannerId: plannerEntry.plannerId,
-      mealId: plannerEntry.mealId,
-      MealTimeId: plannerEntry.MealTimeId,
       mealDate: plannerEntry.mealDate,
       meal: MealMap.toDTO(plannerEntry.meal),
-      MealTime: MealTimeMap.toDTO(plannerEntry.MealTime),
+      mealTime: MealTimeMap.toDTO(plannerEntry.MealTime),
     }
   }
 }

@@ -1,5 +1,5 @@
 import { MealDTOResponse } from './meal.dto'
-import { MealTimeDTOResponse } from './MealTime.dto'
+import { MealTimeDTOResponse } from './mealTime.dto'
 import { PlannerDTOResponse } from './planner.dto'
 
 /**
@@ -31,12 +31,12 @@ import { PlannerDTOResponse } from './planner.dto'
 export interface PlannerEntryDTOResponse {
   id: number
   plannerId: number
-  mealId: number
-  MealTimeId: number
+  mealId?: number
+  mealTimeId?: number
   mealDate: Date
   planner?: PlannerDTOResponse
   meal?: MealDTOResponse
-  MealTime?: MealTimeDTOResponse
+  mealTime?: MealTimeDTOResponse
 }
 /**
  * @openapi
@@ -63,7 +63,7 @@ export interface PlannerEntryDTOResponse {
  */
 export type PlannerEntryDTORequest = Pick<
   PlannerEntryDTOResponse,
-  'plannerId' | 'mealId' | 'MealTimeId' | 'mealDate'
+  'plannerId' | 'mealId' | 'mealTimeId' | 'mealDate'
 >
 
 /**
