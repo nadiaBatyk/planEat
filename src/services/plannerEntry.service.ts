@@ -33,8 +33,8 @@ export class PlannerEntryService {
     plannerEntryReq: PlannerEntryDTORequest
   ): Promise<void> => {
     const planner = await this.plannerDao.getPlannerById(plannerId)
-    await this.mealDao.getMealById(plannerEntryReq.mealId)
-    await this.mealTimeDao.getMealTimeById(plannerEntryReq.MealTimeId)
+    await this.mealDao.getMealById(plannerEntryReq.mealId as number)
+    await this.mealTimeDao.getMealTimeById(plannerEntryReq.mealTimeId as number)
     this.checkPlannerRange(planner, plannerEntryReq)
     this.checkDuplicateEntry(planner, plannerEntryReq)
   }
@@ -47,14 +47,14 @@ export class PlannerEntryService {
       planner.plannerEntries.find(
         entry =>
           entry.mealId === plannerEntryReq.mealId &&
-          entry.MealTimeId === plannerEntryReq.MealTimeId &&
+          entry.MealTimeId === plannerEntryReq.mealTimeId &&
           entry.mealDate === plannerEntryReq.mealDate
       )
 
     if (existentEntry) {
       throw new HttpException(
         400,
-        `Planner already has an entry with mealId #${plannerEntryReq.mealId} and MealTimeId #${plannerEntryReq.MealTimeId} for the date ${plannerEntryReq.mealDate} `,
+        `Planner already has an entry with mealId #${plannerEntryReq.mealId} and MealTimeId #${plannerEntryReq.mealTimeId} for the date ${plannerEntryReq.mealDate} `,
         'Duplicated entry'
       )
     }

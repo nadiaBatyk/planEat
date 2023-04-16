@@ -1,3 +1,4 @@
+import { Query } from '../common/types/query.types'
 import { MealDao } from '../db/DAOs/classes/meal.dao'
 import { FeatureDTOResponse } from '../db/DTOs/feature.dto'
 import { IngredientDTOResponse } from '../db/DTOs/ingredient.dto'
@@ -13,8 +14,8 @@ export class MealService {
   constructor() {
     this.mealDao = new MealDao()
   }
-  getMeals = async (): Promise<MealDTOResponse[]> => {
-    const meals = await this.mealDao.getMeals()
+  getMeals = async (query: Query): Promise<MealDTOResponse[]> => {
+    const meals = await this.mealDao.getMeals(query)
     return meals.map(m => MealMap.toDTO(m))
   }
   getMealById = async (id: number): Promise<MealDTOResponse> => {

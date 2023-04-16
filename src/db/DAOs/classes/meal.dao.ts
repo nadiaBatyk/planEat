@@ -1,4 +1,5 @@
 import HttpException from '../../../common/error/HttpException'
+import { Query } from '../../../common/types/query.types'
 import { MealDTORequest } from '../../DTOs/meal.dto'
 import { MealFeatureDTORequest } from '../../DTOs/mealFeature.dto'
 import { MealIngredientDTORequest } from '../../DTOs/mealIngredient.dto'
@@ -33,14 +34,16 @@ export class MealDao implements IMealDao {
     }
   }
 
-  getMeals = async (): Promise<Meal[]> => {
+  getMeals = async (query: Query): Promise<Meal[]> => {
     try {
       const meals = await Meal.findAll({
         include: [
           { model: Ingredient, through: { attributes: ['quantity'] } },
           { model: Feature, through: { attributes: ['value'] } },
         ],
-        order: [['id', 'ASC']],
+        order: [[query.orderBy, query.direction]],
+        limit: query.pageSize,
+        offset: (query.page - 1) * query.pageSize,
       })
       return meals
     } catch (error) {

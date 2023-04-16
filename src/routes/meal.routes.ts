@@ -15,6 +15,31 @@ const mealController = new MealController()
  *     tags:
  *       - Meals
  *     summary: Find all meals
+ *     parameters:
+ *      - name: page
+ *        in: query
+ *        description: The page number
+ *        required: false
+ *        schema:
+ *          type: number
+ *      - name: pageSize
+ *        in: query
+ *        description: The quantity of results to receive
+ *        required: false
+ *        schema:
+ *          type: number
+ *      - name: orderBy
+ *        in: query
+ *        description: The field to order the results
+ *        required: false
+ *        schema:
+ *          type: string
+ *      - name: direction
+ *        in: query
+ *        description: The direction of the order of the results
+ *        required: false
+ *        schema:
+ *          type: string
  *     responses:
  *       200:
  *         description: OK
