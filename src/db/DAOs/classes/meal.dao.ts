@@ -42,6 +42,7 @@ export class MealDao implements IMealDao {
           { model: Feature, through: { attributes: ['value'] } },
         ],
         order: [[query.orderBy, query.direction]],
+
         limit: query.pageSize,
         offset: (query.page - 1) * query.pageSize,
       })
