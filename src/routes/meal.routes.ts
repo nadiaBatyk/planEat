@@ -4,6 +4,7 @@ import { validate } from '../middlewares/validation/validate.middleware'
 import { mealSchema } from '../middlewares/validation/schemas/meal.schema'
 import { mealFeatureSchema } from '../middlewares/validation/schemas/mealFeature.schema'
 import { mealIngredientSchema } from '../middlewares/validation/schemas/mealIngredient.schema'
+import { queryHandler } from '../middlewares/query.middleware'
 
 const mealRoutes = Router()
 const mealController = new MealController()
@@ -72,7 +73,7 @@ const mealController = new MealController()
  */
 mealRoutes
   .route('/')
-  .get(mealController.getMeals)
+  .get(queryHandler, mealController.getMeals)
   .post(validate(mealSchema), mealController.createMeal)
 
 /**

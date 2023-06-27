@@ -11,24 +11,12 @@ export class MealController {
     this.mealService = new MealService()
   }
   getMeals = async (
-    req: Request,
+    query: Query,
+    _req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      let query: Query = {
-        orderBy: (req.query?.orderBy as string) ?? 'id',
-        direction:
-          req.query?.direction === 'ASC' || req.query?.direction === 'DESC'
-            ? req.query?.direction
-            : 'ASC',
-        page: req.query?.page && +req.query?.page > 0 ? +req.query.page : 1,
-        pageSize:
-          req.query?.pageSize && +req.query?.pageSize > 0
-            ? +req.query.pageSize
-            : 5,
-      }
-
       const meals = await this.mealService.getMeals(query)
       res.status(200).json(meals)
     } catch (error) {

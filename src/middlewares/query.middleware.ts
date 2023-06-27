@@ -3,8 +3,8 @@ import { Query } from '../common/types/query.types'
 
 export const queryHandler = (
   req: Request,
-  res: Response,
-  _next: NextFunction
+  _res: Response,
+  next: NextFunction
 ) => {
   let query: Query = {
     orderBy: (req.query?.orderBy as string) ?? 'id',
@@ -16,4 +16,6 @@ export const queryHandler = (
     pageSize:
       req.query?.pageSize && +req.query?.pageSize > 0 ? +req.query.pageSize : 5,
   }
+
+  return next(query)
 }
