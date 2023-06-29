@@ -37,10 +37,6 @@ export class MealDao implements IMealDao {
   getMeals = async (query: Query): Promise<Meal[]> => {
     try {
       const meals = await Meal.findAll({
-        include: [
-          { model: Ingredient, through: { attributes: ['quantity'] } },
-          { model: Feature, through: { attributes: ['value'] } },
-        ],
         order: [[query.orderBy, query.direction]],
 
         limit: query.pageSize,
