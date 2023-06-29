@@ -185,7 +185,7 @@ mealRoutes
  */
 mealRoutes
   .route('/:mealId/ingredients')
-  .get(queryHandler, mealController.getMealIngredients)
+  .get(mealController.getMealIngredients)
   .post(validate(mealIngredientSchema), mealController.addMealIngredient)
 
 /**
