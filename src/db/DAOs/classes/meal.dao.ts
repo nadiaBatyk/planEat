@@ -15,12 +15,7 @@ export class MealDao implements IMealDao {
   //MEAL CRUD
   getMealById = async (id: number): Promise<Meal> => {
     try {
-      const meal = await Meal.findByPk(id, {
-        /* include: [
-          { model: Ingredient, through: { attributes: ['quantity'] } },
-          { model: Feature, through: { attributes: ['value'] } },
-        ], */
-      })
+      const meal = await Meal.findByPk(id)
       if (meal) {
         return meal
       }
@@ -119,7 +114,7 @@ export class MealDao implements IMealDao {
   addIngredientToMeal = async (
     mealId: number,
     mealIngredientReq: MealIngredientDTORequest
-  ): Promise<Meal> => {
+  ): Promise<MealIngredient> => {
     try {
       const meal = await this.getMealById(mealId)
       if (meal) {
@@ -129,7 +124,19 @@ export class MealDao implements IMealDao {
             quantity: mealIngredientReq.quantity,
           },
         })
-        return await this.getMealById(mealId)
+        const g = await MealIngredient.findOne({
+          where: {
+            ingredientId: mealIngredientReq.ingredientId,
+            mealId: mealId,
+          },
+        })
+        /* const f = await meal.$get('ingredients', {
+          where: { id: mealIngredientReq.ingredientId },
+        }) */
+        console.log('ESTE ES EL INGREDIENTE', g)
+        if (g) {
+          return g
+        }
       }
 
       throw new HttpException(
