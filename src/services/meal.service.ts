@@ -8,8 +8,6 @@ import { MealIngredientDTORequest } from '../db/DTOs/mealIngredient.dto'
 import { FeatureMap } from '../db/mappers/feature.map'
 import { IngredientMap } from '../db/mappers/ingredient.map'
 import { MealMap } from '../db/mappers/meal.map'
-import { Ingredient } from '../db/models/Ingredient'
-import { Meal } from '../db/models/Meal'
 
 export class MealService {
   mealDao: MealDao
@@ -26,16 +24,10 @@ export class MealService {
   }
   getMealIngredients = async (id: number): Promise<IngredientDTOResponse[]> => {
     const meal = await this.mealDao.getMealById(id)
-    const f = await Meal.findByPk(id, {
-      include: [
-        {
-          model: Ingredient,
-          through: { attributes: [] },
-        },
-      ],
+    const h = await meal.$get('ingredients', {
+      order: [['id', 'DESC']],
+      limit: 1,
     })
-    console.log(f)
-    const h = await meal.$get('ingredients')
     return h.map(i => IngredientMap.toDTO(i))
   }
   getMealIngredientById = async (
