@@ -9,9 +9,10 @@ export const queryHandler = (
   let query: Query = {
     orderBy: (req.query?.orderBy as string) ?? 'id',
     direction:
-      req.query?.direction === 'ASC' || req.query?.direction === 'DESC'
-        ? req.query?.direction
-        : 'ASC',
+      req.query?.direction?.toString().toLowerCase() === 'asc' ||
+      req.query?.direction?.toString().toLowerCase() === 'desc'
+        ? req.query?.direction?.toString().toLowerCase()
+        : 'asc',
     page: req.query?.page && +req.query?.page > 0 ? +req.query.page : 1,
     pageSize:
       req.query?.pageSize && +req.query?.pageSize > 0 ? +req.query.pageSize : 5,

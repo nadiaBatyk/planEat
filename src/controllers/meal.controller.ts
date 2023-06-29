@@ -37,13 +37,17 @@ export class MealController {
     }
   }
   getMealIngredients = async (
+    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
       const { mealId } = req.params
-      const ingredients = await this.mealService.getMealIngredients(+mealId)
+      const ingredients = await this.mealService.getMealIngredients(
+        +mealId,
+        query
+      )
       res.status(200).json(ingredients)
     } catch (error) {
       next(error)
@@ -66,13 +70,14 @@ export class MealController {
     }
   }
   getMealFeatures = async (
+    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
       const { mealId } = req.params
-      const features = await this.mealService.getMealFeatures(+mealId)
+      const features = await this.mealService.getMealFeatures(+mealId, query)
       res.status(200).json(features)
     } catch (error) {
       next(error)

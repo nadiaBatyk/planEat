@@ -16,10 +16,10 @@ export class MealDao implements IMealDao {
   getMealById = async (id: number): Promise<Meal> => {
     try {
       const meal = await Meal.findByPk(id, {
-        include: [
+        /* include: [
           { model: Ingredient, through: { attributes: ['quantity'] } },
           { model: Feature, through: { attributes: ['value'] } },
-        ],
+        ], */
       })
       if (meal) {
         return meal
@@ -94,6 +94,28 @@ export class MealDao implements IMealDao {
 
   //MEAL_INGREDIENTS CRUD
 
+  getMealIngredients = async (
+    id: number,
+    query: Query
+  ): Promise<Ingredient[]> => {
+    try {
+      const meal = await this.getMealById(id)
+      if (meal) {
+        return await meal.$get('ingredients', {
+          order: [[query.orderBy, query.direction]],
+          limit: query.pageSize,
+          offset: (query.page - 1) * query.pageSize,
+        })
+      }
+      throw new HttpException(
+        404,
+        `Meal with id ${id} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
   addIngredientToMeal = async (
     mealId: number,
     mealIngredientReq: MealIngredientDTORequest
@@ -207,6 +229,26 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
+  getMealFeatures = async (id: number, query: Query): Promise<Feature[]> => {
+    try {
+      const meal = await this.getMealById(id)
+      if (meal) {
+        return await meal.$get('features', {
+          order: [[query.orderBy, query.direction]],
+          limit: query.pageSize,
+          offset: (query.page - 1) * query.pageSize,
+        })
+      }
+      throw new HttpException(
+        404,
+        `Meal with id ${id} does not exist`,
+        'Not Found'
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+
   removeFeatureFromMeal = async (
     mealId: number,
     featureId: number

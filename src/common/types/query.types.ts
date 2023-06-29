@@ -1,6 +1,6 @@
 export type Query = {
   orderBy: string
-  direction: 'ASC' | 'DESC'
+  direction: string
   page: number
   pageSize: number
 }

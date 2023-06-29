@@ -22,13 +22,13 @@ export class MealService {
     const meal = await this.mealDao.getMealById(id)
     return MealMap.toDTO(meal)
   }
-  getMealIngredients = async (id: number): Promise<IngredientDTOResponse[]> => {
-    const meal = await this.mealDao.getMealById(id)
-    const h = await meal.$get('ingredients', {
-      order: [['id', 'DESC']],
-      limit: 1,
-    })
-    return h.map(i => IngredientMap.toDTO(i))
+  getMealIngredients = async (
+    id: number,
+    query: Query
+  ): Promise<IngredientDTOResponse[]> => {
+    const ingredients = await this.mealDao.getMealIngredients(id, query)
+
+    return ingredients.map(i => IngredientMap.toDTO(i))
   }
   getMealIngredientById = async (
     mealId: number,
@@ -40,9 +40,12 @@ export class MealService {
     )
     return IngredientMap.toDTO(ingredient)
   }
-  getMealFeatures = async (id: number): Promise<FeatureDTOResponse[]> => {
-    const meal = await this.mealDao.getMealById(id)
-    return meal.features.map(i => FeatureMap.toDTO(i))
+  getMealFeatures = async (
+    id: number,
+    query: Query
+  ): Promise<FeatureDTOResponse[]> => {
+    const features = await this.mealDao.getMealFeatures(id, query)
+    return features.map(i => FeatureMap.toDTO(i))
   }
   createMeal = async (meal: MealDTORequest): Promise<MealDTOResponse> => {
     const newMeal = await this.mealDao.create(meal)

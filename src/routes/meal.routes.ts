@@ -151,6 +151,30 @@ mealRoutes
  *     summary: Find all ingredients in one meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
+ *      - name: page
+ *        in: query
+ *        description: The page number
+ *        required: false
+ *        schema:
+ *          type: number
+ *      - name: pageSize
+ *        in: query
+ *        description: The quantity of results to receive
+ *        required: false
+ *        schema:
+ *          type: number
+ *      - name: orderBy
+ *        in: query
+ *        description: The field to order the results
+ *        required: false
+ *        schema:
+ *          type: string
+ *      - name: direction
+ *        in: query
+ *        description: The direction of the order of the results
+ *        required: false
+ *        schema:
+ *          type: string
  *     responses:
  *       200:
  *         description: OK
@@ -185,7 +209,7 @@ mealRoutes
  */
 mealRoutes
   .route('/:mealId/ingredients')
-  .get(mealController.getMealIngredients)
+  .get(queryHandler, mealController.getMealIngredients)
   .post(validate(mealIngredientSchema), mealController.addMealIngredient)
 
 /**
@@ -266,6 +290,30 @@ mealRoutes
  *     summary: Find all features in one meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
+ *      - name: page
+ *        in: query
+ *        description: The page number
+ *        required: false
+ *        schema:
+ *          type: number
+ *      - name: pageSize
+ *        in: query
+ *        description: The quantity of results to receive
+ *        required: false
+ *        schema:
+ *          type: number
+ *      - name: orderBy
+ *        in: query
+ *        description: The field to order the results
+ *        required: false
+ *        schema:
+ *          type: string
+ *      - name: direction
+ *        in: query
+ *        description: The direction of the order of the results
+ *        required: false
+ *        schema:
+ *          type: string
  *     responses:
  *       200:
  *         description: OK
