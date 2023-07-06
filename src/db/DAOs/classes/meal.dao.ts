@@ -10,8 +10,13 @@ import { Meal } from '../../models/Meal'
 import { MealFeature } from '../../models/MealFeature'
 import { MealIngredient } from '../../models/MealIngredient'
 import { IMealDao } from '../interfaces/mealDao.interface'
+import { IngredientDao } from './ingredient.dao'
 
 export class MealDao implements IMealDao {
+  ingredientDao: IngredientDao
+  constructor() {
+    this.ingredientDao = new IngredientDao()
+  }
   //MEAL CRUD
   getMealById = async (id: number): Promise<Meal> => {
     try {
@@ -117,33 +122,14 @@ export class MealDao implements IMealDao {
   ): Promise<MealIngredient> => {
     try {
       const meal = await this.getMealById(mealId)
-      if (meal) {
-        await meal.$add('ingredient', mealIngredientReq.ingredientId, {
-          through: {
-            model: MealIngredient,
-            quantity: mealIngredientReq.quantity,
-          },
-        })
-        const g = await MealIngredient.findOne({
-          where: {
-            ingredientId: mealIngredientReq.ingredientId,
-            mealId: mealId,
-          },
-        })
-        /* const f = await meal.$get('ingredients', {
-          where: { id: mealIngredientReq.ingredientId },
-        }) */
-        console.log('ESTE ES EL INGREDIENTE', g)
-        if (g) {
-          return g
-        }
-      }
-
-      throw new HttpException(
-        404,
-        `Meal with id ${mealId} does not exist`,
-        'Not Found'
-      )
+      await this.ingredientDao.getIngredientById(mealIngredientReq.ingredientId)
+      await meal.$add('ingredient', mealIngredientReq.ingredientId, {
+        through: {
+          model: MealIngredient,
+          quantity: mealIngredientReq.quantity,
+        },
+      })
+      return this.getMealIngredientById(mealId, mealIngredientReq.ingredientId)
     } catch (error) {
       throw error
     }
@@ -151,14 +137,18 @@ export class MealDao implements IMealDao {
   getMealIngredientById = async (
     mealId: number,
     ingredientId: number
-  ): Promise<Ingredient> => {
+  ): Promise<MealIngredient> => {
     try {
-      const meal = await this.getMealById(mealId)
-      const ingredient = meal.ingredients.find(
-        value => value.id === ingredientId
-      )
-      if (ingredient) {
-        return ingredient
+      await this.getMealById(mealId)
+      await this.ingredientDao.getIngredientById(ingredientId)
+      const mealIngredient = await MealIngredient.findOne({
+        where: {
+          ingredientId: ingredientId,
+          mealId: mealId,
+        },
+      })
+      if (mealIngredient) {
+        return mealIngredient
       }
       throw new HttpException(
         404,

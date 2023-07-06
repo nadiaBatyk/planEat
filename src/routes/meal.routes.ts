@@ -228,7 +228,7 @@ mealRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/IngredientDTOResponse"
+ *               $ref: "#/components/schemas/MealIngredientDTOResponse"
  *       400:
  *         description: Bad Request
  *       404:

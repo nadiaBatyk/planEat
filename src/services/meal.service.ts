@@ -36,12 +36,12 @@ export class MealService {
   getMealIngredientById = async (
     mealId: number,
     ingredientId: number
-  ): Promise<IngredientDTOResponse> => {
+  ): Promise<MealIngredientDTOResponse> => {
     const ingredient = await this.mealDao.getMealIngredientById(
       mealId,
       ingredientId
     )
-    return IngredientMap.toDTO(ingredient)
+    return ingredient
   }
   getMealFeatures = async (
     id: number,
