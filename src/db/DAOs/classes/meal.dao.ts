@@ -20,8 +20,6 @@ export class MealDao implements IMealDao {
   //MEAL CRUD
   getMealById = async (id: number): Promise<Meal> => {
     try {
-      console.log(id)
-
       const meal = await Meal.findByPk(id)
       if (meal) {
         return meal
@@ -53,8 +51,6 @@ export class MealDao implements IMealDao {
   delete = async (id: number): Promise<string> => {
     try {
       await this.getMealById(id)
-      console.log('holis')
-
       await Meal.destroy({
         where: { id: id },
       })
