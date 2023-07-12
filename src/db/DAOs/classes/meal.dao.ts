@@ -20,6 +20,8 @@ export class MealDao implements IMealDao {
   //MEAL CRUD
   getMealById = async (id: number): Promise<Meal> => {
     try {
+      console.log(id)
+
       const meal = await Meal.findByPk(id)
       if (meal) {
         return meal
@@ -50,43 +52,31 @@ export class MealDao implements IMealDao {
 
   delete = async (id: number): Promise<string> => {
     try {
-      const rowNumber = await Meal.destroy({
+      await this.getMealById(id)
+      console.log('holis')
+
+      await Meal.destroy({
         where: { id: id },
       })
-      if (rowNumber) {
-        return `Meal #${id} has been succesfully deleted`
-      }
-      throw new HttpException(
-        404,
-        `Meal with id ${id} does not exist`,
-        'Not Found'
-      )
+      return `Meal #${id} has been succesfully deleted`
     } catch (error) {
       throw error
     }
   }
-  create = async (m: MealDTORequest): Promise<Meal> => {
+  create = async (newMeal: MealDTORequest): Promise<Meal> => {
     try {
-      const meal = await Meal.create({ ...m })
+      const meal = await Meal.create({ ...newMeal })
       return meal
     } catch (error) {
       throw error
     }
   }
-  update = async (id: number, m: MealDTORequest): Promise<Meal> => {
+  update = async (id: number, newMeal: MealDTORequest): Promise<Meal> => {
     try {
-      const meal = await Meal.findByPk(id)
-      if (meal) {
-        meal.set(m)
-        await meal.save()
-        return meal
-      }
-
-      throw new HttpException(
-        404,
-        `Meal with id ${id} does not exist`,
-        'Not Found'
-      )
+      const meal = await this.getMealById(id)
+      meal.set(newMeal)
+      await meal.save()
+      return meal
     } catch (error) {
       throw error
     }
@@ -100,18 +90,11 @@ export class MealDao implements IMealDao {
   ): Promise<Ingredient[]> => {
     try {
       const meal = await this.getMealById(id)
-      if (meal) {
-        return await meal.$get('ingredients', {
-          order: [[query.orderBy, query.direction]],
-          limit: query.pageSize,
-          offset: (query.page - 1) * query.pageSize,
-        })
-      }
-      throw new HttpException(
-        404,
-        `Meal with id ${id} does not exist`,
-        'Not Found'
-      )
+      return await meal.$get('ingredients', {
+        order: [[query.orderBy, query.direction]],
+        limit: query.pageSize,
+        offset: (query.page - 1) * query.pageSize,
+      })
     } catch (error) {
       throw error
     }
@@ -162,20 +145,14 @@ export class MealDao implements IMealDao {
   removeIngredientFromMeal = async (
     mealId: number,
     ingredientId: number
-  ): Promise<Meal> => {
+  ): Promise<string> => {
     try {
-      const meal = await this.getMealById(mealId)
-      if (meal) {
-        await meal.$remove('ingredient', ingredientId)
-
-        return await this.getMealById(mealId)
-      }
-
-      throw new HttpException(
-        404,
-        `Ingredient with id ${ingredientId} does not exist on meal #${mealId}`,
-        'Not Found'
+      const mealIngredient = await this.getMealIngredientById(
+        mealId,
+        ingredientId
       )
+      await mealIngredient.$remove('ingredient', ingredientId)
+      return `Ingredient with id #${ingredientId} has been succesfully deleted from Meal #${mealId}`
     } catch (error) {
       throw error
     }

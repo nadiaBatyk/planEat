@@ -150,8 +150,8 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { id } = req.params
-      const message = await this.mealService.deleteMeal(+id)
+      const { mealId } = req.params
+      const message = await this.mealService.deleteMeal(+mealId)
       res.status(200).json(message)
     } catch (error) {
       next(error)

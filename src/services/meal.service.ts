@@ -67,12 +67,12 @@ export class MealService {
   deleteMealIngredient = async (
     mealId: number,
     ingredientId: number
-  ): Promise<MealDTOResponse> => {
-    const meal = await this.mealDao.removeIngredientFromMeal(
+  ): Promise<string> => {
+    const message = await this.mealDao.removeIngredientFromMeal(
       mealId,
       ingredientId
     )
-    return MealMap.toDTO(meal)
+    return message
   }
   updateMeal = async (
     id: number,
