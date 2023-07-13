@@ -250,30 +250,10 @@ mealRoutes
  *     summary: Find all features in one meal
  *     parameters:
  *      - $ref: "#/components/parameters/mealId"
- *      - name: page
- *        in: query
- *        description: The page number
- *        required: false
- *        schema:
- *          type: number
- *      - name: pageSize
- *        in: query
- *        description: The quantity of results to receive
- *        required: false
- *        schema:
- *          type: number
- *      - name: orderBy
- *        in: query
- *        description: The field to order the results
- *        required: false
- *        schema:
- *          type: string
- *      - name: direction
- *        in: query
- *        description: The direction of the order of the results
- *        required: false
- *        schema:
- *          type: string
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
  *     responses:
  *       200:
  *         description: OK

@@ -3,7 +3,10 @@ import { MealDao } from '../db/DAOs/classes/meal.dao'
 import { FeatureDTOResponse } from '../db/DTOs/feature.dto'
 import { IngredientDTOResponse } from '../db/DTOs/ingredient.dto'
 import { MealDTORequest, MealDTOResponse } from '../db/DTOs/meal.dto'
-import { MealFeatureDTORequest } from '../db/DTOs/mealFeature.dto'
+import {
+  MealFeatureDTORequest,
+  MealFeatureDTOResponse,
+} from '../db/DTOs/mealFeature.dto'
 import {
   MealIngredientDTORequest,
   MealIngredientDTOResponse,
@@ -88,22 +91,22 @@ export class MealService {
   addMealFeature = async (
     mealId: number,
     mealFeature: MealFeatureDTORequest
-  ): Promise<MealDTOResponse> => {
+  ): Promise<MealFeatureDTOResponse> => {
     const meal = await this.mealDao.addFeatureToMeal(mealId, mealFeature)
-    return MealMap.toDTO(meal)
+    return meal
   }
   deleteMealFeature = async (
     mealId: number,
     featureId: number
-  ): Promise<MealDTOResponse> => {
-    const meal = await this.mealDao.removeFeatureFromMeal(mealId, featureId)
-    return MealMap.toDTO(meal)
+  ): Promise<string> => {
+    const message = await this.mealDao.removeFeatureFromMeal(mealId, featureId)
+    return message
   }
   getMealFeatureById = async (
     mealId: number,
     featureId: number
-  ): Promise<FeatureDTOResponse> => {
+  ): Promise<MealFeatureDTOResponse> => {
     const feature = await this.mealDao.getMealFeatureById(mealId, featureId)
-    return FeatureMap.toDTO(feature)
+    return feature
   }
 }
