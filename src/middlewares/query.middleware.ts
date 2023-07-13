@@ -13,7 +13,10 @@ export const queryHandler = (
       req.query?.direction?.toString().toLowerCase() === 'desc'
         ? req.query?.direction?.toString().toLowerCase()
         : 'asc',
-    page: req.query?.page && +req.query?.page > 0 ? +req.query.page : 1,
+    pageNumber:
+      req.query?.pageNumber && +req.query?.pageNumber > 0
+        ? +req.query.pageNumber
+        : 1,
     pageSize:
       req.query?.pageSize && +req.query?.pageSize > 0 ? +req.query.pageSize : 5,
   }

@@ -17,7 +17,11 @@ const options: swaggerJsdoc.Options = {
       description: 'Local server',
     },
   ],
-  apis: ['./src/routes/*.ts', './src/db/DTOs/*.ts'],
+  apis: [
+    './src/routes/*.ts',
+    './src/db/DTOs/*.ts',
+    './src/common/docs/queryParams.swagger.ts',
+  ],
 }
 const swaggerSpec = swaggerJsdoc(options)
 

@@ -40,7 +40,7 @@ export class MealDao implements IMealDao {
         order: [[query.orderBy, query.direction]],
 
         limit: query.pageSize,
-        offset: (query.page - 1) * query.pageSize,
+        offset: (query.pageNumber - 1) * query.pageSize,
       })
       return meals
     } catch (error) {
@@ -89,7 +89,7 @@ export class MealDao implements IMealDao {
       return await meal.$get('ingredients', {
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
-        offset: (query.page - 1) * query.pageSize,
+        offset: (query.pageNumber - 1) * query.pageSize,
       })
     } catch (error) {
       throw error
@@ -206,7 +206,7 @@ export class MealDao implements IMealDao {
         return await meal.$get('features', {
           order: [[query.orderBy, query.direction]],
           limit: query.pageSize,
-          offset: (query.page - 1) * query.pageSize,
+          offset: (query.pageNumber - 1) * query.pageSize,
         })
       }
       throw new HttpException(
