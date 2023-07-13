@@ -20,7 +20,7 @@ const options: swaggerJsdoc.Options = {
   apis: [
     './src/routes/*.ts',
     './src/db/DTOs/*.ts',
-    './src/common/docs/queryParams.swagger.ts',
+    './src/common/docs/components.swagger.ts',
   ],
 }
 const swaggerSpec = swaggerJsdoc(options)
