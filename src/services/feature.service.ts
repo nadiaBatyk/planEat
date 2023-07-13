@@ -1,3 +1,4 @@
+import { Query } from '../common/types/query.types'
 import { FeatureDao } from '../db/DAOs/classes/feature.dao'
 import { FeatureDTORequest, FeatureDTOResponse } from '../db/DTOs/feature.dto'
 import { FeatureMap } from '../db/mappers/feature.map'
@@ -7,8 +8,8 @@ export class FeatureService {
   constructor() {
     this.featureDao = new FeatureDao()
   }
-  getFeatures = async (): Promise<FeatureDTOResponse[]> => {
-    const features = await this.featureDao.getFeatures()
+  getFeatures = async (query: Query): Promise<FeatureDTOResponse[]> => {
+    const features = await this.featureDao.getFeatures(query)
     return features.map(m => FeatureMap.toDTO(m))
   }
   getFeatureById = async (id: number): Promise<FeatureDTOResponse> => {

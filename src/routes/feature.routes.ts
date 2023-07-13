@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { FeatureController } from '../controllers/feature.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { featureSchema } from '../middlewares/validation/schemas/feature.schema'
+import { queryHandler } from '../middlewares/query.middleware'
 ;('../controllers/feature.controller')
 
 const featureRoutes = Router()
@@ -14,6 +15,11 @@ const featureController = new FeatureController()
  *     tags:
  *       - Features
  *     summary: Find all available features
+ *     parameters:
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
  *     responses:
  *       200:
  *         description: OK
@@ -46,7 +52,7 @@ const featureController = new FeatureController()
  */
 featureRoutes
   .route('/')
-  .get(featureController.getFeatures)
+  .get(queryHandler, featureController.getFeatures)
   .post(validate(featureSchema), featureController.createFeature)
 
 /**

@@ -22,12 +22,12 @@ export class FeatureDao implements IFeatureDao {
   }
   getFeatures = async (query: Query): Promise<Feature[]> => {
     try {
-      const planners = await Feature.findAll({
+      const features = await Feature.findAll({
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,
       })
-      return planners
+      return features
     } catch (error) {
       throw error
     }
