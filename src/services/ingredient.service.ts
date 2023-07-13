@@ -1,3 +1,4 @@
+import { Query } from '../common/types/query.types'
 import { IngredientDao } from '../db/DAOs/classes/ingredient.dao'
 import {
   IngredientDTORequest,
@@ -10,8 +11,8 @@ export class IngredientService {
   constructor() {
     this.ingredientDao = new IngredientDao()
   }
-  getIngredients = async (): Promise<IngredientDTOResponse[]> => {
-    const ingredients = await this.ingredientDao.getIngredients()
+  getIngredients = async (query: Query): Promise<IngredientDTOResponse[]> => {
+    const ingredients = await this.ingredientDao.getIngredients(query)
     return ingredients.map(m => IngredientMap.toDTO(m))
   }
   getIngredientById = async (id: number): Promise<IngredientDTOResponse> => {

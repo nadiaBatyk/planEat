@@ -5,6 +5,7 @@ import {
   ingredientSchema,
   partialIngredientSchema,
 } from '../middlewares/validation/schemas/ingredient.schema'
+import { queryHandler } from '../middlewares/query.middleware'
 
 const ingredientRoutes = Router()
 const ingredientController = new IngredientController()
@@ -16,6 +17,11 @@ const ingredientController = new IngredientController()
  *     tags:
  *       - Ingredients
  *     summary: Find all ingredients
+ *     parameters:
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
  *     responses:
  *       200:
  *         description: OK
@@ -48,7 +54,7 @@ const ingredientController = new IngredientController()
  */
 ingredientRoutes
   .route('/')
-  .get(ingredientController.getIngredients)
+  .get(queryHandler, ingredientController.getIngredients)
   .post(validate(ingredientSchema), ingredientController.createIngredient)
 
 /**
