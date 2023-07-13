@@ -142,11 +142,9 @@ export class MealDao implements IMealDao {
     ingredientId: number
   ): Promise<string> => {
     try {
-      const mealIngredient = await this.getMealIngredientById(
-        mealId,
-        ingredientId
-      )
-      await mealIngredient.$remove('ingredient', ingredientId)
+      await this.getMealIngredientById(mealId, ingredientId)
+      const meal = await this.getMealById(mealId)
+      await meal.$remove('ingredient', ingredientId)
       return `Ingredient with id #${ingredientId} has been succesfully deleted from Meal #${mealId}`
     } catch (error) {
       throw error
