@@ -24,7 +24,6 @@ export class IngredientDao implements IIngredientDao {
     try {
       const ingredients = await Ingredient.findAll({
         order: [[query.orderBy, query.direction]],
-
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,
       })
@@ -36,17 +35,11 @@ export class IngredientDao implements IIngredientDao {
 
   delete = async (id: number): Promise<string> => {
     try {
-      const rowNumber = await Ingredient.destroy({
+      await this.getIngredientById(id)
+      await Ingredient.destroy({
         where: { id: id },
       })
-      if (rowNumber) {
-        return `Ingredient #${id} has been succesfully deleted`
-      }
-      throw new HttpException(
-        404,
-        `Ingredient with id ${id} does not exist`,
-        'Not Found'
-      )
+      return `Ingredient #${id} has been succesfully deleted`
     } catch (error) {
       throw error
     }
@@ -54,7 +47,7 @@ export class IngredientDao implements IIngredientDao {
   create = async (ingredient: IngredientDTORequest): Promise<Ingredient> => {
     try {
       const newIngredient = await Ingredient.create({ ...ingredient })
-      return newIngredient.dataValues
+      return newIngredient
     } catch (error) {
       throw error
     }
@@ -64,18 +57,10 @@ export class IngredientDao implements IIngredientDao {
     ingredient: IngredientDTORequest
   ): Promise<Ingredient> => {
     try {
-      const currentIngredient = await Ingredient.findByPk(id)
-      if (currentIngredient) {
-        currentIngredient.set(ingredient)
-        await currentIngredient.save()
-        return currentIngredient.dataValues
-      }
-
-      throw new HttpException(
-        404,
-        `Ingredient with id ${id} does not exist`,
-        'Not Found'
-      )
+      const currentIngredient = await this.getIngredientById(id)
+      currentIngredient.set(ingredient)
+      await currentIngredient.save()
+      return currentIngredient
     } catch (error) {
       throw error
     }

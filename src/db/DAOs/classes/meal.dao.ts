@@ -38,7 +38,6 @@ export class MealDao implements IMealDao {
     try {
       const meals = await Meal.findAll({
         order: [[query.orderBy, query.direction]],
-
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,
       })
