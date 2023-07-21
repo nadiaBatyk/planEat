@@ -130,6 +130,23 @@ export class MealController {
       next(error)
     }
   }
+  updateMealIngredient = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { mealId } = req.params
+      const mealIngredientReq: MealIngredientDTORequest = req.body
+      const updatedMealIngredient = await this.mealService.updateMealIngredient(
+        +mealId,
+        mealIngredientReq
+      )
+      res.status(200).json(updatedMealIngredient)
+    } catch (error) {
+      next(error)
+    }
+  }
   updateMeal = async (
     req: Request,
     res: Response,

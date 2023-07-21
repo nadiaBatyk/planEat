@@ -84,6 +84,16 @@ export class MealService {
     const updatedMeal = await this.mealDao.update(id, meal)
     return MealMap.toDTO(updatedMeal)
   }
+  updateMealIngredient = async (
+    mealId: number,
+    mealIngredientReq: MealIngredientDTORequest
+  ): Promise<MealIngredientDTOResponse> => {
+    const updatedMealIngredient = await this.mealDao.updateMealIngredient(
+      mealId,
+      mealIngredientReq
+    )
+    return updatedMealIngredient
+  }
   deleteMeal = async (id: number): Promise<string> => {
     const message = await this.mealDao.delete(id)
     return message

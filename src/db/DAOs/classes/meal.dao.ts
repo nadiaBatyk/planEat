@@ -153,6 +153,23 @@ export class MealDao implements IMealDao {
       throw error
     }
   }
+
+  updateMealIngredient = async (
+    mealId: number,
+    mealIngredientReq: MealIngredientDTORequest
+  ): Promise<MealIngredient> => {
+    try {
+      const mealIngredient = await this.getMealIngredientById(
+        mealId,
+        mealIngredientReq.ingredientId
+      )
+      mealIngredient.set(mealIngredientReq)
+      await mealIngredient.save()
+      return mealIngredient
+    } catch (error) {
+      throw error
+    }
+  }
   //MEAL_FEATURES CRUD
 
   addFeatureToMeal = async (
