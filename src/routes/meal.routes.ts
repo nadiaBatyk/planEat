@@ -3,7 +3,10 @@ import { MealController } from '../controllers/meal.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { mealSchema } from '../middlewares/validation/schemas/meal.schema'
 import { mealFeatureSchema } from '../middlewares/validation/schemas/mealFeature.schema'
-import { mealIngredientSchema } from '../middlewares/validation/schemas/mealIngredient.schema'
+import {
+  mealIngredientSchema,
+  updateMealIngredientSchema,
+} from '../middlewares/validation/schemas/mealIngredient.schema'
 import { queryHandler } from '../middlewares/query.middleware'
 
 const mealRoutes = Router()
@@ -205,7 +208,7 @@ mealRoutes
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/MealIngredientDTORequest"
+ *             $ref: "#/components/schemas/UpdateMealIngredientDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -238,7 +241,10 @@ mealRoutes
 mealRoutes
   .route('/:mealId/ingredients/:ingredientId')
   .get(mealController.getMealIngredientById)
-  .put(validate(mealIngredientSchema), mealController.updateMealIngredient)
+  .put(
+    validate(updateMealIngredientSchema),
+    mealController.updateMealIngredient
+  )
   .delete(mealController.deleteMealIngredient)
 
 /**

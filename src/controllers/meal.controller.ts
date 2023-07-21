@@ -102,11 +102,10 @@ export class MealController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { mealId, ingredientId } = req.params
+      const { mealId } = req.params
       const mealIngredientReq: MealIngredientDTORequest = req.body
       const newmealIngredient = await this.mealService.addMealIngredient(
         +mealId,
-        +ingredientId,
         mealIngredientReq
       )
       res.status(200).json(newmealIngredient)

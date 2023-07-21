@@ -59,12 +59,10 @@ export class MealService {
   }
   addMealIngredient = async (
     mealId: number,
-    ingredientId: number,
     mealIngredientReq: MealIngredientDTORequest
   ): Promise<MealIngredientDTOResponse> => {
     const meal = await this.mealDao.addIngredientToMeal(
       mealId,
-      ingredientId,
       mealIngredientReq
     )
     return meal

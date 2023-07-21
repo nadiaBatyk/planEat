@@ -28,12 +28,29 @@ export interface MealIngredientDTOResponse {
  *       type: object
  *       required:
  *         - quantity
+ *         - ingredientId
  *       properties:
+ *         ingredientId:
+ *           type: integer
+ *           format: int64
  *         quantity:
  *           type: number
  *           format: float
  */
 export type MealIngredientDTORequest = Pick<
   MealIngredientDTOResponse,
-  'quantity'
+  'quantity' | 'ingredientId'
 >
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     UpdateMealIngredientDTORequest:
+ *       type: object
+ *       required:
+ *         - quantity
+ *       properties:
+ *         quantity:
+ *           type: number
+ *           format: float
+ */
