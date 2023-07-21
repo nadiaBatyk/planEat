@@ -213,7 +213,7 @@ mealRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealDTOResponse"
+ *               $ref: "#/components/schemas/MealIngredientDTOResponse"
  *       400:
  *         description: Invalid input
  *   delete:

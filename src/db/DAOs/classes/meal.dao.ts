@@ -99,18 +99,19 @@ export class MealDao implements IMealDao {
   }
   addIngredientToMeal = async (
     mealId: number,
+    ingredientId: number,
     mealIngredientReq: MealIngredientDTORequest
   ): Promise<MealIngredient> => {
     try {
       const meal = await this.getMealById(mealId)
-      await this.ingredientDao.getIngredientById(mealIngredientReq.ingredientId)
-      await meal.$add('ingredient', mealIngredientReq.ingredientId, {
+      await this.ingredientDao.getIngredientById(ingredientId)
+      await meal.$add('ingredient', ingredientId, {
         through: {
           model: MealIngredient,
           quantity: mealIngredientReq.quantity,
         },
       })
-      return this.getMealIngredientById(mealId, mealIngredientReq.ingredientId)
+      return this.getMealIngredientById(mealId, ingredientId)
     } catch (error) {
       throw error
     }
@@ -156,14 +157,15 @@ export class MealDao implements IMealDao {
 
   updateMealIngredient = async (
     mealId: number,
+    ingredientId: number,
     mealIngredientReq: MealIngredientDTORequest
   ): Promise<MealIngredient> => {
     try {
       const mealIngredient = await this.getMealIngredientById(
         mealId,
-        mealIngredientReq.ingredientId
+        ingredientId
       )
-      mealIngredient.set(mealIngredientReq)
+      mealIngredient.set('quantity', mealIngredientReq.quantity)
       await mealIngredient.save()
       return mealIngredient
     } catch (error) {

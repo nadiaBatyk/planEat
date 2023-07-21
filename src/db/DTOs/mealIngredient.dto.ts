@@ -28,16 +28,12 @@ export interface MealIngredientDTOResponse {
  *       type: object
  *       required:
  *         - quantity
- *         - ingredientId
  *       properties:
- *         ingredientId:
- *           type: integer
- *           format: int64
  *         quantity:
  *           type: number
  *           format: float
  */
 export type MealIngredientDTORequest = Pick<
   MealIngredientDTOResponse,
-  'quantity' | 'ingredientId'
+  'quantity'
 >
