@@ -15,3 +15,7 @@ export const mealFeatureSchema = z.object({
     })
     .positive({ message: 'feature id must be greater than 0' }),
 })
+
+export const updateMealFeatureSchema = mealFeatureSchema.pick({
+  value: true,
+})

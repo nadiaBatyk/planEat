@@ -107,6 +107,18 @@ export class MealService {
     const meal = await this.mealDao.addFeatureToMeal(mealId, mealFeature)
     return meal
   }
+  updateMealFeature = async (
+    mealId: number,
+    featureId: number,
+    mealFeatureReq: MealFeatureDTORequest
+  ): Promise<MealFeatureDTOResponse> => {
+    const updatedMealFeature = await this.mealDao.updateMealFeature(
+      mealId,
+      featureId,
+      mealFeatureReq
+    )
+    return updatedMealFeature
+  }
   deleteMealFeature = async (
     mealId: number,
     featureId: number

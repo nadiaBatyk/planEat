@@ -41,3 +41,16 @@ export type MealFeatureDTORequest = Pick<
   MealFeatureDTOResponse,
   'value' | 'featureId'
 >
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     UpdateMealFeatureDTORequest:
+ *       type: object
+ *       required:
+ *         - value
+ *       properties:
+ *         value:
+ *           type: string
+ *           example: link to meal recipe
+ */

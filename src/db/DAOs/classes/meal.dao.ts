@@ -186,7 +186,22 @@ export class MealDao implements IMealDao {
           value: mealFeatureReq.value,
         },
       })
-      return await this.getMealFeatureById(mealId, mealFeatureReq.featureId)
+      return this.getMealFeatureById(mealId, mealFeatureReq.featureId)
+    } catch (error) {
+      throw error
+    }
+  }
+
+  updateMealFeature = async (
+    mealId: number,
+    featureId: number,
+    mealFeatureReq: MealFeatureDTORequest
+  ): Promise<MealFeature> => {
+    try {
+      const mealFeature = await this.getMealFeatureById(mealId, featureId)
+      mealFeature.set('value', mealFeatureReq.value)
+      await mealFeature.save()
+      return mealFeature
     } catch (error) {
       throw error
     }

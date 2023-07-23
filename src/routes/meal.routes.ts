@@ -2,7 +2,10 @@ import { Router } from 'express'
 import { MealController } from '../controllers/meal.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { mealSchema } from '../middlewares/validation/schemas/meal.schema'
-import { mealFeatureSchema } from '../middlewares/validation/schemas/mealFeature.schema'
+import {
+  mealFeatureSchema,
+  updateMealFeatureSchema,
+} from '../middlewares/validation/schemas/mealFeature.schema'
 import {
   mealIngredientSchema,
   updateMealIngredientSchema,
@@ -330,7 +333,7 @@ mealRoutes
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/MealFeatureDTORequest"
+ *             $ref: "#/components/schemas/UpdateMealFeatureDTORequest"
  *       required: true
  *     responses:
  *       200:
@@ -338,7 +341,7 @@ mealRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealDTOResponse"
+ *               $ref: "#/components/schemas/MealFeatureDTOResponse"
  *       400:
  *         description: Invalid input
  *   delete:
@@ -363,6 +366,6 @@ mealRoutes
 mealRoutes
   .route('/:mealId/features/:featureId')
   .get(mealController.getMealFeatureById)
-  .put(validate(mealFeatureSchema), mealController.addMealFeature)
+  .put(validate(updateMealFeatureSchema), mealController.updateMealFeature)
   .delete(mealController.deleteMealFeature)
 export default mealRoutes

@@ -192,6 +192,24 @@ export class MealController {
       next(error)
     }
   }
+  updateMealFeature = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { mealId, featureId } = req.params
+      const mealFeatureReq: MealFeatureDTORequest = req.body
+      const updatedMealFeature = await this.mealService.updateMealFeature(
+        +mealId,
+        +featureId,
+        mealFeatureReq
+      )
+      res.status(200).json(updatedMealFeature)
+    } catch (error) {
+      next(error)
+    }
+  }
   deleteMealFeature = async (
     req: Request,
     res: Response,
