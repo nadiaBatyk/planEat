@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { MealTimeController } from '../controllers/mealTime.controller'
 import { mealTimeSchema } from '../middlewares/validation/schemas/mealTime.schema'
+import { queryHandler } from '../middlewares/query.middleware'
 
 const mealTimeRoutes = Router()
 const mealTimeController = new MealTimeController()
@@ -12,6 +13,11 @@ const mealTimeController = new MealTimeController()
  *     tags:
  *       - MealTimes
  *     summary: Find all available meal times
+ *     parameters:
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
  *     responses:
  *       200:
  *         description: OK
@@ -44,7 +50,7 @@ const mealTimeController = new MealTimeController()
  */
 mealTimeRoutes
   .route('/')
-  .get(mealTimeController.getMealTimes)
+  .get(queryHandler, mealTimeController.getMealTimes)
   .post(validate(mealTimeSchema), mealTimeController.createType)
 
 /**
