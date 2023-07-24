@@ -129,6 +129,10 @@ plannerRoutes
  *     summary: Find all meals in one planner
  *     parameters:
  *      - $ref: "#/components/parameters/plannerId"
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
  *     responses:
  *       200:
  *         description: OK
@@ -139,4 +143,6 @@ plannerRoutes
  *               items:
  *                 $ref: "#/components/schemas/MealDTOResponse"
  */
-plannerRoutes.route('/:plannerId/meals').get(plannerController.getPlannerMeals)
+plannerRoutes
+  .route('/:plannerId/meals')
+  .get(queryHandler, plannerController.getPlannerMeals)

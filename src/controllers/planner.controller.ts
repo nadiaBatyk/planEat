@@ -35,13 +35,14 @@ export class PlannerController {
     }
   }
   getPlannerMeals = async (
+    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
       const { plannerId } = req.params
-      const meals = await this.plannerService.getPlannerMeals(+plannerId)
+      const meals = await this.plannerService.getPlannerMeals(+plannerId, query)
       res.status(200).json(meals)
     } catch (error) {
       next(error)
