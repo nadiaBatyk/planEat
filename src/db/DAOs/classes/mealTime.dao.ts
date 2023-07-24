@@ -1,18 +1,12 @@
 import HttpException from '../../../common/error/HttpException'
 import { MealTimeDTORequest } from '../../DTOs/mealTime.dto'
-import { Meal } from '../../models/Meal'
 import { MealTime } from '../../models/MealTime'
 import { IMealTimeDao } from '../interfaces/mealTimeDao.interface'
 
 export class MealTimeDao implements IMealTimeDao {
-  getMealTimeById = async (
-    id: number,
-    includeMeal: boolean = false
-  ): Promise<MealTime> => {
+  getMealTimeById = async (id: number): Promise<MealTime> => {
     try {
-      const include = includeMeal ? { include: [Meal] } : {}
-      const mealTime = await MealTime.findByPk(id, include)
-
+      const mealTime = await MealTime.findByPk(id)
       if (mealTime) {
         return mealTime
       }

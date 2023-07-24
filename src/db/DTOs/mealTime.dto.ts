@@ -36,8 +36,8 @@ export type MealTimeDTORequest = Pick<MealTimeDTOResponse, 'name'>
  * @openapi
  * components:
  *   parameters:
- *     MealTimeId:
- *         name: MealTimeId
+ *     mealTimeId:
+ *         name: mealTimeId
  *         in: path
  *         description: ID of feature to return
  *         required: true

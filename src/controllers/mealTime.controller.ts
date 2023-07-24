@@ -13,8 +13,8 @@ export class MealTimeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const MealTimes = await this.mealTimeService.getMealTimes()
-      res.status(200).json(MealTimes)
+      const mealTimes = await this.mealTimeService.getMealTimes()
+      res.status(200).json(mealTimes)
     } catch (error) {
       next(error)
     }
@@ -25,9 +25,9 @@ export class MealTimeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { MealTimeId } = req.params
-      const MealTime = await this.mealTimeService.getMealTimeById(+MealTimeId)
-      res.status(200).json(MealTime)
+      const { mealTimeId } = req.params
+      const mealTime = await this.mealTimeService.getMealTimeById(+mealTimeId)
+      res.status(200).json(mealTime)
     } catch (error) {
       next(error)
     }
@@ -39,8 +39,8 @@ export class MealTimeController {
   ): Promise<void> => {
     try {
       const newMealTime: MealTimeDTORequest = req.body
-      const MealTime = await this.mealTimeService.createMealTime(newMealTime)
-      res.status(200).json(MealTime)
+      const mealTime = await this.mealTimeService.createMealTime(newMealTime)
+      res.status(200).json(mealTime)
     } catch (error) {
       next(error)
     }
@@ -51,10 +51,10 @@ export class MealTimeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { MealTimeId } = req.params
+      const { mealTimeId } = req.params
       const newMealTime: MealTimeDTORequest = req.body
       const MealTime = await this.mealTimeService.updateMealTime(
-        +MealTimeId,
+        +mealTimeId,
         newMealTime
       )
       res.status(200).json(MealTime)
@@ -68,8 +68,8 @@ export class MealTimeController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { MealTimeId } = req.params
-      const message = await this.mealTimeService.deleteMealTime(+MealTimeId)
+      const { mealTimeId } = req.params
+      const message = await this.mealTimeService.deleteMealTime(+mealTimeId)
       res.status(200).json(message)
     } catch (error) {
       next(error)

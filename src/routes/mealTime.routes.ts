@@ -55,7 +55,7 @@ mealTimeRoutes
  *       - MealTimes
  *     summary: Find meal Time by Id
  *     parameters:
- *      - $ref: "#/components/parameters/MealTimeId"
+ *      - $ref: "#/components/parameters/mealTimeId"
  *     responses:
  *       200:
  *         description: OK
@@ -72,7 +72,7 @@ mealTimeRoutes
  *       - MealTimes
  *     summary: Updates an existing meal Time
  *     parameters:
- *      - $ref: "#/components/parameters/MealTimeId"
+ *      - $ref: "#/components/parameters/mealTimeId"
  *     requestBody:
  *       description: Update a meal Time
  *       content:
@@ -94,7 +94,7 @@ mealTimeRoutes
  *       - MealTimes
  *     summary: Deletes an existing meal Time
  *     parameters:
- *      - $ref: "#/components/parameters/MealTimeId"
+ *      - $ref: "#/components/parameters/mealTimeId"
  *     responses:
  *       200:
  *         description: OK - New Meal Time successfully deleted
