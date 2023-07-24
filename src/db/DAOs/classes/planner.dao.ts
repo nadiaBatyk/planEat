@@ -1,28 +1,13 @@
 import HttpException from '../../../common/error/HttpException'
+import { Query } from '../../../common/types/query.types'
 import { PlannerDTORequest } from '../../DTOs/planner.dto'
-import { Meal } from '../../models/Meal'
-import { MealTime } from '../../models/MealTime'
 import { Planner } from '../../models/Planner'
-import { PlannerEntry } from '../../models/PlannerEntry'
 import { IPlannerDao } from '../interfaces/plannerDao.interface'
 
 export class PlannerDao implements IPlannerDao {
   getPlannerById = async (id: number): Promise<Planner> => {
     try {
-      const planner = await Planner.findByPk(id, {
-        include: {
-          model: PlannerEntry,
-          include: [
-            {
-              model: Meal,
-            },
-            {
-              model: MealTime,
-            },
-          ],
-        },
-      })
-
+      const planner = await Planner.findByPk(id)
       if (planner) {
         return planner
       }
@@ -35,21 +20,12 @@ export class PlannerDao implements IPlannerDao {
       throw error
     }
   }
-  getPlanners = async (): Promise<Planner[]> => {
+  getPlanners = async (query: Query): Promise<Planner[]> => {
     try {
       const planner = await Planner.findAll({
-        include: {
-          model: PlannerEntry,
-          include: [
-            {
-              model: Meal,
-            },
-            {
-              model: MealTime,
-            },
-          ],
-        },
-        order: [['id', 'ASC']],
+        order: [[query.orderBy, query.direction]],
+        limit: query.pageSize,
+        offset: (query.pageNumber - 1) * query.pageSize,
       })
 
       return planner
@@ -60,45 +36,32 @@ export class PlannerDao implements IPlannerDao {
 
   delete = async (id: number): Promise<string> => {
     try {
-      const rowNumber = await Planner.destroy({
+      await this.getPlannerById(id)
+      await Planner.destroy({
         where: { id: id },
       })
-      if (rowNumber) {
-        return `Planner #${id} has been succesfully deleted`
-      }
-      throw new HttpException(
-        404,
-        `Planner with id ${id} does not exist`,
-        'Not Found'
-      )
+      return `Planner #${id} has been succesfully deleted`
     } catch (error) {
       throw error
     }
   }
-  create = async (t: PlannerDTORequest): Promise<Planner> => {
+  create = async (newPlanner: PlannerDTORequest): Promise<Planner> => {
     try {
-      console.log(t)
-
-      const planner = await Planner.create({ ...t })
-      return planner.dataValues
+      const planner = await Planner.create({ ...newPlanner })
+      return planner
     } catch (error) {
       throw error
     }
   }
-  update = async (id: number, m: PlannerDTORequest): Promise<Planner> => {
+  update = async (
+    id: number,
+    newPlanner: PlannerDTORequest
+  ): Promise<Planner> => {
     try {
-      const planner = await Planner.findByPk(id)
-      if (planner) {
-        planner.set(m)
-        await planner.save()
-        return planner
-      }
-
-      throw new HttpException(
-        404,
-        `Planner with id ${id} does not exist`,
-        'Not Found'
-      )
+      const planner = await this.getPlannerById(id)
+      planner.set(newPlanner)
+      await planner.save()
+      return planner
     } catch (error) {
       throw error
     }

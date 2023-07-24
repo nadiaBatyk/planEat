@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { PlannerController } from '../controllers/planner.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { plannerSchema } from '../middlewares/validation/schemas/planner.schema'
+import { queryHandler } from '../middlewares/query.middleware'
 
 export const plannerRoutes = Router()
 const plannerController = new PlannerController()
@@ -13,6 +14,11 @@ const plannerController = new PlannerController()
  *     tags:
  *       - Planners
  *     summary: Find all planners
+ *     parameters:
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
  *     responses:
  *       200:
  *         description: OK
@@ -45,7 +51,7 @@ const plannerController = new PlannerController()
  */
 plannerRoutes
   .route('/')
-  .get(plannerController.getPlanners)
+  .get(queryHandler, plannerController.getPlanners)
   .post(validate(plannerSchema), plannerController.createPlanner)
 
 /**
