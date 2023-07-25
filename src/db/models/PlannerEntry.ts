@@ -23,7 +23,7 @@ export class PlannerEntry extends Model {
 
   @ForeignKey(() => MealTime)
   @Column
-  MealTimeId!: number
+  mealTimeId!: number
 
   @AllowNull(false)
   @Column(DataTypes.DATEONLY)
@@ -36,5 +36,5 @@ export class PlannerEntry extends Model {
   meal!: Meal
 
   @BelongsTo(() => MealTime)
-  MealTime!: MealTime
+  mealTime!: MealTime
 }

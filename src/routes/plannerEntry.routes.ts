@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { PlannerEntryController } from '../controllers/plannerEntry.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { plannerEntrySchema } from '../middlewares/validation/schemas/plannerEntry.schema'
+import { queryHandler } from '../middlewares/query.middleware'
 
 export const plannerEntryRoutes = Router()
 const plannerEntryController = new PlannerEntryController()
@@ -15,6 +16,10 @@ const plannerEntryController = new PlannerEntryController()
  *     summary: Find all entries in one planner
  *     parameters:
  *      - $ref: "#/components/parameters/plannerId"
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
  *     responses:
  *       200:
  *         description: OK
@@ -49,7 +54,7 @@ const plannerEntryController = new PlannerEntryController()
  */
 plannerEntryRoutes
   .route('/:plannerId')
-  .get(plannerEntryController.getPlannerEntries)
+  .get(queryHandler, plannerEntryController.getPlannerEntries)
   .post(validate(plannerEntrySchema), plannerEntryController.addMealToPlanner)
 
 /**

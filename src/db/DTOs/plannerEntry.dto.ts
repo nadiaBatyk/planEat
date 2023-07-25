@@ -15,7 +15,7 @@ import { PlannerDTOResponse } from './planner.dto'
  *           type: integer
  *         mealId:
  *           type: integer
- *         MealTimeId:
+ *         mealTimeId:
  *           type: integer
  *         mealDate:
  *           type: string
@@ -31,8 +31,8 @@ import { PlannerDTOResponse } from './planner.dto'
 export interface PlannerEntryDTOResponse {
   id: number
   plannerId: number
-  mealId?: number
-  mealTimeId?: number
+  mealId: number
+  mealTimeId: number
   mealDate: Date
   planner?: PlannerDTOResponse
   meal?: MealDTOResponse
@@ -47,14 +47,14 @@ export interface PlannerEntryDTOResponse {
  *       required:
  *         - plannerId
  *         - mealId
- *         - MealTimeId
+ *         - mealTimeId
  *         - mealDate
  *       properties:
  *         plannerId:
  *           type: integer
  *         mealId:
  *           type: integer
- *         MealTimeId:
+ *         mealTimeId:
  *           type: integer
  *         mealDate:
  *           type: string

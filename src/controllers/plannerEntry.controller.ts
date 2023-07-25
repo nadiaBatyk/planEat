@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { PlannerEntryService } from '../services/plannerEntry.service'
 import { PlannerEntryDTORequest } from '../db/DTOs/plannerEntry.dto'
+import { Query } from '../common/types/query.types'
 
 export class PlannerEntryController {
   plannerEntryService: PlannerEntryService
@@ -9,6 +10,7 @@ export class PlannerEntryController {
   }
 
   getPlannerEntries = async (
+    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
@@ -16,7 +18,8 @@ export class PlannerEntryController {
     try {
       const { plannerId } = req.params
       const entries = await this.plannerEntryService.getPlannerEntries(
-        +plannerId
+        +plannerId,
+        query
       )
       res.status(200).json(entries)
     } catch (error) {

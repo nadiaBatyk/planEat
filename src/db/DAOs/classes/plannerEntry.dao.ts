@@ -1,4 +1,5 @@
 import HttpException from '../../../common/error/HttpException'
+import { Query } from '../../../common/types/query.types'
 import { PlannerEntryDTORequest } from '../../DTOs/plannerEntry.dto'
 import { Meal } from '../../models/Meal'
 import { MealTime } from '../../models/MealTime'
@@ -31,9 +32,13 @@ export class PlannerEntryDao implements IPlannerEntryDao {
       throw error
     }
   }
-  getPlannerEntries = async (): Promise<PlannerEntry[]> => {
+  getPlannerEntries = async (
+    plannerId: number,
+    query: Query
+  ): Promise<PlannerEntry[]> => {
     try {
       const entries = await PlannerEntry.findAll({
+        where: { plannerId: plannerId },
         include: [
           {
             model: Meal,
@@ -43,7 +48,9 @@ export class PlannerEntryDao implements IPlannerEntryDao {
           },
         ],
 
-        order: [['id', 'ASC']],
+        order: [[query.orderBy, query.direction]],
+        limit: query.pageSize,
+        offset: (query.pageNumber - 1) * query.pageSize,
       })
 
       return entries
