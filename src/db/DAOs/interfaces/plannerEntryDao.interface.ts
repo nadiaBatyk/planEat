@@ -4,5 +4,9 @@ import { BaseDao } from './baseDao.interface'
 
 export interface IPlannerEntryDao extends BaseDao<PlannerEntry> {
   getPlannerEntryById(id: number): Promise<PlannerEntry>
-  getPlannerEntries(plannerId: number, query: Query): Promise<PlannerEntry[]>
+  getPlannerEntries(
+    plannerId: number,
+    query: Query,
+    include: Array<any>
+  ): Promise<PlannerEntry[]>
 }

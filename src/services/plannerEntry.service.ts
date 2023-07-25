@@ -1,5 +1,4 @@
 import HttpException from '../common/error/HttpException'
-import { Query } from '../common/types/query.types'
 import { MealDao } from '../db/DAOs/classes/meal.dao'
 import { MealTimeDao } from '../db/DAOs/classes/mealTime.dao'
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
@@ -71,17 +70,6 @@ export class PlannerEntryService {
         'Meal date out of planner date range'
       )
     }
-  }
-  getPlannerEntries = async (
-    id: number,
-    query: Query
-  ): Promise<PlannerEntryDTOResponse[]> => {
-    const plannerEntries = await this.plannerEntryDao.getPlannerEntries(
-      id,
-      query
-    )
-
-    return plannerEntries.map(entry => PlannerEntryMap.toDTO(entry))
   }
   getPlannerEntryById = async (
     entryId: number

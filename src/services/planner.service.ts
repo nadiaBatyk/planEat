@@ -3,11 +3,13 @@ import { PlannerDao } from '../db/DAOs/classes/planner.dao'
 import { PlannerEntryDao } from '../db/DAOs/classes/plannerEntry.dao'
 import { MealDTOResponse } from '../db/DTOs/meal.dto'
 import { PlannerDTORequest, PlannerDTOResponse } from '../db/DTOs/planner.dto'
+import { PlannerEntryDTOResponse } from '../db/DTOs/plannerEntry.dto'
 
 import { MealMap } from '../db/mappers/meal.map'
 import { PlannerMap } from '../db/mappers/planner.map'
+import { PlannerEntryMap } from '../db/mappers/plannerEntry.map'
 import { Meal } from '../db/models/Meal'
-import { PlannerEntry } from '../db/models/PlannerEntry'
+import { MealTime } from '../db/models/MealTime'
 
 export class PlannerService {
   plannerDao: PlannerDao
@@ -46,14 +48,37 @@ export class PlannerService {
     id: number,
     query: Query
   ): Promise<MealDTOResponse[]> => {
+    const include = [{ model: Meal }]
     await this.plannerDao.getPlannerById(id)
-    const plannerEntries = await PlannerEntry.findAll({
-      where: { plannerId: id },
-      order: [[query.orderBy, query.direction]],
-      limit: query.pageSize,
-      offset: (query.pageNumber - 1) * query.pageSize,
-      include: [Meal],
-    })
+    const plannerEntries = await this.plannerEntriesDao.getPlannerEntries(
+      id,
+      query,
+      include
+    )
     return plannerEntries.map(i => MealMap.toDTO(i.meal))
+  }
+
+  getPlannerEntries = async (
+    plannerId: number,
+    query: Query
+  ): Promise<PlannerEntryDTOResponse[]> => {
+    try {
+      const include = [
+        { model: Meal, attributes: ['name'] },
+        {
+          model: MealTime,
+          attributes: ['name'],
+        },
+      ]
+      const entries = await this.plannerEntriesDao.getPlannerEntries(
+        plannerId,
+        query,
+        include
+      )
+
+      return entries.map(entry => PlannerEntryMap.toDTO(entry))
+    } catch (error) {
+      throw error
+    }
   }
 }

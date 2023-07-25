@@ -2,7 +2,6 @@ import { Router } from 'express'
 import { PlannerEntryController } from '../controllers/plannerEntry.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { plannerEntrySchema } from '../middlewares/validation/schemas/plannerEntry.schema'
-import { queryHandler } from '../middlewares/query.middleware'
 
 export const plannerEntryRoutes = Router()
 const plannerEntryController = new PlannerEntryController()
@@ -34,33 +33,6 @@ const plannerEntryController = new PlannerEntryController()
 plannerEntryRoutes
   .route('/')
   .post(validate(plannerEntrySchema), plannerEntryController.addMealToPlanner)
-
-/**
- * @openapi
- *  /api/v1/plannerEntries/{plannerId}:
- *   get:
- *     tags:
- *       - Planner Entries
- *     summary: Find all entries in one planner
- *     parameters:
- *      - $ref: "#/components/parameters/plannerId"
- *      - $ref: "#/components/parameters/pageNumber"
- *      - $ref: "#/components/parameters/pageSize"
- *      - $ref: "#/components/parameters/orderBy"
- *      - $ref: "#/components/parameters/direction"
- *     responses:
- *       200:
- *         description: OK
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: "#/components/schemas/PlannerEntryDTOResponse"
- */
-plannerEntryRoutes
-  .route('/:plannerId')
-  .get(queryHandler, plannerEntryController.getPlannerEntries)
 
 /**
  * @openapi

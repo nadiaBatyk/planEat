@@ -49,6 +49,24 @@ export class PlannerController {
     }
   }
 
+  getPlannerEntries = async (
+    query: Query,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { plannerId } = req.params
+      const entries = await this.plannerService.getPlannerEntries(
+        +plannerId,
+        query
+      )
+      res.status(200).json(entries)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   createPlanner = async (
     req: Request,
     res: Response,

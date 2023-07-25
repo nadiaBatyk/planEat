@@ -146,3 +146,30 @@ plannerRoutes
 plannerRoutes
   .route('/:plannerId/meals')
   .get(queryHandler, plannerController.getPlannerMeals)
+
+/**
+ * @openapi
+ *  /api/v1/planners/{plannerId}/entries:
+ *   get:
+ *     tags:
+ *       - Planners
+ *     summary: Find all entries in one planner
+ *     parameters:
+ *      - $ref: "#/components/parameters/plannerId"
+ *      - $ref: "#/components/parameters/pageNumber"
+ *      - $ref: "#/components/parameters/pageSize"
+ *      - $ref: "#/components/parameters/orderBy"
+ *      - $ref: "#/components/parameters/direction"
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/PlannerEntryDTOResponse"
+ */
+plannerRoutes
+  .route('/:plannerId/entries')
+  .get(queryHandler, plannerController.getPlannerEntries)
