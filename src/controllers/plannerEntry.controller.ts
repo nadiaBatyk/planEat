@@ -46,10 +46,8 @@ export class PlannerEntryController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { plannerId } = req.params
       const plannerEntryReq: PlannerEntryDTORequest = req.body
       const newplannerMeal = await this.plannerEntryService.addEntrytoPlanner(
-        +plannerId,
         plannerEntryReq
       )
       res.status(200).json(newplannerMeal)
@@ -63,11 +61,10 @@ export class PlannerEntryController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const { plannerId, entryId } = req.params
+      const { entryId } = req.params
       const plannerEntryReq: PlannerEntryDTORequest = req.body
       const updatedPlannerEntry =
         await this.plannerEntryService.updatePlannerEntry(
-          +plannerId,
           +entryId,
           plannerEntryReq
         )

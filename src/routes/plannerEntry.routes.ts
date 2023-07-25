@@ -9,6 +9,33 @@ const plannerEntryController = new PlannerEntryController()
 
 /**
  * @openapi
+ *  /api/v1/plannerEntries:
+ *   post:
+ *     tags:
+ *       - Planner Entries
+ *     summary: Add a entry to a planner
+ *     requestBody:
+ *       description: Add a meal to a planner
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/PlannerEntryDTORequest"
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: OK - New meal successfully added to planner
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/PlannerEntryDTOResponse"
+ *       400:
+ *         description: Invalid input
+ */
+plannerEntryRoutes
+  .route('/')
+  .post(validate(plannerEntrySchema), plannerEntryController.addMealToPlanner)
+/**
+ * @openapi
  *  /api/v1/plannerEntries/{plannerId}:
  *   get:
  *     tags:
@@ -29,33 +56,10 @@ const plannerEntryController = new PlannerEntryController()
  *               type: array
  *               items:
  *                 $ref: "#/components/schemas/PlannerEntryDTOResponse"
- *   post:
- *     tags:
- *       - Planner Entries
- *     summary: Add a entry to a planner
- *     parameters:
- *      - $ref: "#/components/parameters/plannerId"
- *     requestBody:
- *       description: Add a meal to a planner
- *       content:
- *         application/json:
- *           schema:
- *             $ref: "#/components/schemas/PlannerEntryDTORequest"
- *       required: true
- *     responses:
- *       200:
- *         description: OK - New meal successfully added to planner
- *         content:
- *           application/json:
- *             schema:
- *               $ref: "#/components/schemas/PlannerDTOResponse"
- *       400:
- *         description: Invalid input
  */
 plannerEntryRoutes
   .route('/:plannerId')
   .get(queryHandler, plannerEntryController.getPlannerEntries)
-  .post(validate(plannerEntrySchema), plannerEntryController.addMealToPlanner)
 
 /**
  * @openapi
@@ -98,7 +102,7 @@ plannerEntryRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/PlannerDTOResponse"
+ *               $ref: "#/components/schemas/PlannerEntryDTOResponse"
  *       400:
  *         description: Invalid input
  *   delete:

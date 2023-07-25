@@ -4,14 +4,13 @@ import { MealDao } from '../db/DAOs/classes/meal.dao'
 import { MealTimeDao } from '../db/DAOs/classes/mealTime.dao'
 import { PlannerDao } from '../db/DAOs/classes/planner.dao'
 import { PlannerEntryDao } from '../db/DAOs/classes/plannerEntry.dao'
-import { PlannerDTOResponse } from '../db/DTOs/planner.dto'
 import {
   PlannerEntryDTORequest,
   PlannerEntryDTOResponse,
 } from '../db/DTOs/plannerEntry.dto'
-import { PlannerMap } from '../db/mappers/planner.map'
 import { PlannerEntryMap } from '../db/mappers/plannerEntry.map'
 import { Planner } from '../db/models/Planner'
+import { PlannerEntry } from '../db/models/PlannerEntry'
 
 export class PlannerEntryService {
   plannerEntryDao: PlannerEntryDao
@@ -30,29 +29,27 @@ export class PlannerEntryService {
    * @param plannerEntryReq
    */
   validateEntryRequest = async (
-    plannerId: number,
     plannerEntryReq: PlannerEntryDTORequest
   ): Promise<void> => {
-    const planner = await this.plannerDao.getPlannerById(plannerId)
-    await this.mealDao.getMealById(plannerEntryReq.mealId as number)
-    await this.mealTimeDao.getMealTimeById(plannerEntryReq.mealTimeId as number)
+    const planner = await this.plannerDao.getPlannerById(
+      plannerEntryReq.plannerId
+    )
+    await this.mealDao.getMealById(plannerEntryReq.mealId)
+    await this.mealTimeDao.getMealTimeById(plannerEntryReq.mealTimeId)
     this.checkPlannerRange(planner, plannerEntryReq)
-    this.checkDuplicateEntry(planner, plannerEntryReq)
+    await this.checkDuplicateEntry(plannerEntryReq)
   }
-  checkDuplicateEntry = (
-    planner: Planner,
-    plannerEntryReq: PlannerEntryDTORequest
-  ) => {
-    const existentEntry =
-      planner.plannerEntries &&
-      planner.plannerEntries.find(
-        entry =>
-          entry.mealId === plannerEntryReq.mealId &&
-          entry.mealTimeId === plannerEntryReq.mealTimeId &&
-          entry.mealDate === plannerEntryReq.mealDate
-      )
+  checkDuplicateEntry = async (plannerEntryReq: PlannerEntryDTORequest) => {
+    const existentEntry = await PlannerEntry.findAll({
+      where: {
+        plannerId: plannerEntryReq.plannerId,
+        mealId: plannerEntryReq.mealId,
+        mealTimeId: plannerEntryReq.mealTimeId,
+        mealDate: plannerEntryReq.mealDate,
+      },
+    })
 
-    if (existentEntry) {
+    if (existentEntry?.length) {
       throw new HttpException(
         400,
         `Planner already has an entry with mealId #${plannerEntryReq.mealId} and MealTimeId #${plannerEntryReq.mealTimeId} for the date ${plannerEntryReq.mealDate} `,
@@ -95,23 +92,19 @@ export class PlannerEntryService {
   }
 
   addEntrytoPlanner = async (
-    plannerId: number,
     plannerEntryReq: PlannerEntryDTORequest
-  ): Promise<PlannerDTOResponse> => {
-    await this.validateEntryRequest(plannerId, plannerEntryReq)
-    await this.plannerEntryDao.create(plannerEntryReq)
-    const updatedPlanner = await this.plannerDao.getPlannerById(plannerId)
-    return PlannerMap.toDTO(updatedPlanner)
+  ): Promise<PlannerEntryDTOResponse> => {
+    await this.validateEntryRequest(plannerEntryReq)
+    const entry = await this.plannerEntryDao.create(plannerEntryReq)
+    return PlannerEntryMap.toDTO(entry)
   }
   updatePlannerEntry = async (
-    plannerId: number,
     entryId: number,
     plannerEntryReq: PlannerEntryDTORequest
-  ): Promise<PlannerDTOResponse> => {
-    await this.validateEntryRequest(plannerId, plannerEntryReq)
-    await this.plannerEntryDao.update(entryId, plannerEntryReq)
-    const updatedPlanner = await this.plannerDao.getPlannerById(plannerId)
-    return PlannerMap.toDTO(updatedPlanner)
+  ): Promise<PlannerEntryDTOResponse> => {
+    await this.validateEntryRequest(plannerEntryReq)
+    const entry = await this.plannerEntryDao.update(entryId, plannerEntryReq)
+    return PlannerEntryMap.toDTO(entry)
   }
   deletePlannerEntry = async (entryId: number): Promise<string> => {
     const message = await this.plannerEntryDao.delete(entryId)

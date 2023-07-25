@@ -13,9 +13,11 @@ export class PlannerEntryDao implements IPlannerEntryDao {
         include: [
           {
             model: Meal,
+            attributes: ['name'],
           },
           {
             model: MealTime,
+            attributes: ['name'],
           },
         ],
       })
@@ -42,12 +44,13 @@ export class PlannerEntryDao implements IPlannerEntryDao {
         include: [
           {
             model: Meal,
+            attributes: ['name'],
           },
           {
             model: MealTime,
+            attributes: ['name'],
           },
         ],
-
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,
@@ -60,25 +63,21 @@ export class PlannerEntryDao implements IPlannerEntryDao {
   }
   delete = async (id: number): Promise<string> => {
     try {
-      const rowNumber = await PlannerEntry.destroy({
+      await this.getPlannerEntryById(id)
+      await PlannerEntry.destroy({
         where: { id: id },
       })
-      if (rowNumber) {
-        return `Entry #${id} has been succesfully deleted`
-      }
-      throw new HttpException(
-        404,
-        `Entry with id ${id} does not exist`,
-        'Not Found'
-      )
+      return `Entry #${id} has been succesfully deleted`
     } catch (error) {
       throw error
     }
   }
-  create = async (t: PlannerEntryDTORequest): Promise<PlannerEntry> => {
+  create = async (
+    newPlannerEntry: PlannerEntryDTORequest
+  ): Promise<PlannerEntry> => {
     try {
-      const planner = await PlannerEntry.create({ ...t })
-      return planner.dataValues
+      const plannerEntry = await PlannerEntry.create({ ...newPlannerEntry })
+      return await this.getPlannerEntryById(plannerEntry.id)
     } catch (error) {
       throw error
     }
@@ -86,21 +85,13 @@ export class PlannerEntryDao implements IPlannerEntryDao {
 
   update = async (
     id: number,
-    m: PlannerEntryDTORequest
+    newPlannerEntry: PlannerEntryDTORequest
   ): Promise<PlannerEntry> => {
     try {
-      const entry = await PlannerEntry.findByPk(id)
-      if (entry) {
-        entry.set(m)
-        await entry.save()
-        return entry
-      }
-
-      throw new HttpException(
-        404,
-        `Entry with id ${id} does not exist`,
-        'Not Found'
-      )
+      const entry = await this.getPlannerEntryById(id)
+      entry.set(newPlannerEntry)
+      return await this.getPlannerEntryById(entry.id)
+      return entry
     } catch (error) {
       throw error
     }
