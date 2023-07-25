@@ -25,7 +25,7 @@ export class PlannerEntryService {
   }
   /**
    * @throws {HttpException}
-   * @param plannerId
+
    * @param plannerEntryReq
    */
   validateEntryRequest = async (

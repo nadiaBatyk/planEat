@@ -34,6 +34,7 @@ const plannerEntryController = new PlannerEntryController()
 plannerEntryRoutes
   .route('/')
   .post(validate(plannerEntrySchema), plannerEntryController.addMealToPlanner)
+
 /**
  * @openapi
  *  /api/v1/plannerEntries/{plannerId}:
@@ -63,13 +64,12 @@ plannerEntryRoutes
 
 /**
  * @openapi
- *  /api/v1/plannerEntries/{plannerId}/entries/{entryId}:
+ *  /api/v1/plannerEntries/{entryId}:
  *   get:
  *     tags:
  *       - Planner Entries
  *     summary: Find entry by Id
  *     parameters:
- *      - $ref: "#/components/parameters/plannerId"
  *      - $ref: "#/components/parameters/entryId"
  *     responses:
  *       200:
@@ -87,7 +87,6 @@ plannerEntryRoutes
  *       - Planner Entries
  *     summary: Updates the value of an planner entry
  *     parameters:
- *      - $ref: "#/components/parameters/plannerId"
  *      - $ref: "#/components/parameters/entryId"
  *     requestBody:
  *       description: Update a planner entry
@@ -110,7 +109,6 @@ plannerEntryRoutes
  *       - Planner Entries
  *     summary: Deletes an existing entry
  *     parameters:
- *      - $ref: "#/components/parameters/plannerId"
  *      - $ref: "#/components/parameters/entryId"
  *     responses:
  *       200:
@@ -125,7 +123,7 @@ plannerEntryRoutes
  *         description: Entry not found
  */
 plannerEntryRoutes
-  .route('/:plannerId/entries/:entryId')
+  .route('/:entryId')
   .get(plannerEntryController.getPlannerEntryById)
   .put(validate(plannerEntrySchema), plannerEntryController.updatePlannerEntry)
   .delete(plannerEntryController.deletePlannerEntry)

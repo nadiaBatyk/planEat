@@ -9,6 +9,8 @@ import { IPlannerEntryDao } from '../interfaces/plannerEntryDao.interface'
 export class PlannerEntryDao implements IPlannerEntryDao {
   getPlannerEntryById = async (id: number): Promise<PlannerEntry> => {
     try {
+      console.log('HOLIS PLANNER IDSSS')
+
       const entry = await PlannerEntry.findByPk(id, {
         include: [
           {
@@ -23,6 +25,8 @@ export class PlannerEntryDao implements IPlannerEntryDao {
       })
 
       if (entry) {
+        console.log(entry)
+
         return entry
       }
       throw new HttpException(
@@ -90,8 +94,8 @@ export class PlannerEntryDao implements IPlannerEntryDao {
     try {
       const entry = await this.getPlannerEntryById(id)
       entry.set(newPlannerEntry)
+      await entry.save()
       return await this.getPlannerEntryById(entry.id)
-      return entry
     } catch (error) {
       throw error
     }

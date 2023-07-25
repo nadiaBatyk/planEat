@@ -4,7 +4,6 @@ import { MealDTORequest } from '../../DTOs/meal.dto'
 import { MealFeatureDTORequest } from '../../DTOs/mealFeature.dto'
 import { MealIngredientDTORequest } from '../../DTOs/mealIngredient.dto'
 import { Feature } from '../../models/Feature'
-
 import { Ingredient } from '../../models/Ingredient'
 import { Meal } from '../../models/Meal'
 import { MealFeature } from '../../models/MealFeature'
