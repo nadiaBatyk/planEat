@@ -18,7 +18,11 @@ export const queryHandler = (
         ? +req.query.pageNumber
         : 1,
     pageSize:
-      req.query?.pageSize && +req.query?.pageSize > 0 ? +req.query.pageSize : 5,
+      req.query?.pageSize &&
+      +req.query?.pageSize > 0 &&
+      +req.query.pageSize < 50
+        ? +req.query.pageSize
+        : 5,
   }
 
   return next(query)
