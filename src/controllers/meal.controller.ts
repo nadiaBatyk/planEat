@@ -3,7 +3,6 @@ import { MealService } from '../services/meal.service'
 import { MealDTORequest } from '../db/DTOs/meal.dto'
 import { MealIngredientDTORequest } from '../db/DTOs/mealIngredient.dto'
 import { MealFeatureDTORequest } from '../db/DTOs/mealFeature.dto'
-import { Query } from '../common/types/query.types'
 
 export class MealController {
   mealService: MealService
@@ -11,13 +10,14 @@ export class MealController {
     this.mealService = new MealService()
   }
   getMeals = async (
-    query: Query,
     _req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const meals = await this.mealService.getMeals(query)
+      const meals = await this.mealService.getMeals(
+        res.locals.queryParamsHandler
+      )
       res.status(200).json(meals)
     } catch (error) {
       next(error)
@@ -37,7 +37,6 @@ export class MealController {
     }
   }
   getMealIngredients = async (
-    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
@@ -46,7 +45,7 @@ export class MealController {
       const { mealId } = req.params
       const ingredients = await this.mealService.getMealIngredients(
         +mealId,
-        query
+        res.locals.queryParamsHandler
       )
       res.status(200).json(ingredients)
     } catch (error) {
@@ -70,14 +69,16 @@ export class MealController {
     }
   }
   getMealFeatures = async (
-    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
       const { mealId } = req.params
-      const features = await this.mealService.getMealFeatures(+mealId, query)
+      const features = await this.mealService.getMealFeatures(
+        +mealId,
+        res.locals.queryParamsHandler
+      )
       res.status(200).json(features)
     } catch (error) {
       next(error)

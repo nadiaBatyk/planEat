@@ -3,7 +3,7 @@ import { Query } from '../common/types/query.types'
 
 export const queryHandler = (
   req: Request,
-  _res: Response,
+  res: Response,
   next: NextFunction
 ) => {
   let query: Query = {
@@ -24,6 +24,6 @@ export const queryHandler = (
         ? +req.query.pageSize
         : 5,
   }
-
-  return next(query)
+  res.locals.queryParamsHandler = query
+  return next()
 }
