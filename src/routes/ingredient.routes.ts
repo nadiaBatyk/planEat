@@ -5,7 +5,7 @@ import {
   ingredientSchema,
   partialIngredientSchema,
 } from '../middlewares/validation/schemas/ingredient.schema'
-import { queryHandler } from '../middlewares/filtering/query.middleware'
+import { queryParamsHandler } from '../middlewares/filtering/query.middleware'
 
 const ingredientRoutes = Router()
 const ingredientController = new IngredientController()
@@ -54,7 +54,7 @@ const ingredientController = new IngredientController()
  */
 ingredientRoutes
   .route('/')
-  .get(queryHandler, ingredientController.getIngredients)
+  .get(queryParamsHandler('ingredient'), ingredientController.getIngredients)
   .post(validate(ingredientSchema), ingredientController.createIngredient)
 
 /**
