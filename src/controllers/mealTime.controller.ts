@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { MealTimeService } from '../services/mealTime.service'
 import { MealTimeDTORequest } from '../db/DTOs/mealTime.dto'
-import { Query } from '../common/types/query.types'
 
 export class MealTimeController {
   mealTimeService: MealTimeService
@@ -9,13 +8,14 @@ export class MealTimeController {
     this.mealTimeService = new MealTimeService()
   }
   getMealTimes = async (
-    query: Query,
     _req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const mealTimes = await this.mealTimeService.getMealTimes(query)
+      const mealTimes = await this.mealTimeService.getMealTimes(
+        res.locals.queryParamsHandler
+      )
       res.status(200).json(mealTimes)
     } catch (error) {
       next(error)

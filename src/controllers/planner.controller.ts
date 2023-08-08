@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { PlannerService } from '../services/planner.service'
 import { PlannerDTORequest } from '../db/DTOs/planner.dto'
-import { Query } from '../common/types/query.types'
 
 export class PlannerController {
   plannerService: PlannerService
@@ -9,13 +8,14 @@ export class PlannerController {
     this.plannerService = new PlannerService()
   }
   getPlanners = async (
-    query: Query,
     _req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const planners = await this.plannerService.getPlanners(query)
+      const planners = await this.plannerService.getPlanners(
+        res.locals.queryParamsHandler
+      )
       res.status(200).json(planners)
     } catch (error) {
       next(error)
@@ -35,14 +35,16 @@ export class PlannerController {
     }
   }
   getPlannerMeals = async (
-    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
       const { plannerId } = req.params
-      const meals = await this.plannerService.getPlannerMeals(+plannerId, query)
+      const meals = await this.plannerService.getPlannerMeals(
+        +plannerId,
+        res.locals.queryParamsHandler
+      )
       res.status(200).json(meals)
     } catch (error) {
       next(error)
@@ -50,7 +52,6 @@ export class PlannerController {
   }
 
   getPlannerEntries = async (
-    query: Query,
     req: Request,
     res: Response,
     next: NextFunction
@@ -59,7 +60,7 @@ export class PlannerController {
       const { plannerId } = req.params
       const entries = await this.plannerService.getPlannerEntries(
         +plannerId,
-        query
+        res.locals.queryParamsHandler
       )
       res.status(200).json(entries)
     } catch (error) {
