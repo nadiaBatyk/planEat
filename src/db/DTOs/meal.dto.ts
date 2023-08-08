@@ -1,5 +1,3 @@
-import { FeatureDTOResponse } from './feature.dto'
-import { IngredientDTOResponse } from './ingredient.dto'
 /**
  * @openapi
  * components:
@@ -12,20 +10,10 @@ import { IngredientDTOResponse } from './ingredient.dto'
  *         name:
  *           type: string
  *           example: Pasta with tomato sauce
- *         ingredients:
- *           type: array
- *           items:
- *              $ref: "#/components/schemas/IngredientDTOResponse"
- *         features:
- *           type: array
- *           items:
- *              $ref: "#/components/schemas/FeatureDTOResponse"
  */
 export interface MealDTOResponse {
   id?: number
   name: string
-  ingredients?: IngredientDTOResponse[]
-  features?: FeatureDTOResponse[]
 }
 
 /**

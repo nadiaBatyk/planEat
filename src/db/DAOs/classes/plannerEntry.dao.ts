@@ -23,8 +23,6 @@ export class PlannerEntryDao implements IPlannerEntryDao {
       })
 
       if (entry) {
-        console.log(entry)
-
         return entry
       }
       throw new HttpException(

@@ -1,5 +1,3 @@
-import { PlannerEntryDTOResponse } from './plannerEntry.dto'
-
 /**
  * @openapi
  * components:
@@ -27,7 +25,6 @@ export interface PlannerDTOResponse {
   name: string
   startDate: Date
   finishDate: Date
-  plannerEntries?: PlannerEntryDTOResponse[]
 }
 /**
  * @openapi
