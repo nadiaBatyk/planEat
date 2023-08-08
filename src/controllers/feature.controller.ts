@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { FeatureService } from '../services/feature.service'
 import { FeatureDTORequest } from '../db/DTOs/feature.dto'
-import { Query } from '../common/types/query.types'
 
 export class FeatureController {
   featureService: FeatureService
@@ -9,13 +8,14 @@ export class FeatureController {
     this.featureService = new FeatureService()
   }
   getFeatures = async (
-    query: Query,
     _req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const features = await this.featureService.getFeatures(query)
+      const features = await this.featureService.getFeatures(
+        res.locals.queryParamsHandler
+      )
       res.status(200).json(features)
     } catch (error) {
       next(error)

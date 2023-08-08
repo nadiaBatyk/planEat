@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from 'express'
 import { IngredientService } from '../services/ingredient.service'
 import { IngredientDTORequest } from '../db/DTOs/ingredient.dto'
-import { Query } from '../common/types/query.types'
 
 export class IngredientController {
   ingredientService: IngredientService = new IngredientService()
 
   getIngredients = async (
-    query: Query,
     _req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
     try {
-      const ingredients = await this.ingredientService.getIngredients(query)
+      const ingredients = await this.ingredientService.getIngredients(
+        res.locals.queryParamsHandler
+      )
       res.status(200).json(ingredients)
     } catch (error) {
       next(error)
