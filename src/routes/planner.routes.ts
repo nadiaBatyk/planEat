@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { PlannerController } from '../controllers/planner.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { plannerSchema } from '../middlewares/validation/schemas/planner.schema'
-import { queryHandler } from '../middlewares/query.middleware'
+import { queryHandler } from '../middlewares/filtering/query.middleware'
 
 export const plannerRoutes = Router()
 const plannerController = new PlannerController()

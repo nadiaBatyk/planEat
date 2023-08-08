@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { Query } from '../common/types/query.types'
+import { Query } from '../../common/types/query.types'
 
 export const queryHandler = (
   req: Request,

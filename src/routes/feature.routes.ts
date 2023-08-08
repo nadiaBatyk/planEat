@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { FeatureController } from '../controllers/feature.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { featureSchema } from '../middlewares/validation/schemas/feature.schema'
-import { queryHandler } from '../middlewares/query.middleware'
+import { queryHandler } from '../middlewares/filtering/query.middleware'
 ;('../controllers/feature.controller')
 
 const featureRoutes = Router()

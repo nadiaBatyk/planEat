@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { MealTimeController } from '../controllers/mealTime.controller'
 import { mealTimeSchema } from '../middlewares/validation/schemas/mealTime.schema'
-import { queryHandler } from '../middlewares/query.middleware'
+import { queryHandler } from '../middlewares/filtering/query.middleware'
 
 const mealTimeRoutes = Router()
 const mealTimeController = new MealTimeController()

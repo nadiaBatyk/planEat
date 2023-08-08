@@ -10,7 +10,7 @@ import {
   mealIngredientSchema,
   updateMealIngredientSchema,
 } from '../middlewares/validation/schemas/mealIngredient.schema'
-import { queryHandler } from '../middlewares/query.middleware'
+import { queryHandler } from '../middlewares/filtering/query.middleware'
 
 const mealRoutes = Router()
 const mealController = new MealController()
