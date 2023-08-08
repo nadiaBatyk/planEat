@@ -27,6 +27,7 @@ export interface MealDTOResponse {
   ingredients?: IngredientDTOResponse[]
   features?: FeatureDTOResponse[]
 }
+
 /**
  * @openapi
  * components:

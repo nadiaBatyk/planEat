@@ -26,6 +26,7 @@ async function main(): Promise<void> {
     app.listen(PORT, () => {
       console.log(`Succesfully connected to port ${PORT}`)
       swaggerDocs(app, 3000)
+
       app.use(errorHandler)
       app.use(notFoundHandler)
     })
