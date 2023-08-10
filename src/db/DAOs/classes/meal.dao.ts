@@ -42,6 +42,7 @@ export class MealDao implements IMealDao {
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,
+        where: query.filter,
       })
       return meals
     } catch (error) {

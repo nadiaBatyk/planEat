@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { Query } from '../../common/types/query.types'
 import { filterCriteria } from './filterCriteria'
-import { orderByField } from '../../common/helpers/orderBy'
+import { filterByField, orderByField } from '../../common/helpers/orderBy'
 
 export const queryParamsHandler = (model: string) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -22,11 +22,11 @@ export const queryParamsHandler = (model: string) => {
         +req.query.pageSize < 50
           ? +req.query.pageSize
           : 5,
+      filter: filterByField(model, req.query),
     }
     console.log('SCHEMA QUE COMPARO', filterCriteria[model])
     console.log('OBJETO QUE RECIBO', req.query)
     console.log('OBJETO QUE ARMO', query)
-
     res.locals.queryParamsHandler = query
     return next()
   }
