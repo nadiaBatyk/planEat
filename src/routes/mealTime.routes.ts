@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { MealTimeController } from '../controllers/mealTime.controller'
 import { mealTimeSchema } from '../middlewares/validation/schemas/mealTime.schema'
-import { queryHandler } from '../middlewares/filtering/query.middleware'
+import { queryParamsHandler } from '../middlewares/filtering/query.middleware'
 
 const mealTimeRoutes = Router()
 const mealTimeController = new MealTimeController()
@@ -50,7 +50,7 @@ const mealTimeController = new MealTimeController()
  */
 mealTimeRoutes
   .route('/')
-  .get(queryHandler, mealTimeController.getMealTimes)
+  .get(queryParamsHandler, mealTimeController.getMealTimes)
   .post(validate(mealTimeSchema), mealTimeController.createType)
 
 /**

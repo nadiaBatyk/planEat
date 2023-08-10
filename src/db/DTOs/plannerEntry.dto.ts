@@ -1,6 +1,5 @@
 import { MealDTOResponse } from './meal.dto'
 import { MealTimeDTOResponse } from './mealTime.dto'
-import { PlannerDTOResponse } from './planner.dto'
 
 /**
  * @openapi
@@ -34,7 +33,6 @@ export interface PlannerEntryDTOResponse {
   mealId: number
   mealTimeId: number
   mealDate: Date
-  planner?: PlannerDTOResponse
   meal?: MealDTOResponse
   mealTime?: MealTimeDTOResponse
 }

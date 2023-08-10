@@ -10,10 +10,7 @@ import {
   mealIngredientSchema,
   updateMealIngredientSchema,
 } from '../middlewares/validation/schemas/mealIngredient.schema'
-import {
-  queryHandler,
-  queryParamsHandler,
-} from '../middlewares/filtering/query.middleware'
+import { queryParamsHandler } from '../middlewares/filtering/query.middleware'
 
 const mealRoutes = Router()
 const mealController = new MealController()
@@ -178,7 +175,7 @@ mealRoutes
  */
 mealRoutes
   .route('/:mealId/ingredients')
-  .get(queryHandler, mealController.getMealIngredients)
+  .get(queryParamsHandler, mealController.getMealIngredients)
   .post(validate(mealIngredientSchema), mealController.addMealIngredient)
 
 /**
@@ -300,7 +297,7 @@ mealRoutes
  */
 mealRoutes
   .route('/:mealId/features')
-  .get(queryHandler, mealController.getMealFeatures)
+  .get(queryParamsHandler, mealController.getMealFeatures)
   .post(validate(mealFeatureSchema), mealController.addMealFeature)
 
 /**

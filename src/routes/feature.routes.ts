@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { FeatureController } from '../controllers/feature.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { featureSchema } from '../middlewares/validation/schemas/feature.schema'
-import { queryHandler } from '../middlewares/filtering/query.middleware'
+import { queryParamsHandler } from '../middlewares/filtering/query.middleware'
 ;('../controllers/feature.controller')
 
 const featureRoutes = Router()
@@ -52,7 +52,7 @@ const featureController = new FeatureController()
  */
 featureRoutes
   .route('/')
-  .get(queryHandler, featureController.getFeatures)
+  .get(queryParamsHandler, featureController.getFeatures)
   .post(validate(featureSchema), featureController.createFeature)
 
 /**

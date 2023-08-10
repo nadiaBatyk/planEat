@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { PlannerController } from '../controllers/planner.controller'
 import { validate } from '../middlewares/validation/validate.middleware'
 import { plannerSchema } from '../middlewares/validation/schemas/planner.schema'
-import { queryHandler } from '../middlewares/filtering/query.middleware'
+import { queryParamsHandler } from '../middlewares/filtering/query.middleware'
 
 export const plannerRoutes = Router()
 const plannerController = new PlannerController()
@@ -51,7 +51,7 @@ const plannerController = new PlannerController()
  */
 plannerRoutes
   .route('/')
-  .get(queryHandler, plannerController.getPlanners)
+  .get(queryParamsHandler, plannerController.getPlanners)
   .post(validate(plannerSchema), plannerController.createPlanner)
 
 /**
@@ -145,7 +145,7 @@ plannerRoutes
  */
 plannerRoutes
   .route('/:plannerId/meals')
-  .get(queryHandler, plannerController.getPlannerMeals)
+  .get(queryParamsHandler, plannerController.getPlannerMeals)
 
 /**
  * @openapi
@@ -172,4 +172,4 @@ plannerRoutes
  */
 plannerRoutes
   .route('/:plannerId/entries')
-  .get(queryHandler, plannerController.getPlannerEntries)
+  .get(queryParamsHandler, plannerController.getPlannerEntries)
