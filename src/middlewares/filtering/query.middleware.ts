@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
 import { Query } from '../../common/types/query.types'
 import { filterCriteria } from './filterCriteria'
+import { orderByField } from '../../common/helpers/orderBy'
 
-export const queryParamsHandler = (route: string) => {
+export const queryParamsHandler = (model: string) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     let query: Query = {
-      orderBy: (req.query?.orderBy as string) ?? 'id',
+      orderBy: orderByField(model, req.query.orderBy as string),
       direction:
         req.query?.direction?.toString().toLowerCase() === 'asc' ||
         req.query?.direction?.toString().toLowerCase() === 'desc'
@@ -22,7 +23,7 @@ export const queryParamsHandler = (route: string) => {
           ? +req.query.pageSize
           : 5,
     }
-    console.log('SCHEMA QUE COMPARO', filterCriteria[route])
+    console.log('SCHEMA QUE COMPARO', filterCriteria[model])
     console.log('OBJETO QUE RECIBO', req.query)
     console.log('OBJETO QUE ARMO', query)
 
