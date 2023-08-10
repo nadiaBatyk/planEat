@@ -51,7 +51,7 @@ const plannerController = new PlannerController()
  */
 plannerRoutes
   .route('/')
-  .get(queryParamsHandler, plannerController.getPlanners)
+  .get(queryParamsHandler('planner'), plannerController.getPlanners)
   .post(validate(plannerSchema), plannerController.createPlanner)
 
 /**
@@ -145,7 +145,7 @@ plannerRoutes
  */
 plannerRoutes
   .route('/:plannerId/meals')
-  .get(queryParamsHandler, plannerController.getPlannerMeals)
+  .get(queryParamsHandler('planner'), plannerController.getPlannerMeals)
 
 /**
  * @openapi
@@ -172,4 +172,4 @@ plannerRoutes
  */
 plannerRoutes
   .route('/:plannerId/entries')
-  .get(queryParamsHandler, plannerController.getPlannerEntries)
+  .get(queryParamsHandler('planner'), plannerController.getPlannerEntries)

@@ -33,6 +33,7 @@ export class MealService {
     query: Query
   ): Promise<IngredientDTOResponse[]> => {
     const ingredients = await this.mealDao.getMealIngredients(id, query)
+    console.log(ingredients)
 
     return ingredients.map(i => IngredientMap.toDTO(i))
   }

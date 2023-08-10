@@ -50,7 +50,7 @@ const mealTimeController = new MealTimeController()
  */
 mealTimeRoutes
   .route('/')
-  .get(queryParamsHandler, mealTimeController.getMealTimes)
+  .get(queryParamsHandler('mealTime'), mealTimeController.getMealTimes)
   .post(validate(mealTimeSchema), mealTimeController.createType)
 
 /**

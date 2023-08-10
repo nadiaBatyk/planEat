@@ -175,7 +175,7 @@ mealRoutes
  */
 mealRoutes
   .route('/:mealId/ingredients')
-  .get(queryParamsHandler, mealController.getMealIngredients)
+  .get(queryParamsHandler('mealIngredient'), mealController.getMealIngredients)
   .post(validate(mealIngredientSchema), mealController.addMealIngredient)
 
 /**
@@ -297,7 +297,7 @@ mealRoutes
  */
 mealRoutes
   .route('/:mealId/features')
-  .get(queryParamsHandler, mealController.getMealFeatures)
+  .get(queryParamsHandler('mealFeatures'), mealController.getMealFeatures)
   .post(validate(mealFeatureSchema), mealController.addMealFeature)
 
 /**

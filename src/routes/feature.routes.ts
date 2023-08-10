@@ -52,7 +52,7 @@ const featureController = new FeatureController()
  */
 featureRoutes
   .route('/')
-  .get(queryParamsHandler, featureController.getFeatures)
+  .get(queryParamsHandler('feature'), featureController.getFeatures)
   .post(validate(featureSchema), featureController.createFeature)
 
 /**
