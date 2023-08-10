@@ -6,6 +6,7 @@ export class FeatureMap {
     return {
       id: feature.id,
       name: feature.name,
+      mealFeature: feature.dataValues?.MealFeature,
     }
   }
 }

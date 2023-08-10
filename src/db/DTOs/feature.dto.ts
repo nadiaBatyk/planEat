@@ -1,3 +1,5 @@
+import { MealFeatureDTOResponse } from './mealFeature.dto'
+
 /**
  * @openapi
  * components:
@@ -11,10 +13,13 @@
  *         name:
  *           type: string
  *           example: Instructions
+ *         MealFeature:
+ *           $ref: "#/components/schemas/MealFeatureDTOResponse"
  */
 export interface FeatureDTOResponse {
   id?: number
   name: string
+  mealFeature?: MealFeatureDTOResponse
 }
 /**
  * @openapi

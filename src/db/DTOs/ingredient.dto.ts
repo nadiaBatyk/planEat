@@ -1,4 +1,5 @@
 import { MeasureUnit } from '../../common/types/measureUnit.types'
+import { MealIngredientDTOResponse } from './mealIngredient.dto'
 
 /**
  * @openapi
@@ -27,12 +28,15 @@ import { MeasureUnit } from '../../common/types/measureUnit.types'
  *             - rodajas
  *             - piezas
  *             - hojas
+ *         MealIngredient:
+ *           $ref: "#/components/schemas/MealIngredientDTOResponse"
  *
  */
 export interface IngredientDTOResponse {
   id?: number
   name: string
   unit: MeasureUnit
+  mealIngredient?: MealIngredientDTOResponse
 }
 /**
  * @openapi

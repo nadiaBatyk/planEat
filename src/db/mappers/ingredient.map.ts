@@ -7,6 +7,7 @@ export class IngredientMap {
       id: ingredient.id,
       name: ingredient.name,
       unit: ingredient.unit,
+      mealIngredient: ingredient.dataValues?.MealIngredient,
     }
   }
 }

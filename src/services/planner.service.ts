@@ -55,7 +55,12 @@ export class PlannerService {
       query,
       include
     )
-    return plannerEntries.map(i => MealMap.toDTO(i.meal))
+    return plannerEntries
+      .filter(
+        (entry, index, arr) =>
+          arr.findIndex(entry2 => entry2.meal.id === entry.meal.id) === index
+      )
+      .map(i => MealMap.toDTO(i.meal))
   }
 
   getPlannerEntries = async (
