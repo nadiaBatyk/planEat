@@ -19,6 +19,7 @@ const plannerController = new PlannerController()
  *      - $ref: "#/components/parameters/pageSize"
  *      - $ref: "#/components/parameters/orderBy"
  *      - $ref: "#/components/parameters/direction"
+ *      - $ref: "#/components/parameters/filter"
  *     responses:
  *       200:
  *         description: OK

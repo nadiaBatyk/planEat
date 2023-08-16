@@ -15,10 +15,6 @@
  *         finishDate:
  *           type: string
  *           format: date
- *         plannerEntries:
- *           type: array
- *           items:
- *              $ref: "#/components/schemas/PlannerEntryDTOResponse"
  */
 export interface PlannerDTOResponse {
   id?: number
@@ -58,6 +54,11 @@ export type PlannerDTORequest = Omit<
  * @openapi
  * components:
  *   parameters:
+ *     filter:
+ *         name: filter
+ *         in: query
+ *         schema:
+ *           $ref: "#/components/schemas/PlannerDTOResponse"
  *     plannerId:
  *         name: plannerId
  *         in: path

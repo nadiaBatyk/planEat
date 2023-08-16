@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import { Query } from '../../common/types/query.types'
-import { filterCriteria } from './filterCriteria'
 import { filterByField, orderByField } from '../../common/helpers/orderBy'
 
 export const queryParamsHandler = (model: string) => {
@@ -24,9 +23,9 @@ export const queryParamsHandler = (model: string) => {
           : 5,
       filter: filterByField(model, req.query),
     }
-    console.log('SCHEMA QUE COMPARO', filterCriteria[model])
-    console.log('OBJETO QUE RECIBO', req.query)
-    console.log('OBJETO QUE ARMO', query)
+    // console.log('SCHEMA QUE COMPARO', filterCriteria[model])
+    // console.log('OBJETO QUE RECIBO', req.query)
+    // console.log('OBJETO QUE ARMO', query)
     res.locals.queryParamsHandler = query
     return next()
   }

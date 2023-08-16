@@ -26,6 +26,7 @@ export class PlannerDao implements IPlannerDao {
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,
+        where: query.filter,
       })
 
       return planner
