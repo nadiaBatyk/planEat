@@ -19,7 +19,7 @@ const plannerController = new PlannerController()
  *      - $ref: "#/components/parameters/pageSize"
  *      - $ref: "#/components/parameters/orderBy"
  *      - $ref: "#/components/parameters/direction"
- *      - $ref: "#/components/parameters/filter"
+ *      - $ref: "#/components/parameters/plannerFilter"
  *     responses:
  *       200:
  *         description: OK
@@ -146,7 +146,7 @@ plannerRoutes
  */
 plannerRoutes
   .route('/:plannerId/meals')
-  .get(queryParamsHandler('planner'), plannerController.getPlannerMeals)
+  .get(queryParamsHandler('meals'), plannerController.getPlannerMeals)
 
 /**
  * @openapi
@@ -173,4 +173,4 @@ plannerRoutes
  */
 plannerRoutes
   .route('/:plannerId/entries')
-  .get(queryParamsHandler('planner'), plannerController.getPlannerEntries)
+  .get(queryParamsHandler('plannerEntry'), plannerController.getPlannerEntries)

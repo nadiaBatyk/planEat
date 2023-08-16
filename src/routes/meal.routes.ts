@@ -27,6 +27,7 @@ const mealController = new MealController()
  *      - $ref: "#/components/parameters/pageSize"
  *      - $ref: "#/components/parameters/orderBy"
  *      - $ref: "#/components/parameters/direction"
+ *      - $ref: "#/components/parameters/mealFilter"
  *     responses:
  *       200:
  *         description: OK

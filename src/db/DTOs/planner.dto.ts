@@ -54,7 +54,7 @@ export type PlannerDTORequest = Omit<
  * @openapi
  * components:
  *   parameters:
- *     filter:
+ *     plannerFilter:
  *         name: filter
  *         in: query
  *         schema:
