@@ -170,7 +170,7 @@ mealRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealDTOResponse"
+ *               $ref: "#/components/schemas/MealIngredientDTOResponse"
  *       400:
  *         description: Invalid input
  */
@@ -292,7 +292,7 @@ mealRoutes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/MealDTOResponse"
+ *               $ref: "#/components/schemas/MealFeatureDTOResponse"
  *       400:
  *         description: Invalid input
  */
