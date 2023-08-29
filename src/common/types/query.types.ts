@@ -3,5 +3,5 @@ export type Query = {
   direction: string
   pageNumber: number
   pageSize: number
-  filter: {}
+  filter: any
 }

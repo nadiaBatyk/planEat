@@ -5,6 +5,7 @@ import {
   Model,
   ForeignKey,
   AllowNull,
+  BelongsTo,
 } from 'sequelize-typescript'
 import { Meal } from './Meal'
 import { Ingredient } from './Ingredient'
@@ -22,4 +23,10 @@ export class MealIngredient extends Model {
   @AllowNull(false)
   @Column(DataTypes.FLOAT(4, 2))
   quantity!: number
+
+  @BelongsTo(() => Meal)
+  meal!: Meal
+
+  @BelongsTo(() => Ingredient)
+  ingredient!: Ingredient
 }
