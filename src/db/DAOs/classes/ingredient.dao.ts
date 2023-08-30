@@ -23,6 +23,7 @@ export class IngredientDao implements IIngredientDao {
   getIngredients = async (query: Query): Promise<Ingredient[]> => {
     try {
       const ingredients = await Ingredient.findAll({
+        where: query.filter,
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,

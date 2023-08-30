@@ -23,6 +23,7 @@ export class MealTimeDao implements IMealTimeDao {
   getMealTimes = async (query: Query): Promise<MealTime[]> => {
     try {
       const mealTimes = await MealTime.findAll({
+        where: query.filter,
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,

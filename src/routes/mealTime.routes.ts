@@ -18,6 +18,7 @@ const mealTimeController = new MealTimeController()
  *      - $ref: "#/components/parameters/pageSize"
  *      - $ref: "#/components/parameters/orderBy"
  *      - $ref: "#/components/parameters/direction"
+ *      - $ref: "#/components/parameters/mealTimeFilter"
  *     responses:
  *       200:
  *         description: OK

@@ -22,6 +22,7 @@ const ingredientController = new IngredientController()
  *      - $ref: "#/components/parameters/pageSize"
  *      - $ref: "#/components/parameters/orderBy"
  *      - $ref: "#/components/parameters/direction"
+ *      - $ref: "#/components/parameters/ingredientFilter"
  *     responses:
  *       200:
  *         description: OK

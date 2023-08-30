@@ -13,8 +13,6 @@ import { MealFeatureDTOResponse } from './mealFeature.dto'
  *         name:
  *           type: string
  *           example: Instructions
- *         MealFeature:
- *           $ref: "#/components/schemas/MealFeatureDTOResponse"
  */
 export interface FeatureDTOResponse {
   id?: number
@@ -41,6 +39,11 @@ export type FeatureDTORequest = Pick<FeatureDTOResponse, 'name'>
  * @openapi
  * components:
  *   parameters:
+ *     featureFilter:
+ *         name: filter
+ *         in: query
+ *         schema:
+ *           $ref: "#/components/schemas/FeatureDTOResponse"
  *     featureId:
  *         name: featureId
  *         in: path

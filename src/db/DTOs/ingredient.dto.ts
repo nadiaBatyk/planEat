@@ -28,8 +28,6 @@ import { MealIngredientDTOResponse } from './mealIngredient.dto'
  *             - rodajas
  *             - piezas
  *             - hojas
- *         MealIngredient:
- *           $ref: "#/components/schemas/MealIngredientDTOResponse"
  *
  */
 export interface IngredientDTOResponse {
@@ -73,6 +71,11 @@ export type IngredientDTORequest = Pick<IngredientDTOResponse, 'name' | 'unit'>
  * @openapi
  * components:
  *   parameters:
+ *     ingredientFilter:
+ *         name: filter
+ *         in: query
+ *         schema:
+ *           $ref: "#/components/schemas/IngredientDTOResponse"
  *     ingredientId:
  *         name: ingredientId
  *         in: path

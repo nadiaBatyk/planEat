@@ -20,6 +20,7 @@ const featureController = new FeatureController()
  *      - $ref: "#/components/parameters/pageSize"
  *      - $ref: "#/components/parameters/orderBy"
  *      - $ref: "#/components/parameters/direction"
+ *      - $ref: "#/components/parameters/featureFilter"
  *     responses:
  *       200:
  *         description: OK

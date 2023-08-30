@@ -146,7 +146,7 @@ plannerRoutes
  */
 plannerRoutes
   .route('/:plannerId/meals')
-  .get(queryParamsHandler('meals'), plannerController.getPlannerMeals)
+  .get(queryParamsHandler('meal'), plannerController.getPlannerMeals)
 
 /**
  * @openapi

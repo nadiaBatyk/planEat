@@ -36,6 +36,11 @@ export type MealTimeDTORequest = Pick<MealTimeDTOResponse, 'name'>
  * @openapi
  * components:
  *   parameters:
+ *     mealTimeFilter:
+ *         name: filter
+ *         in: query
+ *         schema:
+ *           $ref: "#/components/schemas/MealTimeDTOResponse"
  *     mealTimeId:
  *         name: mealTimeId
  *         in: path
