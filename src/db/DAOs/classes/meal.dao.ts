@@ -1,3 +1,4 @@
+//import { Op } from 'sequelize'
 import HttpException from '../../../common/error/HttpException'
 import { Query } from '../../../common/types/query.types'
 import { MealDTORequest } from '../../DTOs/meal.dto'
@@ -22,9 +23,7 @@ export class MealDao implements IMealDao {
   //MEAL CRUD
   getMealById = async (id: number): Promise<Meal> => {
     try {
-      const meal = await Meal.findByPk(id, {
-        include: [{ model: Ingredient, include: [{ model: MealIngredient }] }],
-      })
+      const meal = await Meal.findByPk(id)
       if (meal) {
         return meal
       }
@@ -91,16 +90,10 @@ export class MealDao implements IMealDao {
     try {
       const meal = await this.getMealById(id)
       return await meal.$get('ingredients', {
+        where: { ...query.filter },
         order: [[query.orderBy, query.direction]],
         limit: query.pageSize,
         offset: (query.pageNumber - 1) * query.pageSize,
-        // include: [
-        //   {
-        //     model: MealIngredient,
-        //     where: { quantity: query.filter.quantity }, // Ajusta según tu objeto de consulta
-        //   },
-        // ],
-        where: { ...query.filter },
       })
     } catch (error) {
       throw error

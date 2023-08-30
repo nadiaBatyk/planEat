@@ -1,13 +1,39 @@
+export interface FilterConfig {
+  [filterName: string]: string
+}
 export interface Criteria {
-  [x: string]: Array<string>
+  [x: string]: FilterConfig
 }
 export const filterCriteria: Criteria = {
-  meal: ['id', 'name'],
-  ingredient: ['id', 'name', 'unit'],
-  feature: ['id', 'name'],
-  mealFeature: ['mealId', 'featureId', 'value'],
-  mealIngredient: ['id', 'name', 'unit', 'mealId', 'ingredientId', 'quantity'],
-  mealTime: ['id', 'name'],
-  planner: ['id', 'name', 'startDate', 'finishDate'],
-  plannerEntry: ['id', 'plannerId', 'mealId', 'mealTimeId', 'mealDate'],
+  meal: { id: 'number', name: 'string' },
+  ingredient: { id: 'number', name: 'string', unit: 'string' },
+  feature: { id: 'number', name: 'string' },
+  mealFeature: {
+    id: 'number',
+    name: 'string',
+    mealId: 'number',
+    featureId: 'number',
+    value: 'string',
+  },
+  mealIngredient: {
+    id: 'number',
+    name: 'string',
+    mealId: 'number',
+    ingredientId: 'number',
+    unit: 'string',
+    quantity: 'number',
+  },
+  mealTime: { id: 'number', name: 'string' },
+  planner: {
+    id: 'number',
+    name: 'string',
+    startDate: 'date',
+    finishDate: 'date',
+  },
+  plannerEntry: {
+    plannerId: 'number',
+    mealId: 'number',
+    mealTimeId: 'number',
+    mealDate: 'date',
+  },
 }

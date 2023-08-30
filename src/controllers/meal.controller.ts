@@ -43,6 +43,13 @@ export class MealController {
   ): Promise<void> => {
     try {
       const { mealId } = req.params
+
+      if (res.locals.queryParamsHandler?.filter?.quantity) {
+        res.locals.queryParamsHandler.filter['$MealIngredient.quantity$'] =
+          res.locals.queryParamsHandler?.filter?.quantity
+        delete res.locals.queryParamsHandler?.filter?.quantity
+      }
+
       const ingredients = await this.mealService.getMealIngredients(
         +mealId,
         res.locals.queryParamsHandler

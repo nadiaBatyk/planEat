@@ -23,9 +23,6 @@ export const queryParamsHandler = (model: string) => {
           : 5,
       filter: filterByField(model, req.query),
     }
-    // console.log('SCHEMA QUE COMPARO', filterCriteria[model])
-    // console.log('OBJETO QUE RECIBO', req.query)
-    // console.log('OBJETO QUE ARMO', query)
     res.locals.queryParamsHandler = query
     return next()
   }
