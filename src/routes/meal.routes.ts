@@ -142,6 +142,7 @@ mealRoutes
  *      - $ref: "#/components/parameters/pageSize"
  *      - $ref: "#/components/parameters/orderBy"
  *      - $ref: "#/components/parameters/direction"
+ *      - $ref: "#/components/parameters/mealIngredientFilter"
  *     responses:
  *       200:
  *         description: OK

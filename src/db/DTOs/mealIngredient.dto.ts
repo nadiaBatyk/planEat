@@ -44,6 +44,12 @@ export type MealIngredientDTORequest = Pick<
 /**
  * @openapi
  * components:
+ *   parameters:
+ *     mealIngredientFilter:
+ *         name: filter
+ *         in: query
+ *         schema:
+ *           $ref: "#/components/schemas/IngredientDTOResponse"
  *   schemas:
  *     UpdateMealIngredientDTORequest:
  *       type: object

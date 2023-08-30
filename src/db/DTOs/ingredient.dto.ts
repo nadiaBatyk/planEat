@@ -28,7 +28,8 @@ import { MealIngredientDTOResponse } from './mealIngredient.dto'
  *             - rodajas
  *             - piezas
  *             - hojas
- *
+ *         mealIngredient:
+ *           $ref: "#/components/schemas/MealIngredientDTOResponse"
  */
 export interface IngredientDTOResponse {
   id?: number
