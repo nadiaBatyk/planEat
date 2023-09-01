@@ -9,7 +9,7 @@ import swaggerDocs from './common/docs/swagger'
 dotenv.config()
 const app = express()
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 const isDev = process.env.NODE_ENV === 'dev'
 async function main(): Promise<void> {
   // MIDDLEWARES
@@ -25,7 +25,7 @@ async function main(): Promise<void> {
     await sequelize.sync({ alter: isDev })
     app.listen(PORT, () => {
       console.log(`Succesfully connected to port ${PORT}`)
-      swaggerDocs(app, 3000)
+      swaggerDocs(app, +PORT)
 
       app.use(errorHandler)
       app.use(notFoundHandler)
