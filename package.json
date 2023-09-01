@@ -10,6 +10,10 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
+  "engines": {
+    "node": ">=18.14.2"
+  },
+  "private": true,
   "keywords": [],
   "author": "nadia",
   "license": "ISC",
