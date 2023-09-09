@@ -25,7 +25,6 @@ async function main(): Promise<void> {
     await sequelize.sync({ alter: isDev })
     app.listen(PORT, () => {
       console.log(`Succesfully connected to port ${PORT}`)
-      console.log('DESARROLLO???', isDev)
 
       swaggerDocs(app, +PORT)
 
