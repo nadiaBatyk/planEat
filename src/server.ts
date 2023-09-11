@@ -10,7 +10,7 @@ dotenv.config()
 const app = express()
 
 const PORT = process.env.PORT || 3000
-const isDev = process.env.NODE_ENV === 'dev'
+const isDev = process.env.NODE_ENV === 'development'
 async function main(): Promise<void> {
   // MIDDLEWARES
   app.use(express.json())
