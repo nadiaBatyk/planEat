@@ -15,12 +15,15 @@
  *         finishDate:
  *           type: string
  *           format: date
+ *         userId:
+ *           type: integer
  */
 export interface PlannerDTOResponse {
   id?: number
   name: string
   startDate: Date
   finishDate: Date
+  userId: number
 }
 /**
  * @openapi
@@ -32,6 +35,7 @@ export interface PlannerDTOResponse {
  *         - name
  *         - startDate
  *         - finishDate
+ *         - userId
  *       properties:
  *         name:
  *           type: string
@@ -44,6 +48,9 @@ export interface PlannerDTOResponse {
  *           type: string
  *           format: date
  *           example: 2023-01-10
+ *         userId:
+ *           type: integer
+ *           example: 2
  */
 export type PlannerDTORequest = Omit<
   PlannerDTOResponse,

@@ -7,6 +7,7 @@ export class PlannerMap {
       name: planner.name,
       startDate: planner.startDate,
       finishDate: planner.finishDate,
+      userId: planner.userId,
     }
   }
 }
